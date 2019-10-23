@@ -9,7 +9,261 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.specialbody {
+  background-color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  position: absolute;
+    width: 100%;
+    height: 90vh;
+  align-items: center;
+}
+
+#wait {
+  color: lightgray;
+  text-align: center;
+  font-family: cursive;
+  font-size: 18px;
+}
+
+#paytext {
+  color: #169BD7;
+  text-align: center;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: black;
+  width: 100vw;
+  font-size: 2.5vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-image: url("res/background.png");
+  background-repeat: repeat;
+  align-items: center;
+  position: relative;
+}
+
+.header {
+  font-size: 3.5vh;
+  flex: 1;
+  color: white;
+  /* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+  -ms-word-break: break-all;
+  word-break: break-all;
+  /* Non standard for webkit */
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+.header-image {
+  display: inline-block;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  max-width: 70vh;
+}
+
+.headerSmall {
+  font-weight: bold;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  flex: 8;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-top: 1px solid grey;
+  align-items: center;
+  background-color: black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.badge {
+  height: 15vh;
+  position: absolute;
+}
+
+.links {
+  justify-content: space-around;
+  display: flex;
+  flex: 1;
+  height: 100%;
+}
+
+.link {
+  color: lightgray;
+  font-family: sans-serif;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+  flex: 1;
+  height: 100%;
+}
+
+.language {
+  margin: 0;
+}
+
+.link:hover {
+  color: orange;
+  background-color: #111111;
+}
+
+.explicit {
+  display: flex;
+  position: absolute;
+  right: 10px;
+  bottom: 8vh;
+}
+
+.explicit-image {
+  width: 15vw;
+}
+
+.privacy {
+  font-size: 100%;
+  flex: 1;
+  color: white;
+  /* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+  -ms-word-break: break-all;
+  word-break: break-all;
+  /* Non standard for webkit */
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+.terms {
+  font-size: 2.5vh;
+  flex: 1;
+  color: white;
+  /* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+  -ms-word-break: break-all;
+  word-break: break-all;
+  /* Non standard for webkit */
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+.termctn {
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-bottom: 100px;
+}
+
+.legal {
+  font-size: 100%;
+  flex: 1;
+  color: white;
+  /* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+  -ms-word-break: break-all;
+  word-break: break-all;
+  /* Non standard for webkit */
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+.linkcolor {
+  color: white;
+}
+
+
+.pay-bg{
+  background-image: url("./res/background.png");
+  background-repeat: repeat;
+}
+
+.pay-container{
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.header-img {
+  max-width: 1080px;
+  width: 100%;
+  flex: 1;
+}
+
+.flex-container-col{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-container{
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.pay-main{
+  width: 100%;
+  max-width: 1080px;
+}
+
+.flex-one{
+  flex: 1;
+  width: 100%;
+  text-align: center;
+}
+
+.payment-text{
+  color: white;
+}
+
+input{
+  text-align: center;
+  width: 95%;
+  height: 5vh;
+  font-size: 3vh;
+  margin: 2%;
+}
+
+.pay-more{
+  display: none;
+  color: red;
 }

@@ -15,6 +15,7 @@ module.exports = {
     tosLegalLink: "https://www.richlist.net/legalnotice.html",
     pay: "Pay now",
     name: "Enter Name",
+    uniqueKey: "Set a payment key (optional)",
     email: "Enter E-Mail",
     message: "Message (optional)",
     instagram: "Your Instagram (optional)",
@@ -23,7 +24,10 @@ module.exports = {
     amount: "Amount in $",
     makeA: "Make a payment",
     yes: "Yes!",
-    new: "Delete"
+    new: "Delete",
+    toLegal: "/legal",
+    toTerms: "/terms",
+    toPrivacy: "/privacy"
   },
   de: {
     tos1: "Mit der Benutzung des bezahlen Buttons bestätigen Sie, dass Sie die",
@@ -49,6 +53,10 @@ module.exports = {
     amount: "Betrag in $",
     makeA: "Tätige eine Zahlung",
     yes: "Nehm' ich!",
-    new: "Löschen"
+    uniqueKey: "Zahlungsschlüssel (optional)",
+    new: "Löschen",
+    toLegal: "/impressum",
+    toTerms: "/agb",
+    toPrivacy: "/datenschutz"
   }
 };

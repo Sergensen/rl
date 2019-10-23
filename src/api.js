@@ -1,63 +1,62 @@
 import axios from 'axios';
-
 const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
-
-function validatePayment(uniqueKey, amount, mail, message, tokenId, type) {
-    return new Promise((resolve, reject) => {
-        axios.post(API_URL + 'pay', { tokenId, type, mail, message, uniqueKey, amount, method: "stripe" }, {timeout: 5500})
-            .then(res => resolve(res))
-            .catch(err => reject(err));
-    });
-}
-
-function addUser(user) {
-    return new Promise((resolve, reject) => {
-        axios.post(API_URL + 'user', { ...user }, {timeout: 5500})
-            .then(res => resolve(res))
-            .catch(err => reject(err));
-    });
-}
-
-function putImage(image, url) {
-    return new Promise((resolve, reject) => {
-        if (image) {
-            const xhr = new XMLHttpRequest();
-            xhr.open("PUT", url, true);
-            xhr.onload = () => {
-                const status = xhr.status;
-                if (status === 200) {
-                    resolve()
-                } else {
-                    reject()
-                }
-            };
-
-            xhr.onerror = () => {
-                reject()
-            };
-            xhr.setRequestHeader('Content-Type', image.type);
-            xhr.send(image);
-        } else {
-            resolve();
-        }
-    });
-};
-
-function nameExists(uniqueKey, uniqueName) {
-    return new Promise(async (resolve, reject) => {
-        axios.get(API_URL + 'userexists/' + uniqueKey + '/' + uniqueName, {timeout: 5500}).then(result => {
-            const { success, exists, message } = result.data;
-            success ? resolve(exists === true) : reject(message);
-        }).catch(err => {
-            reject(err);
-        });
-    });
-}
+//const API_URL = "http://localhost:5001/";
 
 export default {
-    nameExists,
-    addUser,
-    putImage,
-    validatePayment,
-    API_URL,
+    validatePayment(uniqueKey, amount, mail, message, tokenId, type) {
+        return new Promise((resolve, reject) => {
+            axios.post(API_URL + 'pay', { tokenId, type, mail, message, uniqueKey, amount, method: "stripe" }, {timeout: 5500})
+                .then(res => resolve(res))
+                .catch(err => reject(err));
+        });
+    },
+    addUser(user) {
+        return new Promise((resolve, reject) => {
+            axios.post(API_URL + 'user', { ...user }, {timeout: 5500})
+                .then(res => resolve(res))
+                .catch(err => reject(err));
+        });
+    },
+    putImage(image, url) {
+        return new Promise(async (resolve, reject) => {
+            if (image) {
+                const response = await fetch(url, {
+                    method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'no-cors', // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
+                    headers: {
+                      'Content-Type': image.type,
+                    },
+                    redirect: 'follow', // manual, *follow, error
+                    referrer: 'no-referrer', // no-referrer, *client
+                    body: image
+                  });
+                  resolve(response);
+            } else {
+                resolve();
+            }
+        });
+    },
+    nameExists(uniqueKey, uniqueName) {
+        return new Promise(async (resolve, reject) => {
+            axios.get(API_URL + 'userexists/' + (uniqueKey ? uniqueKey : "NO_KEY_EXISTING_1337") + '/' + uniqueName, {timeout: 5500}).then(result => {
+                const { success, message } = result.data;
+                success ? resolve(result.data) : reject(message);
+            }).catch(err => {
+                console.log(err);
+                reject(err);
+            });
+        })
+    },
+    paypal( uniqueKey, amount, mail, uniqueName, message) {
+        return new Promise(async (resolve, reject) => {
+            axios.get(API_URL + 'webpaypal?uniqueKey=' + uniqueKey + '&amount=' + amount + "&mail=" + mail + "&uniqueName=" + uniqueName + "&message="+message).then(res => {
+                resolve(res.data)
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    }
+
 }

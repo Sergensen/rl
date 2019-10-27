@@ -54,7 +54,6 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  background-image: url("res/background.png");
   background-repeat: repeat;
   align-items: center;
   position: relative;
@@ -213,7 +212,6 @@ body {
 
 
 .pay-bg{
-  background-image: url("./res/background.png");
   background-repeat: repeat;
 }
 

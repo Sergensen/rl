@@ -22,12 +22,14 @@ module.exports = {
     twitter: "Your Twitter (optional)",
     snapchat: "Your Snapchat (optional)",
     amount: "Amount in $",
-    makeA: "Make a payment",
+    makeA0: "Make a payment", 
+    makeA1: "here",
+    makeA2: "to get on the RichList and download the App to see what is going on!",
     yes: "Yes!",
     new: "Delete",
     toLegal: "/legal",
     toTerms: "/terms",
-    toPrivacy: "/privacy"
+    toPrivacy: "/privacy",
   },
   de: {
     tos1: "Mit der Benutzung des bezahlen Buttons bestätigen Sie, dass Sie die",
@@ -51,12 +53,14 @@ module.exports = {
     twitter: "Dein Twitter (optional)",
     snapchat: "Dein Snapchat (optional)",
     amount: "Betrag in $",
-    makeA: "Tätige eine Zahlung",
+    makeA0: "Tätige",
+    makeA1: "hier",
+    makeA2: "eine Zahlung, um auf die RichList zu kommen und lade die App herunter, um immer auf dem neusten Stand zu bleiben!",
     yes: "Nehm' ich!",
     uniqueKey: "Zahlungsschlüssel (optional)",
     new: "Löschen",
     toLegal: "/impressum",
     toTerms: "/agb",
-    toPrivacy: "/datenschutz"
+    toPrivacy: "/datenschutz",
   }
 };

@@ -136,6 +136,7 @@ const styles = {
         flex: 1,
         width: "100%",
         display: "flex",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
         justifyContent: "center"
     }
 };

@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 export default class Privacy extends Component {
     render() {
         return (
-            <div class="container">
-                <div class="termctn">
-                    <p class="terms language">Die deutsche Datenschutzerklärung finden Sie <a class="linkcolor" href="datenschutz">hier</a>.</p>
-                    <p class="header">Data protection declaration for RICHLIST’s App</p> 
+            <div className="container">
+                <div className="termctn">
+                    <p className="terms language">Die deutsche Datenschutzerklärung finden Sie <a className="linkcolor" href="datenschutz">hier</a>.</p>
+                    <p className="header">Data protection declaration for RICHLIST’s App</p> 
 
-                    <p class="terms">
+                    <p className="terms">
                         RICHLIST protects the personal data of its members to the best of its knowledge and in accordance with the highest current security standards. All communication via the RICHLIST app is via an Internet connection secured by SSL encryption. Please note that user names can be pseudonyms and we do not use clear/real names.
                         <br />The following regulations inform you comprehensively about the type and scope of data collection through our app.
                         <br />1. Personal Related Data
@@ -118,8 +118,8 @@ export default class Privacy extends Component {
                         <br />richlistapp(at)gmail.com                    
                     </p>
                     <br />
-                    <p class="header">This data protection declaration serves to provide information on the type of data collected, stored and processed by RICHLIST at www.RICHLIST.net and on how RICHLIST guarantees the protection and security of personal data.</p>
-                    <p class="terms">                    
+                    <p className="header">This data protection declaration serves to provide information on the type of data collected, stored and processed by RICHLIST at www.RICHLIST.net and on how RICHLIST guarantees the protection and security of personal data.</p>
+                    <p className="terms">                    
                         1. Basic information
                         <br />Unless otherwise stated in the following sections, no personal data is collected, processed or used when using our websites.
                         <br />When you access our Internet pages, our Web servers automatically collect general information. This includes the type of web browser, the operating system used, the domain name of the Internet service provider, the IP address of the computer used, the website from which you visit us, the pages you visit on our site and the date and duration of your visit.

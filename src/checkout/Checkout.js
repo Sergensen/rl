@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import API from '../api';
 import PAYPAL from '../res/Paypal.png';
 import STRIPE from '../res/Stripe.png';
+import CameraIcon from '../res/camera.png';
 import local from '../local';
 import Modal from 'react-modal';
 import Cropper from 'react-easy-crop'
@@ -25,7 +26,7 @@ class Checkout extends Component {
         checkBox: false,
         loading: false,
         method: "paypal",
-        link: "https://www.richlist.net/terms.html",
+        link: "https://www.richlist.net/terms",
         error: [true, true, true, true],
         local: {},
         zoom: 1,    
@@ -104,8 +105,7 @@ class Checkout extends Component {
     async onToken(token) {
         const result = await this.validateTransaction(token.id, "stripe");
         this.setState({loading: false});
-        //window.location = result.data.result.success ? "https://richlist.net/success.html" : "https://richlist.net/fail.html"; 
-        console.log(result.data);
+        window.location = result.data.result.success ? "https://richlist.net/success" : "https://richlist.net/fail"; 
     }
     
 
@@ -231,8 +231,16 @@ class Checkout extends Component {
             <div style={styles.payMain}>
                     <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
                         <div style={{...styles.flexOne}}>
-                            {image && <button style={styles.imageButton} onClick={() => this.setState({cropped: false})}><img alt="Image0" style={styles.image} src={image.src} /></button>}
-                            {!image && <div style={styles.imageButton}><input accept="image/x-png,image/jpeg" style={styles.image} type="file" onChange={(e) => this.fileChangedHandler(e)} /></div>}
+                            {image && 
+                                <button style={styles.imageButton} onClick={() => this.setState({cropped: false})}>
+                                    <img alt="Image0" style={styles.image} src={image.src} />
+                                </button>
+                            } {!image && 
+                                <button onClick={() => this.imageInput.click()} style={styles.imageContainer}>
+                                    <img style={styles.iconStyle} src={CameraIcon} alt="Icon" />
+                                    <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" style={styles.image} type="file" onChange={(e) => this.fileChangedHandler(e)} />
+                                </button>
+                            }
                         </div>
                         <div style={{...styles.flexOne}}>
                             <div className="info-button"></div>
@@ -304,6 +312,9 @@ class Checkout extends Component {
 }
 
 const styles = {
+    iconStyle: {
+        width: "5vh"
+    },
     loading: {
         position: "absolute",
         top: 0,
@@ -314,7 +325,8 @@ const styles = {
     },
     image: {
         borderRadius: "100%",
-        width: "25vh"
+        width: "22vh",
+        margin: "10px 0"
     },
     cropButton: {
         width: "50%",
@@ -348,6 +360,14 @@ const styles = {
         flex: 1,
         height: "100%"
     },
+    imageContainer: {
+        margin: "10px 0",
+        backgroundColor: "rgba(0, 0, 0, 0)",
+        height: "20vh",
+        width: "20vh",
+        border: "0.5vh solid grey",
+        borderRadius: "50%"
+    },
     link: {
         color: "lightgray",
         fontFamily: "sans-serif",
@@ -379,7 +399,7 @@ const styles = {
     },
     payImg: {
         maxWidth: "100%",
-        height: "100%"
+        maxHeight: "100%"
     },
     flexContainerCol: {
         display: "flex",
@@ -389,8 +409,6 @@ const styles = {
     payMain: {
         width: "100%",
         maxWidth: "900px",
-        overflowY: "auto",
-        height: "150vh"
     },
     checkBoxContainer: {
         flex: 1,
@@ -406,6 +424,8 @@ const styles = {
         flex: 1,
         width: "100%",
         textAlign: "center",
+        justifyContent: "center",
+        display: "flex"
     },
     paymentText: {
         color: "white",

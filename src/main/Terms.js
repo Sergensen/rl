@@ -3,17 +3,17 @@ import React, { Component } from 'react';
 export default class Terms extends Component {
     render() {
         return (
-            <div class="container">
-                <div class="termctn">
-                    <p class="legal language">
-                        Die deutsche Version finden Sie <a class="linkcolor" href="agb">hier</a>
+            <div className="container">
+                <div className="termctn">
+                    <p className="legal language">
+                        Die deutsche Version finden Sie <a className="linkcolor" href="agb">hier</a>
                     </p>
                     <br />
-                    <p class="header">
+                    <p className="header">
                         RichList Term of Service <br />                        
                     </p>
-                    <p class="terms">Last Updated on August 10, 2019</p>
-                    <p class="terms">
+                    <p className="terms">Last Updated on August 10, 2019</p>
+                    <p className="terms">
         
                         <b>Overview.</b><br />
                         Welcome to the mobile app RichList (“app”) and its website richlist.net (“site”). Throughout the site, the “we”, “us”, “our”, “Services”, “RichList” refer to the RichList site, app and all corresponding services. And all user of these Services will refer as “User”.<br />
@@ -110,7 +110,7 @@ export default class Terms extends Component {
                         These Terms shall constitute the entire agreement between you and RichList concerning the Services. If any provision of these Terms is deemed invalid by a court of competent jurisdiction, the invalidity of such provision shall not affect the validity of the remaining provisions of these Terms, which shall remain in full force and effect. No waiver of any term of these Terms shall be deemed a further or continuing waiver of such term or any other term, and a party's failure to assert any right or provision under these Terms shall not constitute a waiver of such right or provision.<br />
                     </p>
                 </div>
-        </div>
+            </div>
         );
     }
 }

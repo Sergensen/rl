@@ -17,10 +17,8 @@ export default class MainPage extends Component {
         const { local } = this.state;
 
         return (
-            <div class="container">
-                <div class="termctn">
-                    <Link to="/pay">{local.makeA}</Link>
-                </div>
+            <div className="container">
+                <Link to="/pay">{local.makeA}</Link>
             </div>
         );
     }

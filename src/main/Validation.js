@@ -14,7 +14,7 @@ export default class Validation extends Component {
         const PayerID = urlParams.get('PayerID');
 
         if(uniqueKey && uniqueName && amount && mail && paymentId && PayerID && token) {
-            fetch(API.API_URL, {
+            fetch(API.API_URL + "websuccess", {
                 method: 'POST', 
                 headers: {
                 'Content-Type': 'application/json'
@@ -23,6 +23,7 @@ export default class Validation extends Component {
                     uniqueKey, uniqueName, amount, mail, message, paymentId, token,PayerID
                 })
             }).then(res => {
+                console.log("Then");
                 res.json().then(val => {
                     window.location = val.url;
                 });
@@ -36,7 +37,7 @@ export default class Validation extends Component {
     }
     render() {
         return (
-            <div class="specialbody">
+            <div className="specialbody">
                 <h2 id="paytext">Wait a moment.</h2> <br />
                 <h1 id="paytext">Validating paypal payment...</h1> <br />
             </div>

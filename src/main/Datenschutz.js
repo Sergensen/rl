@@ -3,12 +3,12 @@ import React from 'react';
 export default class Datenschutz extends React.Component {
     render() {
         return (
-            <div class="container">
-                <div class="termctn">
-                    <p class="terms language">For the English privacy notices click <a class="linkcolor" href="privacy">here</a>. </p>
-                    <p class="header">Datenschutzerklärung der Richlist-App</p>
+            <div className="container">
+                <div className="termctn">
+                    <p className="terms language">For the English privacy notices click <a className="linkcolor" href="privacy">here</a>. </p>
+                    <p className="header">Datenschutzerklärung der Richlist-App</p>
                         
-                    <p class="terms">
+                    <p className="terms">
                         Diese Datenschutz-Erklärung dient der Information darüber, welche Art von Daten von RICHLIST auf www.RICHLIST.net erhoben, gespeichert und verarbeitet werden und wie RICHLIST den Schutz und die Sicherheit der personenbezogenen Daten gewährleistet.
                         <br />1. Grundsätzliche Information
                         <br />Soweit in den folgenden Abschnitten nicht anderweitig dargestellt, werden bei Nutzung unserer Webseiten grundsätzlich keine personenbezogenen Daten erhoben, verarbeitet oder genutzt.
@@ -82,8 +82,8 @@ export default class Datenschutz extends React.Component {
                         <br />Kontaktdaten des Verantwortlichen:
                         <br />richlistapp(at)gmail.com
                     </p>
-                    <p class="header">Datenschutzerklärung der Richlist-Webseite</p>
-                    <p id="deutsch" class="terms">                    
+                    <p className="header">Datenschutzerklärung der Richlist-Webseite</p>
+                    <p id="deutsch" className="terms">                    
                         <br />RICHLIST schützt die persönlichen Daten der Mitglieder nach bestem Wissen und nach den höchsten, jeweils aktuellen Sicherheitsstandards. Die gesamte Kommunikation über die RICHLIST-App erfolgt über eine mittels SSL-Verschlüsselung gesicherte Internetverbindung. Bitte beachten Sie, dass Nutzernamen Pseudonyme sein können und wir auf Klar-/Echtnamen verzichten.
                         <br />Die nachfolgenden Regelungen informieren Sie umfassend über die Art und den Umfang der Datenerhebung durch unsere App.
                         <br />1. Personenbezogene Daten

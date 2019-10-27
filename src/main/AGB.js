@@ -3,18 +3,18 @@ import React, { Component } from 'react';
 export default class AGB extends Component {
     render() {
         return (
-            <div class="container">
-                <div class="termctn">
-                    <p class="legal language">
-                            You can find the English version <a class="linkcolor" href="terms">here</a>
+            <div className="container">
+                <div className="termctn">
+                    <p className="legal language">
+                            You can find the English version <a className="linkcolor" href="terms">here</a>
                     </p>
                     <br />
-                    <p class="header">
+                    <p className="header">
                             RichList Term of Service
                     </p>
-                    <p class="terms">Last Updated on August 10, 2019</p>
+                    <p className="terms">Last Updated on August 10, 2019</p>
 
-                    <p class="terms">
+                    <p className="terms">
                     <b>Überblick.</b><br />
                     Willkommen bei der mobilen App RichList ("App") und der zugehörigen Website richlist.net ("Seite"). Auf der gesamten Website beziehen sich "wir", "uns", "unsere", "Service", “Dienste”, "RichList" auf die RichList-Website, -App und alle entsprechenden Dienste. Alle Nutzer dieser Dienste werden als "Benutzer" bezeichnet. <br />
                     <br />

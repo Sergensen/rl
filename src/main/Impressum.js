@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 export default class Impressum extends Component {
     render() {
         return (
-            <div class="container">
-                <div class="termctn">
-                    <p class="legal language">
-                        You can find the English version <a class="linkcolor" href="legal">here</a>
+            <div className="container">
+                <div className="termctn">
+                    <p className="legal language">
+                        You can find the English version <a className="linkcolor" href="legal">here</a>
                     </p>
-                    <p class="header">Impressum</p>
-                    <p id="english" class="legal">
+                    <p className="header">Impressum</p>
+                    <p id="english" className="legal">
                         Angaben gemäß § 5 TMG<br /><br />
                         Köthe und Sentürk GbR<br />
                         Edewechter Landstraße 70<br />

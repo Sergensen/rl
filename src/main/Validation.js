@@ -37,10 +37,23 @@ export default class Validation extends Component {
     }
     render() {
         return (
-            <div className="specialbody">
-                <h2 id="paytext">Wait a moment.</h2> <br />
-                <h1 id="paytext">Validating paypal payment...</h1> <br />
+            <div style={styles.container}>
+                <div style={styles.validation} className="specialbody">
+                    <h2 id="paytext">Wait a moment.</h2> <br />
+                    <h1 id="paytext">Validating paypal payment...</h1> <br />
+                </div>
             </div>
         );
+    }
+}
+
+const styles = {
+    container: {
+        display: "flex",
+        justifyContent: "center",
+    },
+    validation: {
+        maxWidth: 900,
+        flex: 1
     }
 }

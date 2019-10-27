@@ -32,7 +32,8 @@ class Checkout extends Component {
         zoom: 1,    
         crop: { x: 0, y: 0 },
         aspect: 1 / 1,
-        croppedAreaPixels: {}
+        croppedAreaPixels: {},
+        paid: false
     }
     
     componentDidMount(){
@@ -82,7 +83,7 @@ class Checkout extends Component {
             if (!res.exists) {
                 const result = await this.checkout();
                 if (result) {
-                    this.setState({loading: true});
+                    this.setState({loading: true, paid: true});
                     this.stripeCheckout.click();
                 } else {
                     alert("Something went wrong. Please try again.");
@@ -204,17 +205,21 @@ class Checkout extends Component {
     }
 
     async cropImage(){
-        const { image, croppedAreaPixels } = this.state;
+        let { image, croppedAreaPixels } = this.state;
         const src = await getCroppedImg(image.src, croppedAreaPixels);
         image.src = src;
         this.setState({cropped: true, image });
     }
 
     render() {
-        const { loading, name, amount, mail, message, instagram, twitter, snapchat, method, crop, zoom, aspect, checkBox, image, cropped, local, error, uniqueKey } = this.state;
+        const { paid, loading, name, amount, mail, message, instagram, twitter, snapchat, method, crop, zoom, aspect, checkBox, image, cropped, local, error, uniqueKey } = this.state;
         return (
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
-            {loading && <div id="lol" style={styles.loading} />}
+            {loading && 
+                <div>
+                    <div style={styles.loading} />
+                    <div style={styles.loadingText}>Payment in process. Please wait.</div>
+                </div>}
                 {image && !cropped && <Modal isOpen={image && !cropped}>
                     <Cropper
                         image={image.src}
@@ -264,9 +269,9 @@ class Checkout extends Component {
                         <div style={{...styles.flexOne}}>
                             <input value={twitter} onChange={e => /^$|[0-9A-Za-z_]{1,15}/.test(e.target.value)&& !/[\/]/.test(e.target.value)  && this.setState({ twitter: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.twitter}/>
                         </div>
-                        <div style={{...styles.flexOne}}>
+                        {!paid && <div style={{...styles.flexOne}}>
                             <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setState({ uniqueKey: e.target.value })} style={styles.input} maxLength={16} type="text" placeholder={local.uniqueKey}/>
-                        </div>
+                        </div>}
                         <div style={{...styles.flexOne, ...styles.paymentMethods}}>
                             <button onClick={(e) => this.selectPaymentMethod(e, "paypal")} style={{...styles.methodButton, ...{marginRight: "0.5%", borderWidth: method==="paypal" ? "0.85vh": 0}}}>
                                 <img alt="Logo1" src={PAYPAL} style={styles.payImg} />
@@ -282,9 +287,12 @@ class Checkout extends Component {
                             <a style={styles.bottomText} href={local.tosPrivacyLink}>{local.tos4 + " "}</a> 
                             {local.tos5}</p> 
                             <br />
-                            <input style={styles.bottomText} value={checkBox} onChange={() => this.setState(prev => ({checkBox: !prev.checkBox}))} type="checkbox" />
-                            <p style={styles.bottomText}>{local.withdraw1}</p> 
-                            <a style={styles.bottomText} href={local.withdrawLink}>{local.withdraw2}</a> 
+                            <div onClick={() => this.setState(prev => ({checkBox: !prev.checkBox}))} style={{display: "flex"}}>
+                                <input style={styles.checkBox} checked={checkBox} type="checkbox" />
+                                <p style={styles.bottomText}>{local.withdraw1}
+                                    <a style={styles.bottomText} href={local.withdrawLink}>{local.withdraw2}</a> 
+                                </p> 
+                            </div>
                         </div>
 
 
@@ -312,8 +320,21 @@ class Checkout extends Component {
 }
 
 const styles = {
+    checkBox: {
+        width: "10vh",
+        height: "10vh",
+    },
     iconStyle: {
         width: "5vh"
+    },
+    loadingText: {
+        color: "white",
+        zIndex: 1000000,
+        position: "fixed",
+        top: "30%",
+        width: "100%",
+        left: 0,
+        textAlign: "center"
     },
     loading: {
         position: "absolute",
@@ -413,7 +434,8 @@ const styles = {
     checkBoxContainer: {
         flex: 1,
         width: "100%",
-        color: "white",
+        backgroundColor: "white",
+        margin: "2vh 0",
         fontSize: "2.5vh"
     },
     imageButton: {

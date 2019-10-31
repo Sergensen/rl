@@ -30,6 +30,10 @@ module.exports = {
     toLegal: "/legal",
     toTerms: "/terms",
     toPrivacy: "/privacy",
+    cookies1: "To make Medium work, we log user data. By using Medium, you agree to our ",
+    cookies2: ", including cookie policy.",
+    buttonText: "I understand",
+    declineButtonText: "I decline"
   },
   de: {
     tos1: "Mit der Benutzung des bezahlen Buttons bestätigen Sie, dass Sie die",
@@ -62,5 +66,9 @@ module.exports = {
     toLegal: "/impressum",
     toTerms: "/agb",
     toPrivacy: "/datenschutz",
+    cookies1: "Damit RichList funktioniert, loggen wir Nutzerdaten. Wenn du RichList benutzt, stimmst du unserer ",
+    cookies2: ", inklusive unseren Cookierichtlinien zu.",
+    buttonText: "Ich verstehe",
+    declineButtonText: "Ablehnen"
   }
 };

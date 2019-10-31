@@ -13,6 +13,7 @@ import MainPage from './main/MainPage';
 import Fail from './main/Fail';
 import Success from './main/Success';
 import Validation from './main/Validation';
+import CookieConsent from "react-cookie-consent";
 
 import local from './local';
 
@@ -25,7 +26,7 @@ import {
 
 export default class App extends Component {
     state = {
-        local: null
+        local: null,
     }
 
     componentDidMount(){
@@ -84,12 +85,24 @@ export default class App extends Component {
                     </Route>
                 </Switch>
                 {local && <div style={styles.footer}>
-                    <div style={styles.links}>
+                    <div style={styles.links} ref={ref => this.footer = ref}>
                         <Link style={styles.link} to={local.toLegal}>{local.tos6}</Link>
                         <Link style={styles.link} to={local.toTerms}>{local.tos7}</Link>
                         <Link style={styles.link} to={local.toPrivacy}>{local.tos4}</Link>
                     </div>
                 </div>}
+
+                {local && <CookieConsent 
+                    onAccept={() => {}}
+                    onDecline={() => {}}
+                    buttonText={local.buttonText}
+                    declineButtonText={local.declineButtonText}
+                    enableDeclineButton
+                    style={{ fontSize: "2vh"}}> 
+                        {local.cookies1}
+                        <a style={{color: "white"}} href={local.toPrivacy}>{local.tos4}</a> 
+                        {local.cookies2}
+                </CookieConsent>}
             </Router>
         );
     }
@@ -97,7 +110,6 @@ export default class App extends Component {
 
 const styles = {
     footer: {
-        position: "fixed",
         bottom: 0,
         left: 0,
         width: "100%",
@@ -105,6 +117,7 @@ const styles = {
         flexDirection: "row",
         justifyContent: "space-around",
         borderTop: "1px solid grey",
+        position: "fixed",
         alignItems: "center",
         backgroundColor: "black",
         paddingTop: 10,

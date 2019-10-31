@@ -7,6 +7,7 @@
     "browser-image-compression": "^1.0.6",
     "exif-js": "^2.3.0",
     "react": "^16.10.2",
+    "react-cookie-consent": "^2.5.0",
     "react-dom": "^16.10.2",
     "react-easy-crop": "^1.16.1",
     "react-image-crop": "^8.4.0",

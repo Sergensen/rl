@@ -8,7 +8,6 @@ import Modal from 'react-modal';
 import Cropper from 'react-easy-crop'
 import getCroppedImg from './cropImage';
 import StripeCheckout from 'react-stripe-checkout';
-
 Modal.setAppElement('#root')
 
 class Checkout extends Component {
@@ -35,7 +34,7 @@ class Checkout extends Component {
         croppedAreaPixels: {},
         paid: false
     }
-    
+
     componentDidMount(){
         const userLang = navigator.language || navigator.userLanguage; 
         this.setState({
@@ -56,6 +55,7 @@ class Checkout extends Component {
                 if (result) {
                     const redirLink = await API.paypal(uniqueKey, amount, mail, name, message);
                     if((typeof redirLink === "object" || typeof redirLink === 'function') && (redirLink !== null)) {
+                        this.setState({loading: true, paid: false});
                         alert("Something went wrong. Please try again.");
                     } else {
                         window.location.href = redirLink;
@@ -109,6 +109,14 @@ class Checkout extends Component {
         window.location = result.data.result.success ? "https://richlist.net/success" : "https://richlist.net/fail"; 
     }
     
+    dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+            while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new File([u8arr], filename, {type:mime});
+        }
 
     checkout() {
         return new Promise((resolve, reject) => {
@@ -116,8 +124,8 @@ class Checkout extends Component {
             this.setState({ loading: !loading });
                 API.addUser({ uniqueKey , mail, uniqueName: name.trim(), amount, instagram, twitter, snapchat, method, message: encodeURI(message.trim()), timestamp: Date.now() })
                     .then(async res => {
-                        const resp = await API.putImage(image, res.data.result.uploadUrl);
-                        console.log(resp);
+                        const file = this.dataURLtoFile(image.src, "lol.jpg");
+                        const resp = await API.putImage(file, res.data.result.uploadUrl);
                         resolve(res);
                     })
                     .catch(e => reject(e));
@@ -188,7 +196,7 @@ class Checkout extends Component {
         let image = e.target.files[0]
         if(image) {
             image.src = URL.createObjectURL(image);
-            this.setState({image})
+            this.setState({image, cropped: false})
         }
     }
 
@@ -207,12 +215,15 @@ class Checkout extends Component {
     async cropImage(){
         let { image, croppedAreaPixels } = this.state;
         const src = await getCroppedImg(image.src, croppedAreaPixels);
+
         image.src = src;
+
         this.setState({cropped: true, image });
     }
 
     render() {
         const { paid, loading, name, amount, mail, message, instagram, twitter, snapchat, method, crop, zoom, aspect, checkBox, image, cropped, local, error, uniqueKey } = this.state;
+
         return (
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
             {loading && 
@@ -236,9 +247,10 @@ class Checkout extends Component {
             <div style={styles.payMain}>
                     <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
                         <div style={{...styles.flexOne}}>
-                            {image && 
-                                <button style={styles.imageButton} onClick={() => this.setState({cropped: false})}>
-                                    <img alt="Image0" style={styles.image} src={image.src} />
+                            {image && cropped && 
+                                <button style={styles.imageButton} onClick={() => this.imageInput.click()}>
+                                    <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" style={styles.image} type="file" onChange={(e) => this.fileChangedHandler(e)} />
+                                    <img ref={ref => this.img = ref} alt="Image0" style={styles.image} src={image.src} />
                                 </button>
                             } {!image && 
                                 <button onClick={() => this.imageInput.click()} style={styles.imageContainer}>
@@ -288,7 +300,7 @@ class Checkout extends Component {
                             {local.tos5}</p> 
                             <br />
                             <div onClick={() => this.setState(prev => ({checkBox: !prev.checkBox}))} style={{display: "flex"}}>
-                                <input style={styles.checkBox} checked={checkBox} type="checkbox" />
+                                <input style={styles.checkBox} onChange={() => {}} checked={checkBox} type="checkbox" />
                                 <p style={styles.bottomText}>{local.withdraw1}
                                     <a style={styles.bottomText} href={local.withdrawLink}>{local.withdraw2}</a> 
                                 </p> 
@@ -302,6 +314,7 @@ class Checkout extends Component {
                         <div style={{display: "none"}}>
                             <StripeCheckout
                                 token={this.onToken.bind(this)}
+                                closed={() => this.setState({loading: false})}
                                 name="RichList"
                                 description="RichList secure payment"
                                 stripeKey="pk_test_281Xn05bEub9ENuPn0Y8EQaZ00cV8WCyfJ"

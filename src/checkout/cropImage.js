@@ -1,6 +1,7 @@
+
 const createImage = url =>
   new Promise((resolve, reject) => {
-    const image = new Image()
+    const image = new Image();
     image.addEventListener('load', () => resolve(image))
     image.addEventListener('error', error => reject(error))
     image.setAttribute('crossOrigin', 'anonymous') // needed to avoid cross-origin issues on CodeSandbox
@@ -21,8 +22,7 @@ export default async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   const image = await createImage(imageSrc)
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
-
-  const safeArea = Math.max(image.width, image.height) * 2
+  const safeArea = Math.min(image.width, image.height) * 2
 
   // set each dimensions to double largest dimension to allow for a safe area for the
   // image to rotate in without being clipped by canvas context
@@ -54,12 +54,14 @@ export default async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
   )
 
   // As Base64 string
-  // return canvas.toDataURL('image/jpeg');
+  const dataUrl = canvas.toDataURL('image/jpeg');
+  return dataUrl;
+
 
   // As a blob
   return new Promise(resolve => {
     canvas.toBlob(file => {
       resolve(URL.createObjectURL(file))
-    }, 'image/jpeg')
+    }, 'image/jpeg');
   })
 }

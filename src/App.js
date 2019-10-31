@@ -130,6 +130,7 @@ const styles = {
     headerImg: {
         maxWidth: "900px",
         width: "100%",
+        height: "100%",
         flex: 1
     },
     headerContainer: {

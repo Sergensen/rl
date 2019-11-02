@@ -8,8 +8,6 @@ import Modal from 'react-modal';
 import Cropper from 'react-easy-crop'
 import getCroppedImg from './cropImage';
 import StripeCheckout from 'react-stripe-checkout';
-import imageCompression from 'browser-image-compression';
-import EXIF from 'exif-js';
 Modal.setAppElement('#root')
 
 class Checkout extends Component {
@@ -208,8 +206,7 @@ class Checkout extends Component {
 
     async cropImage(){
         let { image, croppedAreaPixels } = this.state;
-        const src = await getCroppedImg(image.src, croppedAreaPixels, image);
-
+        const src = await getCroppedImg(image.src, croppedAreaPixels);
         image.src = src;
 
         this.setState({cropped: true, image });
@@ -238,7 +235,7 @@ class Checkout extends Component {
                     <button style={{...{left: 0}, ...styles.cropButton}} onClick={() => this.cropImage()}>{local.yes}</button>
                     <button style={{...{right: 0}, ...styles.cropButton}} onClick={() => this.setState({image: null})}>{local.new}</button>
                 </Modal>}
-            <div s tyle={styles.payMain}>
+            <div style={styles.payMain}>
                     <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
                         <div style={{...styles.flexOne}}>
                             {image && 

@@ -34,7 +34,8 @@ class Checkout extends Component {
         crop: { x: 0, y: 0 },
         aspect: 1 / 1,
         croppedAreaPixels: {},
-        paid: false
+        paid: false,
+        rotate: 0
     }
 
     componentDidMount(){
@@ -208,16 +209,21 @@ class Checkout extends Component {
 
     async cropImage(){
         let { image, croppedAreaPixels } = this.state;
-        const src = await getCroppedImg(image.src, croppedAreaPixels, image);
-
-        image.src = src;
-
-        this.setState({cropped: true, image });
+        const data = await getCroppedImg(image.src, croppedAreaPixels);
+        image.src = data[0];
+        this.setState({
+            cropped: true,
+            rotate: data[1],
+            image,
+            zoom: 1,    
+            crop: { x: 0, y: 0 },
+            aspect: 1 / 1,
+            croppedAreaPixels: {}
+        });
     }
 
     render() {
-        const { paid, loading, name, amount, mail, message, instagram, twitter, snapchat, method, crop, zoom, aspect, checkBox, image, cropped, local, error, uniqueKey } = this.state;
-
+        const { paid, loading, rotate, name, amount, mail, message, instagram, twitter, snapchat, method, crop, zoom, aspect, checkBox, image, cropped, local, error, uniqueKey } = this.state;
         return (
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
             {loading && 
@@ -225,26 +231,27 @@ class Checkout extends Component {
                     <div style={styles.loading} />
                     <div style={styles.loadingText}>Payment in process. Please wait.</div>
                 </div>}
-                {image && !cropped && <Modal isOpen={image && !cropped}>
-                    <Cropper
-                        image={image.src}
-                        crop={crop}
-                        zoom={zoom}
-                        aspect={aspect}
-                        onCropChange={this.onCropChange.bind(this)}
-                        onCropComplete={this.onCropComplete.bind(this)}
-                        onZoomChange={this.onZoomChange.bind(this)}
-                    />               
-                    <button style={{...{left: 0}, ...styles.cropButton}} onClick={() => this.cropImage()}>{local.yes}</button>
-                    <button style={{...{right: 0}, ...styles.cropButton}} onClick={() => this.setState({image: null})}>{local.new}</button>
-                </Modal>}
-            <div s tyle={styles.payMain}>
+                {image && !cropped &&
+                    <div style={{zIndex: 100000000}}>
+                        <Cropper
+                            image={image.src}
+                            crop={crop}
+                            zoom={zoom}
+                            aspect={aspect}
+                            onCropChange={this.onCropChange.bind(this)}
+                            onCropComplete={this.onCropComplete.bind(this)}
+                            onZoomChange={this.onZoomChange.bind(this)}
+                        />
+                        <button style={{...{left: 0}, ...styles.cropButton}} onClick={() => this.cropImage()}>{local.yes}</button>
+                        <button style={{...{right: 0}, ...styles.cropButton}} onClick={() => this.setState({image: null})}>{local.new}</button>
+                    </div>}
+            <div style={styles.payMain}>
                     <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
                         <div style={{...styles.flexOne}}>
                             {image && 
                                 <button style={styles.imageButton} onClick={() => this.imageInput.click()}>
                                     <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" style={styles.image} type="file" onChange={(e) => this.fileChangedHandler(e)} />
-                                    <img ref={ref => this.img = ref} id="img" alt="Image0" style={styles.image} src={image.src} />
+                                    <img ref={ref => this.img = ref} id="img" alt="Image0" style={{...styles.image, transform: "rotate(" + rotate + "deg)"}} src={image.src} />
                                 </button>
                             } {!image && 
                                 <button onClick={() => this.imageInput.click()} style={styles.imageContainer}>
@@ -320,7 +327,6 @@ class Checkout extends Component {
                         </div>
                     </div>
             </div>
-            
         </div>
   );
 }
@@ -352,7 +358,7 @@ const styles = {
         backgroundColor: "rgba(0,0,0,0.75)"
     },
     image: {
-        borderRadius: "100%",
+        //borderRadius: "100%",
         width: "22vh",
         margin: "10px 0"
     },
@@ -360,9 +366,9 @@ const styles = {
         width: "50%",
         backgroundColor: "blue",
         color: "white",
-        height: "3vh",
+        height: "5vh",
         position: "absolute",
-        zIndex: 1000,
+        zIndex: 100000,
         bottom: 0
     },
     bottomText: {
@@ -394,7 +400,7 @@ const styles = {
         height: "20vh",
         width: "20vh",
         border: "0.5vh solid grey",
-        borderRadius: "50%"
+        //borderRadius: "50%"
     },
     link: {
         color: "lightgray",

@@ -27,11 +27,8 @@ export default class Privacy extends Component {
                         <br />6. Necessary information at registration (required fields)
                         <br />6.1 During the free registration the users must provide the following information:
                         <br />– User name (pseudonym)
-                        <br />– Gender
-                        <br />– Date of birth
                         <br />– E-mail address
                         <br />– Password
-                        <br />– Place of residence, postcode, country (or current location)
                         <br />– Instagram-, Twitter- and Snapchat-Account
                         <br />– Paid amount
                         <br />6.2 If you make in-app purchases through RICHLIST, this will be done through external payment providers. We do not collect and process any payment data. Payment data is entered and processed directly by the payment providers. Only technical data (including the transaction ID) is exchanged between us and the payment providers to validate the purchases.
@@ -185,7 +182,34 @@ export default class Privacy extends Component {
                         <br />This data protection declaration is constantly being adapted in the course of the further development of the Internet or our offer. Changes will be announced on this page in due time. In order to keep up to date with the current status of our data usage regulations, this page should be accessed regularly.
                         <br />Hosting and Backend-Strukture
                         <br />Firebase Cloud Functions, Firebase Cloud Storage und Firebase Realtime Database. More information about Firebase you can find here: http://firebase.google.com
-                        <br />Data protection officer
+                        <br />11. Cookies and Tracking Technologies
+                        <br />Our services and some of our service providers use "cookies", anonymous identifiers and other tracking technologies to help us provide and improve our services, personalize your experience, monitor the performance of our activities and campaigns, and monitor the overall use of our apps, games and services.
+                        <br />A "cookie" is a small text file that is used, for example, to collect information about activity on our website. Some cookies and other technologies are used to retrieve personal information, such as an IP address previously transmitted by the user. For example, we may use cookies to store your language settings or other settings so that you do not have to reset them each time you use our services. Some of the cookies we use are linked to your account (including personal information about you, such as the email address you gave us), others are not.
+                        <br />We use the following cookies:
+                        <br />- Functional Cookies. These are used to recognize you when you return to our website. This is necessary for the payment process.
+                        <br />Although we do not change our practices in response to a "do not track" signal in the HTTP header of a browser or mobile application, most browsers allow you to control cookies, including the ability to set whether you want to accept or delete cookies. You can set most browsers to notify you when you receive a cookie, or you can block cookies with your browser. However, we cannot guarantee that our services will function properly if you choose to block cookies. For example, any settings you make on our website or in our app will not be saved.
+                        <br />12. In-game purchases
+                        <br />In-game purchases are usually processed by the respective platform provider (e.g. Apple or Google), and we will not collect or store your financial data, e.g. your credit card numbers or your bank account. However, we may receive your non-financial personally identifiable information in connection with the purchase, such as your name, billing address, email address and items purchased, to process your purchase and for our accounting purposes.
+                        <br />13. Necessary information at registration (required fields)
+                        <br />13.1 During the free registration the users must provide the following information:
+                        <br />– User name (pseudonym)
+                        <br />– E-mail address
+                        <br />– Password
+                        <br />– Instagram-, Twitter- and Snapchat-Account
+                        <br />– Paid amount
+                        <br />13.2 If you make in-app purchases through RICHLIST, this will be done through external payment providers. We do not collect and process any payment data. Payment data is entered and processed directly by the payment providers. Only technical data (including the transaction ID) is exchanged between us and the payment providers to validate the purchases.
+                        <br />13.3 Third parties can only see the following information from the mandatory data provided during registration in the user’s “profile”:
+                        <br />– Username
+                        <br />– Instagram-, Twitter- and Snapchat-Account
+                        <br />– Paid amount
+                        <br />All other mandatory information (date of birth, e-mail address, password, postcode) cannot be viewed by third parties.
+                        <br />14. Voluntary information
+                        <br />14.1 In addition to the mandatory information, each registered member may, at his or her own discretion, provide numerous voluntary information about himself or herself and post one or more profile pictures. Although this voluntary information is not required for using RICHLIST, it does increase the attractiveness of your own profile and thus the opportunity to come into contact with other members. A profile picture is necessary to make contact in the form of e.g. messages. Each member is free to decide which additional personal data he wishes to disclose about himself and make available to other users. Voluntary information that the member can enter in the profile includes, for example:
+                        <br />– Twittername
+                        <br />– Textmessage
+                        <br />– Instagramname
+                        <br />– Snapchatname
+                        <br />15. Data protection officer
                         <br />We are also at your disposal in case of requests for information, applications or complaints:
                         <br />E-Mail: richlistapp(at)gmail.com
                         <br />Contact details of the person responsible:

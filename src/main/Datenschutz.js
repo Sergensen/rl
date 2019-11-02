@@ -64,7 +64,31 @@ export default class Datenschutz extends React.Component {
                         <br />Haben Sie das Recht auf Berichtigung, Löschung oder Einschränkung der Verarbeitung gegenüber uns geltend gemacht, sind wir gemäß Artikel 19 DSGVO verpflichtet allen Empfängern Ihrer personenbezogenen Daten dies mitzuteilen, außer die Mitteilung ist unmöglich oder mit unverhältnismäßigen Aufwand verbunden. Sie haben zudem das Recht über die Empfänger unterrichtet zu werden. Ihnen steht gegenüber dem Verantwortlichen das Recht zu, über diese Empfänger unterrichtet zu werden.
                         <br />Recht auf Datenübertragbarkeit
                         <br />Außerdem haben Sie nach Artikel 20 DSGVO das Recht, von uns die Sie betreffenden personenbezogenen Daten, in maschinenlesbaren Format zu erhalten und die Daten einem anderen Verantwortlichen ohne Behinderung zu übermitteln, sofern die Voraussetzungen des Artikel 20 Abs. 1 lit.a DSGVO vorliegen, oder zu erwirken, dass Ihre personenbezogenen Daten direkt von uns einem anderen Verantwortlichen übermittelt werden, soweit dies technisch machbar ist und keine Freiheiten und Rechte anderer Personen dadurch beeinträchtigt werden. Dieses Recht gilt nicht für eine Verarbeitung personenbezogener Daten, die zur Wahrnehmung einer Aufgabe im öffentlichen Interesse, oder zur Ausübung öffentlicher Gewalt erforderlich ist.
-                        <br />Widerspruchsrecht
+                        <br />11. Notwendige Angaben bei der Bezahlung 
+                        <br />11.1 Bei der Bezahlung machen die Nutzer folgende Angaben:
+                        <br />– Benutzername (Pseudonym)
+                        <br />– Passwort
+                        <br />- Bildupload
+                        <br />11.2 Wenn Sie In-App-Käufe über RICHLIST tätigen, geschieht dies über externe Zahlungsanbieter. Wir erheben und verarbeiten dabei keine Zahlungsdaten. Die Eingabe sowie Verarbeitung der Zahlungsdaten erfolgt direkt bei den Zahlungsanbietern. Zwischen uns und den Zahlungsanbietern werden lediglich technische Daten (u.a. die Transaktion ID) zur Validierung der Käufe ausgetauscht.
+                        <br />11.3 Dritte können von den zwingend bei der Bezahlung angegebenen Daten nur folgende Angaben im “Profil” des Nutzers sehen:
+                        <br />– Benutzername
+                        <br />– Instagram-, Twitter- und Snapchat-Account
+                        <br />– Bezahlter Betrag
+                        <br />Alle weiteren Pflichtangaben (Geburtsdatum, E-Mail-Adresse, Passwort, PLZ) sind für Dritte nicht einsehbar.
+                        <br />12. Freiwillige Angaben
+                        <br />12.1 Neben den Pflichtangaben kann jedes registrierte Mitglied in seinem Profil nach freiem Ermessen zahlreiche freiwillige Angaben zu seiner Person machen und ein oder mehrere Profilbilder einstellen. Diese freiwilligen Angaben sind zur Nutzung von RICHLIST zwar nicht erforderlich, erhöhen aber die Attraktivität des eigenen Profils und damit die Chance, mit anderen Mitgliedern in Kontakt zu kommen. Jedes Mitglied entscheidet frei darüber, welche zusätzlichen persönlichen Daten es über sich preisgeben und anderen Nutzern zugänglich machen möchte. Zu den freiwilligen Angaben, die das Mitglied ins Profil einstellen kann, zählen z. B.:
+                        <br />– Twittername
+                        <br />– Instagramname
+                        <br />– Nachrichtentext
+                        <br />– Snapchatname
+                        <br />13. In-Game-Käufe 
+                        <br />In-Game Käufe werden in der Regel von dem jeweiligen Plattformanbieter (z.B. Apple oder Google) abgewickelt, und wir werden Ihre Finanzdaten, z.B. Ihre Kreditkartennummern oder Ihr Bankkonto, nicht erheben oder speichern. Wir können jedoch Ihre nicht-finanziellen personenbezogenen Daten im Zusammenhang mit dem Kauf erhalten, wie z.B. Ihren Namen, Ihre Rechnungsadresse, Ihre E-Mail-Adresse und die gekauften Artikel, um Ihren Kauf abzuwickeln und für unsere Buchhaltungszwecke.
+                        <br />14. Cookies und Tracking-Technologien
+                        <br />Unsere Dienste und einige unserer Dienstleister verwenden "Cookies", anonyme Identifier und andere Tracking-Technologien, die uns helfen, unsere Dienste bereitzustellen und zu verbessern, Ihre Erfahrungen zu personalisieren und die Leistung unserer Aktivitäten und Kampagnen sowie die Nutzung unserer Apps, Spiele und Dienste insgesamt zu überwachen. Ein "Cookie" ist eine kleine Textdatei, die beispielsweise verwendet wird, um Daten über Aktivitäten auf unserer Website zu erheben. Einige Cookies und andere Technologien dienen dazu, personenbezogene Daten, wie z.B. eine IP-Adresse, die zuvor vom Nutzer übertragen wurde, abzurufen. So können wir beispielsweise Cookies verwenden, um Ihre Spracheinstellungen oder andere Einstellungen zu speichern, damit Sie diese nicht bei jeder Nutzung unserer Dienste neu einrichten müssen. Einige der von uns verwendeten Cookies sind mit Ihrem Konto verknüpft (einschließlich persönlicher Informationen über Sie, wie z.B. die E-Mail-Adresse, die Sie uns gegeben haben), andere Cookies nicht.
+                        <br />Wir verwenden die folgenden Cookies:
+                        <br />- Funktionale Cookies. Diese werden verwendet, um Sie zu erkennen, wenn Sie auf unsere Website zurückkehren. Dies ist für das Bezahlverfahren notwendig.
+                        <br /> Obwohl wir unsere Maßnahmen nicht als Reaktion auf ein "Do-Not-Track"-Signal im HTTP-Header eines Browser oder einer mobilen Anwendung ändern, erlauben die meisten Browser es Ihnen, Cookies zu kontrollieren, einschließlich der Einstellungsmöglichkeit, ob Sie die Cookies akzeptieren möchten oder diese löschen möchten. Sie können die meisten Browser so einstellen, dass sie Sie benachrichtigen, wenn Sie ein Cookie erhalten, oder Sie können Cookies mit Ihrem Browser blockieren. Wir können jedoch nicht garantieren, dass unsere Dienste vollständig funktionieren, wenn Sie sich dafür entscheiden, Cookies zu blockieren. Beispielsweise werden alle Einstellungen, die Sie auf unserer Website oder in unserer App getätigt haben, dann nicht gespeichert.
+                        <br />15. Widerspruchsrecht
                         <br />Sie haben das Recht jederzeit gegenüber RICHLIST Widerspruch gegen die Verarbeitung der Sie betreffenden personenbezogenen Daten nach Art. 6 Abs. 1 lit.  f DSGVO einzulegen.
                         <br />Wir verarbeitet Ihre personenbezogenen Daten nicht mehr, es sei denn, schutzwürdige Gründe für die Verarbeitung überwiegen Ihre Interessen, Rechte und Freiheiten, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen.
                         <br />Recht auf Widerruf der datenschutzrechtlichen Einwilligungserklärung
@@ -73,14 +97,14 @@ export default class Datenschutz extends React.Component {
                         <br />Sie haben jederzeit unbeschadet eines anderweitigen verwaltungsrechtlichen oder gerichtlichen Rechtsbehelfs das Recht auf Beschwerde bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat ihres Aufenthaltsorts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes, wenn Sie der Ansicht sind, dass die Verarbeitung der sie betreffenden personenbezogenen Daten gegen diese Verordnung verstößt.
                         <br />Änderungen der Datenschutzerklärung
                         <br />Diese aufgestellte Datenschutzerklärung wird laufend im Zuge der Weiterentwicklung des Internets oder unseres Angebots angepasst. Änderungen werden wir auf dieser Seite rechtzeitig bekanntgeben. Um sich hinsichtlich des aktuellen Stands unserer Datennutzungsbestimmungen zu informieren, sollte diese Seite regelmäßig aufgerufen werden.
-                        <br />Hosting und Backend-Struktur
+                        <br />16. Hosting und Backend-Struktur
                         <br />Firebase Cloud Functions, Firebase Cloud Storage und Firebase Realtime Database Personenbezogene Daten: Nutzungsdaten; verschiedene Datenarten, wie in der Datenschutzerklärung des Dienstes beschrieben
                         <br />Weitere Informationen  zu Firebase finden Sie hier: http://firebase.google.com
-                        <br />Datenschutzbeauftragte
+                        <br />17. Datenschutzbeauftragte
                         <br />Wir stehen Ihnen auch im Falle von Auskunftsersuchen, Anträgen oder Beschwerden zur Verfügung:
-                        <br />E-Mail: richlistapp(at)gmail.com
-                        <br />Kontaktdaten des Verantwortlichen:
-                        <br />richlistapp(at)gmail.com
+                        <br />E-Mail: info(at)richlist.net
+                        <br />18. Kontaktdaten des Verantwortlichen:
+                        <br />info(at)richlist.net
                     </p>
                     <p className="header">Datenschutzerklärung der Richlist-Webseite</p>
                     <p id="deutsch" className="terms">                    
@@ -98,15 +122,12 @@ export default class Datenschutz extends React.Component {
                         <br />4. Logfiles
                         <br />RICHLIST erstellt zur Sicherung der Datenbestände sog. Backups (Datensicherung), die jeweils nach ca. vier Wochen überschrieben und damit endgültig gelöscht werden. Soweit diese Datensicherungen Protokolldateien enthalten, werden auch diese gelöscht. Im Fall der vollständigen Löschung eines Nutzerprofils werden die Protokolldateien ebenfalls gelöscht. RICHLIST verwendet die Protokolldaten (Logs) anonymisiert, also ohne Zuordnung oder Hinweise auf die Person des Nutzers, für statistische Auswertungen. RICHLIST kann so z. B. erfahren, an welchen Tagen und zu welchen Uhrzeiten die Angebote von RICHLIST besonders beliebt sind und wie viel Datenvolumen erzeugt wird. Zudem kann RICHLIST durch die Log-Dateien mögliche Fehler erkennen, z. B. fehlerhafte Links oder Programmfehler, und die Log-Dateien damit für die Weiterentwicklung der Websites verwenden. RICHLIST verknüpft die im Server-Log gespeicherten Seitenabrufe und Nutzungen nicht mit einzelnen Personen. RICHLIST behält sich jedoch vor, die Log-Dateien nachträglich über die letzte bekannte IP-Adresse von solchen Nutzern zu überprüfen, bei denen aufgrund bestimmter Tatsachen der Verdacht besteht, dass diese die Websites von RICHLIST und/oder die Dienste von RICHLIST gesetzes- oder vertragswidrig nutzen. Dies dient vorrangig dem Schutz der Mitglieder von RICHLIST und der Sicherheit ihrer personenbezogenen Daten.
                         <br />5. Bezahlung
-                        <br />Der Nutzer willigt mit der Bezahlung und nachfolgendem Vertragsschluss darin ein, dass seine personenbezogenen Daten nach Maßgabe dieser Datenschutzerklärung der der AGB von RICHLIST erhoben, gespeichert und verarbeitet werden. Diese Einwilligung stimmt der Nutzer bei Bezahlung durch Bestätigung des “Pay” Buttons in dem dafür vorgesehenen Feld “Pay” ausdrücklich zu; die Einwilligung wird ebenso wie der gesamte Vorgang der Bezahlung von RICHLIST protokolliert.  Soweit der Nutzer eine Einwilligung erteilt, kann er sie jederzeit mit Wirkung für die Zukunft in Textform (E-Mail, richlistapp(at)gmail.com) widerrufen.
+                        <br />Der Nutzer willigt mit der Bezahlung und nachfolgendem Vertragsschluss darin ein, dass seine personenbezogenen Daten nach Maßgabe dieser Datenschutzerklärung der der AGB von RICHLIST erhoben, gespeichert und verarbeitet werden. Diese Einwilligung stimmt der Nutzer bei Bezahlung durch Bestätigung des “Pay” Buttons in dem dafür vorgesehenen Feld “Pay” ausdrücklich zu; die Einwilligung wird ebenso wie der gesamte Vorgang der Bezahlung von RICHLIST protokolliert.  Soweit der Nutzer eine Einwilligung erteilt, kann er sie jederzeit mit Wirkung für die Zukunft in Textform (E-Mail, info(at)richlist.net) widerrufen.
                         <br />6. Notwendige Angaben bei der Bezahlung 
                         <br />6.1 Bei der Bezahlung machen die Nutzer folgende Angaben:
                         <br />– Benutzername (Pseudonym)
-                        <br />– Geschlecht
-                        <br />– Geburtsdatum
                         <br />– E-Mail-Adresse
                         <br />– Passwort
-                        <br />– Wohnort, Postleitzahl, Land (bzw aktueller Standort)
                         <br />– Instagram-, Twitter- und Snapchat-Account
                         <br />– Bezahlter Betrag
                         <br />6.2 Wenn Sie In-App-Käufe über RICHLIST tätigen, geschieht dies über externe Zahlungsanbieter. Wir erheben und verarbeiten dabei keine Zahlungsdaten. Die Eingabe sowie Verarbeitung der Zahlungsdaten erfolgt direkt bei den Zahlungsanbietern. Zwischen uns und den Zahlungsanbietern werden lediglich technische Daten (u.a. die Transaktion ID) zur Validierung der Käufe ausgetauscht.
@@ -124,7 +145,7 @@ export default class Datenschutz extends React.Component {
                         <br />8. Zweckbestimmung
                         <br />Zweck der Erhebung, Speicherung, Verarbeitung und Nutzung der in den vorstehenden Ziffern genannten personenbezogenen Daten ist die Ermöglichung des Betriebes und der Aufrechterhaltung und Verbesserung des Online-Angebots von RICHLIST.
                         <br />9. Kontakt
-                        <br />Sie haben die Möglichkeit uns bei Fragen, Wünschen und Anregungen zu kontaktieren. Dies können Sie u.a. per E-Mail an richlistapp(at)gmail.com tun. Darüber hinaus erfolgt ein Abgleich der so erhobenen Daten mit Daten, die möglicherweise anderweitig von uns erhoben werden, wenn Sie uns vorher eine entsprechende Einwilligung erteilt haben, die Sie jederzeit mit Wirkung für die Zukunft widerrufen können. Für die Ausübung des Widerrufs wenden Sie sich bitte an die am Ende dieser Erklärung genannte Stelle.
+                        <br />Sie haben die Möglichkeit uns bei Fragen, Wünschen und Anregungen zu kontaktieren. Dies können Sie u.a. per E-Mail an info(at)richlist.net tun. Darüber hinaus erfolgt ein Abgleich der so erhobenen Daten mit Daten, die möglicherweise anderweitig von uns erhoben werden, wenn Sie uns vorher eine entsprechende Einwilligung erteilt haben, die Sie jederzeit mit Wirkung für die Zukunft widerrufen können. Für die Ausübung des Widerrufs wenden Sie sich bitte an die am Ende dieser Erklärung genannte Stelle.
                         <br />10. Erstellung von Nutzungsprofilen
                         <br />10.1 Um das Angebot von RICHLIST laufend zu verbessern, z. B. neue Rubriken oder Angebote einzurichten, kann RICHLIST das Verhalten seiner Nutzer im Netzwerk analysieren und zu diesem Zweck anonymisierte Nutzerprofile anlegen. Die Auswertung dieser Nutzerprofile erfolgt nicht personenbezogen, d. h. die Identität des Nutzers bleibt unbekannt.
                         <br />10.2 RICHLIST kann für Zwecke der Werbung, der Marktforschung oder zur bedarfsgerechten Gestaltung der Telemedien pseudonymisierte Nutzungsprofile (Username) erstellen. Der Erstellung von pseudonymisierten Nutzungsprofilen kann der Nutzer jederzeit mit Wirkung für die Zukunft durch Mitteilung in Textform (E-Mail) gegenüber der am Ende dieser Erklärung bezeichneten Stelle widersprechen.
@@ -174,7 +195,7 @@ export default class Datenschutz extends React.Component {
                         <br />17.8 Recht auf Widerruf der datenschutzrechtlichen Einwilligungserklärung: Sie haben jederzeit das Recht, Ihre datenschutzrechtliche Einwilligungserklärung mit Erklärung gegenüber RICHLIST zu widerrufen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt.
                         <br />17.9 Recht auf Beschwerde bei der Aufsichtsbehörde: Sie haben jederzeit unbeschadet eines anderweitigen verwaltungsrechtlichen oder gerichtlichen Rechtsbehelfs das Recht auf Beschwerde bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat ihres Aufenthaltsorts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes, wenn Sie der Ansicht sind, dass die Verarbeitung der sie betreffenden personenbezogenen Daten gegen diese Verordnung verstößt.
                         <br />17.10 Soweit der Nutzer die Änderung, Berichtigung oder Löschung seiner personenbezogenen Daten verlangt, kann dies durch Brief, Telefax oder E-Mail erfolgen. Das Verlangen ist zu richten an:
-                        <br />E-Mail: richlistapp(at)gmail.com
+                        <br />E-Mail: info(at)richlist.net
                         <br />Zur Vermeidung unberechtigter Verlangen muss das Verlangen mindestens folgende Angaben / Dokumente enthalten:
                         <br />– Benutzername
                         <br />– Name, Vorname
@@ -183,13 +204,20 @@ export default class Datenschutz extends React.Component {
                         <br />– Ausweiskopie (gültiger Personalausweis)
                         <br />RICHLIST weist darauf hin, dass auch gelöschte Daten aufgrund von Caching-Systemen und der Zwischenschaltung von Proxy-Servern unter Umständen noch bis zu 72 Stunden abrufbar sein können.
                         <br />17.11 Im Falle missbräuchlicher Verwendung der Dienste von RICHLIST durch Nutzer ist RICHLIST berechtigt, einzelne von Nutzern eingestellte Daten und Inhalte oder auch das gesamte Profil des verantwortlichen Nutzers zeitweilig zu sperren oder vollständig zu löschen. Im Falle einer Sperrung eines Profils ist dem betreffenden Nutzer der Zugriff auf sein Profil und alle darunter hinterlegten Daten mit Ausnahme der Daten Alter, Geschlecht, Stadt und Profilbild verwehrt.
-                        <br />19. Änderungen der Datenschutzerklärung
+                        <br />18. In-Game-Käufe 
+                        <br />In-Game Käufe werden in der Regel von dem jeweiligen Plattformanbieter (z.B. Apple oder Google) abgewickelt, und wir werden Ihre Finanzdaten, z.B. Ihre Kreditkartennummern oder Ihr Bankkonto, nicht erheben oder speichern. Wir können jedoch Ihre nicht-finanziellen personenbezogenen Daten im Zusammenhang mit dem Kauf erhalten, wie z.B. Ihren Namen, Ihre Rechnungsadresse, Ihre E-Mail-Adresse und die gekauften Artikel, um Ihren Kauf abzuwickeln und für unsere Buchhaltungszwecke.
+                        <br />19. Cookies und Tracking-Technologien
+                        <br />Unsere Dienste und einige unserer Dienstleister verwenden "Cookies", anonyme Identifier und andere Tracking-Technologien, die uns helfen, unsere Dienste bereitzustellen und zu verbessern, Ihre Erfahrungen zu personalisieren und die Leistung unserer Aktivitäten und Kampagnen sowie die Nutzung unserer Apps, Spiele und Dienste insgesamt zu überwachen. Ein "Cookie" ist eine kleine Textdatei, die beispielsweise verwendet wird, um Daten über Aktivitäten auf unserer Website zu erheben. Einige Cookies und andere Technologien dienen dazu, personenbezogene Daten, wie z.B. eine IP-Adresse, die zuvor vom Nutzer übertragen wurde, abzurufen. So können wir beispielsweise Cookies verwenden, um Ihre Spracheinstellungen oder andere Einstellungen zu speichern, damit Sie diese nicht bei jeder Nutzung unserer Dienste neu einrichten müssen. Einige der von uns verwendeten Cookies sind mit Ihrem Konto verknüpft (einschließlich persönlicher Informationen über Sie, wie z.B. die E-Mail-Adresse, die Sie uns gegeben haben), andere Cookies nicht.
+                        <br />Wir verwenden die folgenden Cookies:
+                        <br />- Funktionale Cookies. Diese werden verwendet, um Sie zu erkennen, wenn Sie auf unsere Website zurückkehren. Dies ist für das Bezahlverfahren notwendig.
+                        <br /> Obwohl wir unsere Maßnahmen nicht als Reaktion auf ein "Do-Not-Track"-Signal im HTTP-Header eines Browser oder einer mobilen Anwendung ändern, erlauben die meisten Browser es Ihnen, Cookies zu kontrollieren, einschließlich der Einstellungsmöglichkeit, ob Sie die Cookies akzeptieren möchten oder diese löschen möchten. Sie können die meisten Browser so einstellen, dass sie Sie benachrichtigen, wenn Sie ein Cookie erhalten, oder Sie können Cookies mit Ihrem Browser blockieren. Wir können jedoch nicht garantieren, dass unsere Dienste vollständig funktionieren, wenn Sie sich dafür entscheiden, Cookies zu blockieren. Beispielsweise werden alle Einstellungen, die Sie auf unserer Website oder in unserer App getätigt haben, dann nicht gespeichert.
+                        <br />20. Änderungen der Datenschutzerklärung
                         <br />Diese aufgestellte Datenschutzerklärung wird laufend im Zuge der Weiterentwicklung des Internets oder unseres Angebots angepasst. Änderungen werden wir auf dieser Seite rechtzeitig bekanntgeben. Um sich hinsichtlich des aktuellen Stands unserer Datennutzungsbestimmungen zu informieren, sollte diese Seite regelmäßig aufgerufen werden.
-                        <br />20. Datenschutzbeauftragte
+                        <br />21. Datenschutzbeauftragte
                         <br />Wir stehen Ihnen auch im Falle von Auskunftsersuchen, Anträgen oder Beschwerden zur Verfügung:
-                        <br />E-Mail: richlistapp(at)gmail.com 
-                        <br />21. Kontaktdaten des Verantwortlichen:
-                        <br />richlistapp(at)gmail.com
+                        <br />E-Mail: info(at)richlist.net 
+                        <br />22. Kontaktdaten des Verantwortlichen:
+                        <br />info(at)richlist.net
                     </p>
                 </div>
             </div>

@@ -41,7 +41,9 @@ export default class App extends Component {
         return (
             <Router>
                 <div style={styles.headerContainer}>
+                    <a href="/">
                     <img alt="Logo" src={HEAD} style={styles.headerImg} />
+                    </a>
                 </div>
                 <Switch>
                     <Route path="/pay">

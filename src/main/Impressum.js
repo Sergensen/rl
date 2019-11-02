@@ -18,7 +18,7 @@ export default class Impressum extends Component {
                         Ilja Köthe, Sergen Sentürk<br /><br />
                         Kontakt<br />
                         Telefon: TODO<br />
-                        E-Mail: richlistapp(at)gmail.com<br />
+                        E-Mail: info(at)richlist.net<br />
                         Als Kleinunternehmer im Sinne von § 19 Abs. 1 Umsatzsteuergesetz (UStG) wird Umsatzsteuer nicht berechnet.<br /><br />
 
                         Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer

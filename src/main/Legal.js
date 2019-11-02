@@ -19,7 +19,7 @@ export default class Legal extends Component {
                             Ilja Köthe, Sergen Sentürk<br /><br />
                             Contact<br />
                             Phone: TODO<br />
-                            E-Mail: richlistapp(at)gmail.com<br />
+                            E-Mail: info(at)richlist.net<br />
                             Due to the small settlement of the USTG (Sales tax law) section 19 par. 1 sales tax is not calculated.<br /><br />
 
                             Source:<br />

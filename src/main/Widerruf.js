@@ -17,7 +17,7 @@ export default class Widerruf extends Component {
                 <p id="english" className="legal">
                     Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. 
                 Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsschlusses. 
-                Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Köthe und Sentürk GbR, Edewechter Landstraße 70, 26131 Oldenburg, Tel: TODO, E-Mail: richlistapp(at)gmail.com) mittels einer eindeutigen Erklärung (z. B.per E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. 
+                Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Köthe und Sentürk GbR, Edewechter Landstraße 70, 26131 Oldenburg, Tel: TODO, E-Mail: info(at)richlist.net) mittels einer eindeutigen Erklärung (z. B.per E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. 
                 Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist. 
                 Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden. 
 
@@ -39,7 +39,7 @@ export default class Widerruf extends Component {
                  
                 (Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.) <br /><br />
 
-                An: richlistapp(at)gmail.com<br />
+                An: info(at)richlist.net<br />
                 Hiermit widerrufe ich den von mir abgeschlossenen Vertrag über die Erbringung der folgenden Dienstleistung:<br />
                 Bestellt am (*)/erhalten am (*):<br />
                 Name des/der Verbraucher(s):<br />

@@ -47,7 +47,7 @@ export default class Privacy extends Component {
                         <br />8. Intended purpose
                         <br />The purpose of collecting, storing, processing and using the personal data mentioned in the above paragraphs is to enable the operation and maintenance and improvement of RICHLIST’s online services.
                         <br />9. Contact
-                        <br />You have the possibility to contact us with questions, wishes and suggestions. You can do this via e-mail (richlistapp(at)gmail.com). If we request information via our contact form, this is only the information that is absolutely necessary to process the request. These details serve us to concretize your inquiry and to improve the processing of your request. In this case, the information you provide will be stored for the purpose of processing your contact. In addition, the data collected in this way is compared with data that may otherwise be collected by us if you have given us your prior consent, which you can revoke at any time with effect for the future. To exercise your right of revocation, please contact the office named at the end of this declaration.
+                        <br />You have the possibility to contact us with questions, wishes and suggestions. You can do this via e-mail (info(at)richlist.net). If we request information via our contact form, this is only the information that is absolutely necessary to process the request. These details serve us to concretize your inquiry and to improve the processing of your request. In this case, the information you provide will be stored for the purpose of processing your contact. In addition, the data collected in this way is compared with data that may otherwise be collected by us if you have given us your prior consent, which you can revoke at any time with effect for the future. To exercise your right of revocation, please contact the office named at the end of this declaration.
                         <br />10. Creation of usage profiles
                         <br />10.1 In order to continually improve RICHLIST’s services, e.g. to set up new categories or offers, RICHLIST may analyze the behavior of its users in the network and create anonymous user profiles for this purpose. The evaluation of these user profiles is not personal, i.e. the identity of the user remains unknown.
                         <br />10.2 RICHLIST may create pseudonymized user profiles (user name) for the purposes of advertising, market research or the demand-oriented design of telemedia. The user can object to the creation of pseudonymized user profiles at any time with effect for the future by notification in text form (letter, fax, e-mail) to the body designated at the end of this declaration.
@@ -97,7 +97,7 @@ export default class Privacy extends Component {
                         <br />17.8 Right to revoke the data protection declaration of consent: You have the right to revoke your data protection declaration of consent with declaration to RICHLIST at any time. The revocation of consent shall not affect the legality of the processing carried out on the basis of the consent until revocation.
                         <br />17.9 Right of appeal to the supervisory authority: They shall at all times, without prejudice to any other administrative or judicial remedy, have the right of appeal to a supervisory authority, in particular in the Member State of their place of residence, of work or of the place of suspected infringement, if you consider that the processing of personal data concerning them is contrary to this Regulation.
                         <br />17.10 If the user requests the modification, correction or deletion of his personal data, this can be done by e-mail. The demand is to be addressed to:
-                        <br />E-Mail: richlistapp(at)gmail.com
+                        <br />E-Mail: info(at)richlist.net
                         <br />To avoid unjustified requests, the request must contain at least the following information / documents:
                         <br />– Username
                         <br />– Name, Surname
@@ -110,9 +110,9 @@ export default class Privacy extends Component {
                         <br />This data protection declaration is constantly being adapted in the course of the further development of the Internet or our offer. Changes will be announced on this page in due time. In order to keep up to date with the current status of our data usage regulations, this page should be accessed regularly.
                         <br />20. Data Protection Officer
                         <br />We are also at your disposal in case of requests for information, applications or complaints:
-                        <br />E-Mail: richlistapp(at)gmail.com
+                        <br />E-Mail: info(at)richlist.net
                         <br />21. Contact details of the person responsible:
-                        <br />richlistapp(at)gmail.com                    
+                        <br />info(at)richlist.net                    
                     </p>
                     <br />
                     <p className="header">This data protection declaration serves to provide information on the type of data collected, stored and processed by RICHLIST at www.RICHLIST.net and on how RICHLIST guarantees the protection and security of personal data.</p>
@@ -211,9 +211,9 @@ export default class Privacy extends Component {
                         <br />– Snapchatname
                         <br />15. Data protection officer
                         <br />We are also at your disposal in case of requests for information, applications or complaints:
-                        <br />E-Mail: richlistapp(at)gmail.com
+                        <br />E-Mail: info(at)richlist.net
                         <br />Contact details of the person responsible:
-                        <br />richlistapp(at)gmail.com
+                        <br />info(at)richlist.net
                     </p>                
                 </div>
             </div>

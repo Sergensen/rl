@@ -15,7 +15,7 @@ export default class Widerruf extends Component {
                             Withdrawal
                     </p>
                     <p id="english" className="legal">
-                            You have the right to cancel this agreement within fourteen days without being required to state any reasons for doing so. The cancellation period is fourteen days starting from the day of the conclusion of contract. To exercise your right of cancellation you must notify us (Köthe and Sentürk GbR, richlistapp(at)gmail.com) of your decision to cancel this agreement. This requires an unambiguous declaration to that effect (e.g. by regular mail). You may use the provided sample cancellation form; this is not mandatory however. To satisfy the cancellation period it is sufficient that prior to the expiry of the cancellation period, you issue notice stating that you are exercising your right of cancellation.
+                            You have the right to cancel this agreement within fourteen days without being required to state any reasons for doing so. The cancellation period is fourteen days starting from the day of the conclusion of contract. To exercise your right of cancellation you must notify us (Köthe and Sentürk GbR, info(at)richlist.net) of your decision to cancel this agreement. This requires an unambiguous declaration to that effect (e.g. by regular mail). You may use the provided sample cancellation form; this is not mandatory however. To satisfy the cancellation period it is sufficient that prior to the expiry of the cancellation period, you issue notice stating that you are exercising your right of cancellation.
 
                     </p>
                     <p id="english" className="header">
@@ -34,7 +34,7 @@ export default class Widerruf extends Component {
                         (If you would like to cancel the agreement, please complete this form and return it to us.)
                         <br /><br />
     
-                        To: richlistapp(at)gmail.com
+                        To: info(at)richlist.net
                         <br />
                         I/we (*) hereby cancel the agreement entered into by me/us (*) for the purchase of the following goods (*) / the provision of the following service (*) 
                         <br />

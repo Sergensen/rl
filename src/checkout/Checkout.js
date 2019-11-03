@@ -5,8 +5,6 @@ import STRIPE from '../res/Stripe.png';
 import CameraIcon from '../res/camera.png';
 import local from '../local';
 import Modal from 'react-modal';
-import Cropper from 'react-easy-crop'
-import getCroppedImg from './cropImage';
 import StripeCheckout from 'react-stripe-checkout';
 Modal.setAppElement('#root')
 
@@ -28,11 +26,9 @@ class Checkout extends Component {
         link: "https://www.richlist.net/terms",
         error: [true, true, true, true],
         local: {},
-        zoom: 1,    
-        crop: { x: 0, y: 0 },
-        aspect: 1 / 1,
-        croppedAreaPixels: {},
-        paid: false
+        paid: false,
+        height: 1,
+        width: 1
     }
 
     componentDidMount(){
@@ -188,32 +184,22 @@ class Checkout extends Component {
         let image = e.target.files[0]
         if(image) {
             image.src = URL.createObjectURL(image);
-            this.setState({image, cropped: false})
+            this.setState({image})
         }
     }
 
-    onCropChange = crop => {
-        this.setState({ crop })
-    }
-    
-    onCropComplete = (croppedArea, croppedAreaPixels) => {
-        this.setState({ croppedAreaPixels })
-    }
-    
-    onZoomChange = zoom => {
-        this.setState({ zoom })
-    }
-
-    async cropImage(){
-        let { image, croppedAreaPixels } = this.state;
-        const src = await getCroppedImg(image.src, croppedAreaPixels);
-        image.src = src;
-
-        this.setState({cropped: true, image });
+    onLoad() {
+        const { width, height } = this.img;
+        if(width) {
+            this.setState({
+                width: width > height ? height: width,
+                height: width > height ? height: width,
+            })
+        }
     }
 
     render() {
-        const { paid, loading, name, amount, mail, message, instagram, twitter, snapchat, method, crop, zoom, aspect, checkBox, image, cropped, local, error, uniqueKey } = this.state;
+        const { height, width, paid, loading, name, amount, mail, message, instagram, twitter, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
 
         return (
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
@@ -222,34 +208,19 @@ class Checkout extends Component {
                     <div style={styles.loading} />
                     <div style={styles.loadingText}>Payment in process. Please wait.</div>
                 </div>}
-                {image && !cropped && <Modal isOpen={image && !cropped}>
-                    <Cropper
-                        image={image.src}
-                        crop={crop}
-                        zoom={zoom}
-                        aspect={aspect}
-                        onCropChange={this.onCropChange.bind(this)}
-                        onCropComplete={this.onCropComplete.bind(this)}
-                        onZoomChange={this.onZoomChange.bind(this)}
-                    />               
-                    <button style={{...{left: 0}, ...styles.cropButton}} onClick={() => this.cropImage()}>{local.yes}</button>
-                    <button style={{...{right: 0}, ...styles.cropButton}} onClick={() => this.setState({image: null})}>{local.new}</button>
-                </Modal>}
             <div style={styles.payMain}>
                     <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
-                        <div style={{...styles.flexOne}}>
-                            {image && 
-                                <button style={styles.imageButton} onClick={() => this.imageInput.click()}>
+                        {image && 
+                                <button style={{...styles.imageButton, ...{height, width}}} onClick={() => this.imageInput.click()}>
                                     <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" style={styles.image} type="file" onChange={(e) => this.fileChangedHandler(e)} />
-                                    <img ref={ref => this.img = ref} id="img" alt="Image0" style={styles.image} src={image.src} />
+                                    <img onLoad={() => this.onLoad()} ref={ref => this.img = ref} id="img" alt="Image0" style={styles.image} src={image.src} />
                                 </button>
-                            } {!image && 
-                                <button onClick={() => this.imageInput.click()} style={styles.imageContainer}>
-                                    <img style={styles.iconStyle} src={CameraIcon} alt="Icon" />
-                                    <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" style={styles.image} type="file" onChange={(e) => this.fileChangedHandler(e)} />
-                                </button>
-                            }
-                        </div>
+                        } {!image && 
+                            <button onClick={() => this.imageInput.click()} style={styles.imageContainer}>
+                                <img style={styles.iconStyle} src={CameraIcon} alt="Icon" />
+                                <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" style={styles.image} type="file" onChange={(e) => this.fileChangedHandler(e)} />
+                            </button>
+                        }
                         <div style={{...styles.flexOne}}>
                             <div className="info-button"></div>
                             <input value={name} onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? "0.5vh solid red": "0px solid white"}}} maxLength="20" type="text" placeholder={local.name}/>
@@ -349,9 +320,8 @@ const styles = {
         backgroundColor: "rgba(0,0,0,0.75)"
     },
     image: {
-        borderRadius: "100%",
-        width: "22vh",
-        margin: "10px 0"
+        height: "22vh",
+        margin: 0
     },
     cropButton: {
         width: "50%",
@@ -389,6 +359,7 @@ const styles = {
         margin: "10px 0",
         backgroundColor: "rgba(0, 0, 0, 0)",
         height: "20vh",
+        overflow: "hidden",
         width: "20vh",
         border: "0.5vh solid grey",
         borderRadius: "50%"
@@ -444,7 +415,13 @@ const styles = {
     },
     imageButton: {
         backgroundColor:" rgba(0, 0, 0, 0)",
-        borderWidth: 0
+        overflow: "hidden",
+        border: "4px solid grey",
+        borderRadius: "100%",
+        padding: 0,
+        margin: "10px 0",
+        display: "flex",
+        justifyContent: "center"
     },
     flexOne: {
         flex: 1,

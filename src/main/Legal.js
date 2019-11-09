@@ -18,7 +18,7 @@ export default class Legal extends Component {
                             Represented by:<br />
                             Ilja Köthe, Sergen Sentürk<br /><br />
                             Contact<br />
-                            Phone: TODO<br />
+                            Phone: +49 1525 6537719<br />
                             E-Mail: info(at)richlist.net<br />
                             Due to the small settlement of the USTG (Sales tax law) section 19 par. 1 sales tax is not calculated.<br /><br />
 

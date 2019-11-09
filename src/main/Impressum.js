@@ -17,7 +17,7 @@ export default class Impressum extends Component {
                         Vertreten durch:<br />
                         Ilja Köthe, Sergen Sentürk<br /><br />
                         Kontakt<br />
-                        Telefon: TODO<br />
+                        Telefon: +49 1525 6537719<br />
                         E-Mail: info(at)richlist.net<br />
                         Als Kleinunternehmer im Sinne von § 19 Abs. 1 Umsatzsteuergesetz (UStG) wird Umsatzsteuer nicht berechnet.<br /><br />
 

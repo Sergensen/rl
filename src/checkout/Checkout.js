@@ -6,6 +6,8 @@ import CameraIcon from '../res/camera.png';
 import local from '../local';
 import Modal from 'react-modal';
 import StripeCheckout from 'react-stripe-checkout';
+import BackgroundText from '../res/Platz4-6_Border.png';
+
 Modal.setAppElement('#root')
 
 class Checkout extends Component {
@@ -223,13 +225,13 @@ class Checkout extends Component {
                         }
                         <div style={{...styles.flexOne}}>
                             <div className="info-button"></div>
-                            <input value={name} onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? "0.5vh solid red": "0px solid white"}}} maxLength="20" type="text" placeholder={local.name}/>
+                            <input value={name} onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? "0.5vh solid red": "1px solid grey"}}} maxLength="20" type="text" placeholder={local.name}/>
                         </div>
                         <div style={{...styles.flexOne}}>
-                            <input onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? "0.5vh solid red": "0px solid white"}}} maxLength={35} type="text" placeholder={local.email}/>
+                            <input onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? "0.5vh solid red": "1px solid grey"}}} maxLength={35} type="text" placeholder={local.email}/>
                         </div>
                         <div style={{...styles.flexOne}}>
-                            <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? "0.5vh solid red": "0px solid white"}}} maxLength={8} type="text" placeholder={local.amount}/>
+                            <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? "0.5vh solid red": "1px solid grey"}}} maxLength={8} type="text" placeholder={local.amount}/>
                         </div>
                         <div style={{...styles.flexOne}}>
                             <input value={message} onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({ message: e.target.value })} style={styles.input} maxLength={35} type="text" placeholder={local.message}/>
@@ -246,6 +248,7 @@ class Checkout extends Component {
                         {!paid && <div style={{...styles.flexOne}}>
                             <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setState({ uniqueKey: e.target.value })} style={styles.input} maxLength={16} type="text" placeholder={local.uniqueKey}/>
                         </div>}
+                        <p style={styles.paymentlabel}>Zahlungsmethode</p>
                         <div style={{...styles.flexOne, ...styles.paymentMethods}}>
                             <button onClick={(e) => this.selectPaymentMethod(e, "paypal")} style={{...styles.methodButton, ...{marginRight: "0.5%", borderWidth: method==="paypal" ? "0.85vh": 0}}}>
                                 <img alt="Logo1" src={PAYPAL} style={styles.payImg} />
@@ -295,6 +298,10 @@ class Checkout extends Component {
 }
 
 const styles = {
+    paymentlabel: {
+        margin: 16,
+        color: "lightgray"
+    },
     checkBox: {
         width: "10vh",
         height: "10vh",
@@ -389,7 +396,7 @@ const styles = {
         textAlign: "center",
         width: "49.5%",
         height: "10vh",
-        backgroundColor: "rgba(255,255,255,1)",
+        backgroundColor: "rgba(255, 255, 255, 0.2)",
         border: "0px solid #443dff",
         boxSizing: "border-box"
     },
@@ -409,7 +416,8 @@ const styles = {
     checkBoxContainer: {
         flex: 1,
         width: "100%",
-        backgroundColor: "white",
+        backgroundColor: "black",
+        color: "white",
         margin: "2vh 0",
         fontSize: "2.5vh"
     },
@@ -428,7 +436,7 @@ const styles = {
         width: "100%",
         textAlign: "center",
         justifyContent: "center",
-        display: "flex"
+        display: "flex",
     },
     paymentText: {
         color: "white",
@@ -439,8 +447,11 @@ const styles = {
         width: "100%",
         height: "5vh",
         fontSize: "3vh",
+        border: "1px solid grey",
+        color: "white",
         margin: "2% 0%",
-        boxSizing: "border-box"
+        boxSizing: "border-box",
+        backgroundColor: "black",
     },
     payMore: {
         color: "red"

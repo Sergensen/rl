@@ -122,8 +122,6 @@ const styles = {
         position: "fixed",
         alignItems: "center",
         backgroundColor: "black",
-        paddingTop: 10,
-        paddingBottom: 10
     },
     links: {
         justifyContent: "space-around",
@@ -137,9 +135,9 @@ const styles = {
         textDecoration: "none",
         textAlign: "center",
         verticalAlign: "middle",
-        padding: 10,
+        padding: 5,
         flex: 1,
-        fontSize: "2.5vh",
+        fontSize: "1.85vh",
         height: "100%"
     },
     headerImg: {

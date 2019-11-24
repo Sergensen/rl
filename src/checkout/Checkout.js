@@ -123,10 +123,10 @@ class Checkout extends Component {
                     .then(async res => {
                         if(image && image.size <15000000) {
                             const resp = await API.putImage(image, res.data.result.uploadUrl);
-                            resolve(res);
-                        } else {
+                        } else if(image && image.size >=15000000) {
                             reject("The picture is too big!");
                         }
+                        resolve(res);
                     })
                     .catch(e => reject(e));
                 this.setState({ loading: !loading });

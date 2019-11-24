@@ -269,15 +269,15 @@ class Checkout extends Component {
                         </div>
                         <div style={styles.checkBoxContainer}>
                             <p style={styles.bottomText}>{local.tos1 + " "}
-                            <a style={styles.bottomText} href={local.tosTermsLink}>{local.tos2 + " "}</a> 
+                            <a target="_blank" style={styles.bottomText} href={local.tosTermsLink}>{local.tos2 + " "}</a> 
                             {" " + local.tos3 + " "}
-                            <a style={styles.bottomText} href={local.tosPrivacyLink}>{local.tos4 + " "}</a> 
+                            <a target="_blank" style={styles.bottomText} href={local.tosPrivacyLink}>{local.tos4 + " "}</a> 
                             {local.tos5}</p> 
                             <br />
                             <div onClick={() => this.setState(prev => ({checkBox: !prev.checkBox}))} style={{display: "flex"}}>
                                 <input style={styles.checkBox} onChange={() => {}} checked={checkBox} type="checkbox" />
                                 <p style={styles.bottomText}>{local.withdraw1}
-                                    <a style={styles.bottomText} href={local.withdrawLink}>{local.withdraw2}</a> 
+                                    <a target="_blank" style={styles.bottomText} href={local.withdrawLink}>{local.withdraw2}</a> 
                                 </p> 
                             </div>
                         </div>

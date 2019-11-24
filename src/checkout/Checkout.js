@@ -41,7 +41,7 @@ class Checkout extends Component {
     }
 
     async paymentRequestWithPaypal() {
-        let { uniqueKey, name, mail, message, amount } = this.state;
+        let { uniqueKey, name, loading, mail, message, amount } = this.state;
         try {
             const res = await API.nameExists(uniqueKey, name.trim());
             if(!uniqueKey) {
@@ -68,12 +68,14 @@ class Checkout extends Component {
                 alert("Name is already in use. Please choose another name.");
             }
         } catch (error) {
-            alert(error);
+            this.setState({uniqueKey: "", loading: false}, () => {
+                alert(error);
+            });
         }
     }
 
     async paymentRequestWithCardForm() {
-        let { uniqueKey, name, mail, amount } = this.state;
+        let { uniqueKey, name, mail, loading, amount } = this.state;
         try {
             const res = await API.nameExists(uniqueKey, name.trim());
             if(!uniqueKey) {
@@ -94,8 +96,9 @@ class Checkout extends Component {
                 alert("Name is already in use. Please choose another name.");
             }
         } catch (error) {
-            this.setState({uniqueKey: ""});
-            alert(error);
+            this.setState({uniqueKey: "", loading: false}, () => {
+                alert(error);
+            });
         }
     }
 
@@ -118,8 +121,12 @@ class Checkout extends Component {
             this.setState({ loading: !loading });
                 API.addUser({ uniqueKey , mail, uniqueName: name.trim(), amount, instagram, twitter, snapchat, method, message: encodeURI(message.trim()), timestamp: Date.now() })
                     .then(async res => {
-                        const resp = await API.putImage(image, res.data.result.uploadUrl);
-                        resolve(res);
+                        if(image && image.size <15000000) {
+                            const resp = await API.putImage(image, res.data.result.uploadUrl);
+                            resolve(res);
+                        } else {
+                            reject("The picture is too big!");
+                        }
                     })
                     .catch(e => reject(e));
                 this.setState({ loading: !loading });

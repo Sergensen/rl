@@ -11,6 +11,7 @@
     "react-dom": "^16.10.2",
     "react-easy-crop": "^1.16.1",
     "react-image-crop": "^8.4.0",
+    "react-image-file-resizer": "^0.2.1",
     "react-modal": "^3.10.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",

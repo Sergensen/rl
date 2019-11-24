@@ -54,16 +54,17 @@ class Checkout extends Component {
                     this.setState({paid: true});
                         const redirLink = await API.paypal(uniqueKey, amount, mail, name, message);
                     if((typeof redirLink === "object" || typeof redirLink === 'function') && (redirLink !== null)) {
-                        this.setState({loading: true, paid: false});
+                        this.setState({loading: true, paid: false, uniqueKey: ""});
                         alert("Something went wrong. Please try again.");
                     } else {
                         window.location.href = redirLink;
                     }
                 } else {
+                    this.setState({uniqueKey: ""});
                     alert("Something went wrong. Please try again.");
                 }
             } else {
-                this.setState({ error: [name, amount, mail, false] });
+                this.setState({ error: [name, amount, mail, false], uniqueKey: "" });
                 alert("Name is already in use. Please choose another name.");
             }
         } catch (error) {
@@ -85,13 +86,15 @@ class Checkout extends Component {
                     this.setState({loading: true, paid: true});
                     this.stripeCheckout.click();
                 } else {
+                    this.setState({uniqueKey: ""});
                     alert("Something went wrong. Please try again.");
                 }
             } else {
-                this.setState({ error: [name, amount, mail, false] });
+                this.setState({ error: [name, amount, mail, false], uniqueKey: "" });
                 alert("Name is already in use. Please choose another name.");
             }
         } catch (error) {
+            this.setState({uniqueKey: ""});
             alert(error);
         }
     }

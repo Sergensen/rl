@@ -215,7 +215,7 @@ class Checkout extends Component {
 
         return (
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
-            {!loading && 
+            {loading && 
                 <div>
                     <div style={styles.loading} />
                     <div style={styles.loadingText}>Payment in process. Please wait.</div>

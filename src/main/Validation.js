@@ -29,10 +29,10 @@ export default class Validation extends Component {
                 });
             }).catch(err => {
                 console.log(err);
-                alert("Something went wrong. You are not charged.");
+                window.location = "https://www.richlist.net/fail";
             });
         } else {
-            alert("Something went wrong. You are not charged.");
+            window.location = "https://www.richlist.net/fail";
         }
     }
     render() {

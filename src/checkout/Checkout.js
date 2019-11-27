@@ -30,13 +30,13 @@ class Checkout extends Component {
         local: {},
         paid: false,
         height: 1,
-        width: 1
+        width: 1,
     }
 
     componentDidMount(){
         const userLang = navigator.language || navigator.userLanguage; 
         this.setState({
-            local: userLang==="de-DE" ? local.de : local.en
+            local: userLang==="de-DE" ? local.de : local.en,
         });
     }
 
@@ -215,12 +215,12 @@ class Checkout extends Component {
 
         return (
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
-            {loading && 
+            {!loading && 
                 <div>
                     <div style={styles.loading} />
                     <div style={styles.loadingText}>Payment in process. Please wait.</div>
                 </div>}
-            <div style={styles.payMain}>
+            <div ref={ref => this.main = ref} style={styles.payMain}>
                     <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
                         {image && 
                                 <button style={{...styles.imageButton, ...{height, width}}} onClick={() => this.imageInput.click()}>
@@ -329,11 +329,11 @@ const styles = {
         textAlign: "center"
     },
     loading: {
-        position: "absolute",
+        position: "fixed",
         top: 0,
         left: 0,
         width: "100%",
-        height: "150%",
+        height: "100%",
         backgroundColor: "rgba(0,0,0,0.75)"
     },
     image: {

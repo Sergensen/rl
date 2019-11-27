@@ -3,18 +3,6 @@ import axios from 'axios';
 const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
 //const API_URL = "http://localhost:5001/";
 
-function dataURItoBlob(dataURI, type) {
-    var byteString = atob(dataURI.split(',')[1]);
-    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-    var ab = new ArrayBuffer(byteString.length);
-    var ia = new Uint8Array(ab);
-    for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-    var bb = new Blob([ab], { type: type });
-    return bb;
-}
-
 export default {
     validatePayment(uniqueKey, amount, mail, message, tokenId, type) {
         return new Promise((resolve, reject) => {

@@ -14,6 +14,7 @@ import Fail from './main/Fail';
 import Success from './main/Success';
 import Validation from './main/Validation';
 import CookieConsent from "react-cookie-consent";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import local from './local';
 
@@ -41,8 +42,8 @@ export default class App extends Component {
         return (
             <Router>
                 <div style={styles.headerContainer}>
-                    <a href="/">
-                    <img alt="Logo" src={HEAD} style={styles.headerImg} />
+                    <a style={styles.headerLink} href="/">
+                        <img alt="Logo" src={HEAD} style={styles.headerImg} />
                     </a>
                 </div>
                 <Switch>
@@ -126,8 +127,10 @@ const styles = {
     links: {
         justifyContent: "space-around",
         display: "flex",
+        flexWrap: "wrap",
         flex: 1,
-        height: "100%"
+        height: "100%",
+        padding: "5px 0"
     },
     link: {
         color: "white",
@@ -137,7 +140,7 @@ const styles = {
         verticalAlign: "middle",
         padding: 5,
         flex: 1,
-        fontSize: "1.85vh",
+        fontSize: "2.5vh",
         height: "100%"
     },
     headerImg: {
@@ -152,5 +155,9 @@ const styles = {
         display: "flex",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         justifyContent: "center"
+    },
+    headerLink: {
+        marginTop: "1vh",
+        maxWidth: "80%"
     }
 };

@@ -7,6 +7,7 @@ import local from '../local';
 import Modal from 'react-modal';
 import StripeCheckout from 'react-stripe-checkout';
 import BackgroundText from '../res/Platz4-6_Border.png';
+import { Spinner } from 'react-bootstrap';
 
 Modal.setAppElement('#root')
 
@@ -218,7 +219,7 @@ class Checkout extends Component {
             {loading && 
                 <div>
                     <div style={styles.loading} />
-                    <div style={styles.loadingText}>Payment in process. Please wait.</div>
+                    <Spinner style={styles.spinner} animation="border" />
                 </div>}
             <div ref={ref => this.main = ref} style={styles.payMain}>
                     <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
@@ -235,13 +236,13 @@ class Checkout extends Component {
                         }
                         <div style={{...styles.flexOne}}>
                             <div className="info-button"></div>
-                            <input value={name} onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? "0.5vh solid red": "1px solid grey"}}} maxLength="20" type="text" placeholder={local.name}/>
+                            <input value={name} onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? "0.5vh solid red": "1px solid lightgrey"}}} maxLength="20" type="text" placeholder={local.name}/>
                         </div>
                         <div style={{...styles.flexOne}}>
-                            <input onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? "0.5vh solid red": "1px solid grey"}}} maxLength={35} type="text" placeholder={local.email}/>
+                            <input onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? "0.5vh solid red": "1px solid lightgrey"}}} maxLength={35} type="text" placeholder={local.email}/>
                         </div>
                         <div style={{...styles.flexOne}}>
-                            <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? "0.5vh solid red": "1px solid grey"}}} maxLength={8} type="text" placeholder={local.amount}/>
+                            <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? "0.5vh solid red": "1px solid lightgrey"}}} maxLength={8} type="text" placeholder={local.amount}/>
                         </div>
                         <div style={{...styles.flexOne}}>
                             <input value={message} onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({ message: e.target.value })} style={styles.input} maxLength={35} type="text" placeholder={local.message}/>
@@ -260,10 +261,10 @@ class Checkout extends Component {
                         </div>}
                         <p style={styles.paymentlabel}>Zahlungsmethode</p>
                         <div style={{...styles.flexOne, ...styles.paymentMethods}}>
-                            <button onClick={(e) => this.selectPaymentMethod(e, "paypal")} style={{...styles.methodButton, ...{marginRight: "0.5%", borderWidth: method==="paypal" ? "0.85vh": 0}}}>
+                            <button onClick={(e) => this.selectPaymentMethod(e, "paypal")} style={{...styles.methodButton, ...{marginRight: "0.5%", borderWidth: method==="paypal" ? "0.85vh": 1, borderColor: method==="paypal" ? "#443dff": "lightgrey"}}}>
                                 <img alt="Logo1" src={PAYPAL} style={styles.payImg} />
                             </button>
-                            <button onClick={(e) => this.selectPaymentMethod(e, "stripe")} style={{...styles.methodButton, ...{marginLeft: "0.5%", borderWidth: method==="stripe" ? "0.85vh" : 0}}}>
+                            <button onClick={(e) => this.selectPaymentMethod(e, "stripe")} style={{...styles.methodButton, ...{marginLeft: "0.5%", borderWidth: method==="stripe" ? "0.85vh" : 1, borderColor: method==="stripe" ? "#443dff": "lightgrey"}}}>
                                 <img alt="Logo2" src={STRIPE} style={styles.payImg} />
                             </button>
                         </div>
@@ -310,7 +311,7 @@ class Checkout extends Component {
 const styles = {
     paymentlabel: {
         margin: 16,
-        color: "lightgray"
+        color: "lightgrey"
     },
     checkBox: {
         width: "10vh",
@@ -319,13 +320,13 @@ const styles = {
     iconStyle: {
         width: "5vh"
     },
-    loadingText: {
+    spinner: {
         color: "white",
-        zIndex: 1000000,
+        left: "44vw",
+        width: "12vw",
+        height: "12vw",
         position: "fixed",
         top: "30%",
-        width: "100%",
-        left: 0,
         textAlign: "center"
     },
     loading: {
@@ -360,7 +361,7 @@ const styles = {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-around",
-        borderTop: "1px solid grey",
+        borderTop: "1px solid lightgrey",
         alignItems: "center",
         backgroundColor: "black",
         paddingTop: 10,
@@ -378,7 +379,7 @@ const styles = {
         height: "20vh",
         overflow: "hidden",
         width: "20vh",
-        border: "0.5vh solid grey",
+        border: "0.5vh solid lightgrey",
         borderRadius: "50%"
     },
     link: {
@@ -406,9 +407,10 @@ const styles = {
         textAlign: "center",
         width: "49.5%",
         height: "10vh",
-        backgroundColor: "rgba(255, 255, 255, 0.2)",
+        backgroundColor: "black",
         border: "0px solid #443dff",
-        boxSizing: "border-box"
+        boxSizing: "border-box",
+        outline: 0,
     },
     payImg: {
         maxWidth: "100%",
@@ -434,7 +436,7 @@ const styles = {
     imageButton: {
         backgroundColor:" rgba(0, 0, 0, 0)",
         overflow: "hidden",
-        border: "4px solid grey",
+        border: "4px solid lightgrey",
         borderRadius: "100%",
         padding: 0,
         margin: "10px 0",
@@ -457,11 +459,12 @@ const styles = {
         width: "100%",
         height: "5vh",
         fontSize: "3vh",
-        border: "1px solid grey",
+        border: "1px solid lightgrey",
         color: "white",
         margin: "2% 0%",
         boxSizing: "border-box",
         backgroundColor: "black",
+        WebkitInputPlaceholder: "lightgrey"
     },
     payMore: {
         color: "red"

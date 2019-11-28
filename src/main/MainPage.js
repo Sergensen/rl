@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import local from '../local';
 import PLAYSTORE from '../res/playstore.png';
 import APPSTORE from '../res/appstore.png';
+import SCHRÄG from '../res/rl-schräg.png';
 import IPHONE from '../res/phone8.png';
 import PAYPAL from '../res/Paypal.png';
 import STRIPE from '../res/Stripe.png';
+import { Button, Card } from 'react-bootstrap';
 
 import BackgroundButton from '../res/InfoBackground.png';
-import BackgroundText from '../res/Platz4-6_Border.png';
 
 export default class MainPage extends Component {
     state = {
@@ -74,9 +75,8 @@ export default class MainPage extends Component {
                     <div id="hoverImg"  onClick={() => window.location="/pay"} style={styles.textBGCTN}>
                         <img ref={ref => this.width = ref}  onLoad={(e) => this.setWidth(e)} style={styles.textBG} src={BackgroundButton} />
                         <div style={{height: ctnHeight,...styles.insidePay}}>
-                            <div style={{marginTop: ctnHeight/9, ...styles.textCtn}}>
-                                <img style={styles.textImage} src={BackgroundText} />
-                                <a style={{marginTop: ctnHeight/12 , ...styles.text}} href="/pay">GET ON THE LIST</a>
+                            <div style={styles.buttonCtn}>
+                                <Button style={{...styles.text}} href="/pay">GET ON THE LIST</Button>
                             </div>
                             <div style={styles.paymentmethods}>
                                 <div />
@@ -146,12 +146,14 @@ const styles = {
     textBG: {
         width: "100%",
         height: "80%",
-        marginTop: "2vh"
     },
     textCtn: {
         height: "50%",
         display: "flex",
         justifyContent: "center"
+    },
+    buttonCtn: {
+        height: "50%"
     },
     text: {
         textDecoration: "none",
@@ -169,7 +171,6 @@ const styles = {
     },
     paymentmethods: {
         width: "100%",
-        position: "absolute",
         bottom: 0,
         display: "flex",
         alignItems: "center",
@@ -182,5 +183,7 @@ const styles = {
         position: "absolute",
         display: "flex",
         flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center"
     },
 }

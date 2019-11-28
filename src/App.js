@@ -15,6 +15,7 @@ import Success from './main/Success';
 import Validation from './main/Validation';
 import CookieConsent from "react-cookie-consent";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 
 import local from './local';
 
@@ -88,11 +89,35 @@ export default class App extends Component {
                     </Route>
                 </Switch>
                 {local && <div style={styles.footer}>
-                    <div style={styles.links} ref={ref => this.footer = ref}>
-                        <Link style={styles.link} to={local.toLegal}>{local.tos6}</Link>
-                        <Link style={styles.link} to={local.toTerms}>{local.tos7}</Link>
-                        <Link style={styles.link} to={local.toPrivacy}>{local.tos4}</Link>
-                    </div>
+                    <MDBFooter color="blue" className="font-small pt-4 mt-4">
+                        <MDBContainer fluid className="text-center text-md-left">
+                            <MDBRow>
+                            <MDBCol md="6">
+                                <h5 className="title">Support</h5>
+                                <p>{local.support}</p>
+                            </MDBCol>
+                            <MDBCol md="6">
+                                <h5 className="title">Links</h5>
+                                <ul style={styles.listcontainer}>
+                                <li>
+                                    <a target="_blank" style={styles.link} href={local.toLegal}>{local.tos6}</a>
+                                </li>
+                                <li>
+                                    <a target="_blank" style={styles.link} href={local.toTerms}>{local.tos7}</a>
+                                </li>
+                                <li>
+                                    <a target="_blank" style={styles.link} href={local.toPrivacy}>{local.tos4}</a>
+                                </li>
+                                </ul>
+                            </MDBCol>
+                            </MDBRow>
+                        </MDBContainer>
+                        <div className="footer-copyright text-center py-3">
+                            <MDBContainer fluid>
+                                &copy; {new Date().getFullYear()} Made with 💰by RichList
+                            </MDBContainer>
+                        </div>
+                    </MDBFooter>
                 </div>}
 
                 {local && <CookieConsent 
@@ -114,34 +139,17 @@ export default class App extends Component {
 const styles = {
     footer: {
         bottom: 0,
+        color: "lightgrey",
         left: 0,
         width: "100%",
         display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "center",
         borderTop: "1px solid grey",
-        position: "fixed",
-        alignItems: "center",
         backgroundColor: "black",
-    },
-    links: {
-        justifyContent: "space-around",
-        display: "flex",
-        flexWrap: "wrap",
-        flex: 1,
-        height: "100%",
-        padding: "5px 0"
     },
     link: {
         color: "white",
         fontFamily: "sans-serif",
-        textDecoration: "none",
-        textAlign: "center",
-        verticalAlign: "middle",
-        padding: 5,
-        flex: 1,
-        fontSize: "2.5vh",
-        height: "100%"
     },
     headerImg: {
         maxWidth: "900px",
@@ -153,11 +161,16 @@ const styles = {
         flex: 1,
         width: "100%",
         display: "flex",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        justifyContent: "center"
+        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        justifyContent: "center",
+        borderBottom: "1px solid rgba(99,99,99,0.5)",
+        boxShadow: "0 5px 10px -1px grey"
     },
     headerLink: {
         marginTop: "1vh",
         maxWidth: "80%"
+    },
+    listcontainer: {
+        textAlign: "left"
     }
 };

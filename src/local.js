@@ -33,7 +33,8 @@ module.exports = {
     cookies1: "To make Medium work, we log user data. By using Medium, you agree to our ",
     cookies2: ", including cookie policy.",
     buttonText: "I understand",
-    declineButtonText: "I decline"
+    declineButtonText: "I decline",
+    support: "If you have any questions about you payment, other payment methods or a collaboration, feel free to contact us via Email info(at)richlist.net."
   },
   de: {
     tos1: "Mit der Benutzung des bezahlen Buttons bestätigen Sie, dass Sie die",
@@ -69,6 +70,8 @@ module.exports = {
     cookies1: "Damit RichList funktioniert, loggen wir Nutzerdaten. Wenn du RichList benutzt, stimmst du unserer ",
     cookies2: ", inklusive unseren Cookierichtlinien zu.",
     buttonText: "Ich verstehe",
-    declineButtonText: "Ablehnen"
+    declineButtonText: "Ablehnen",
+    support: "Falls Sie Fragen zu Ihrer Zahlen, weiteren Zahlungsmethoden oder einer Kollaboration haben, schreiben Sie uns gerne eine Email an info(at)richlist.net."
+
   }
 };

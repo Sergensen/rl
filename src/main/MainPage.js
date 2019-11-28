@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import local from '../local';
-import PLAYSTORE from '../res/playstore.png';
-import APPSTORE from '../res/appstore.png';
 import SCHRÄG from '../res/rl-schräg.png';
-import IPHONE from '../res/phone8.png';
-import PAYPAL from '../res/Paypal.png';
-import STRIPE from '../res/Stripe.png';
-import { Button, Card } from 'react-bootstrap';
-
-import BackgroundButton from '../res/InfoBackground.png';
+import SCHRÄG2 from '../res/rl-teaser.png';
+import RLAPP from '../res/rl-app.png';
+import RLINSTA from '../res/rl-insta.png';
+import { Button, Card, Toast } from 'react-bootstrap';
+import {
+    BrowserView,
+    MobileView,
+    isBrowser,
+    isMobile
+  } from "react-device-detect";
 
 export default class MainPage extends Component {
     state = {
@@ -17,6 +18,7 @@ export default class MainPage extends Component {
         height: 50,
         width: 50,
         ctnHeight: 100,
+        show: false,
         time: Date.now()
     }
 
@@ -35,20 +37,10 @@ export default class MainPage extends Component {
             local: userLang==="de-DE" ? local.de : local.en,
             os
         });
-        
-        window.addEventListener('resize', this.resizeHandler.bind(this));
-    }
 
-    resizeHandler() {
-        const { time } = this.state;
-        if(time < Date.now()-100) {
-            this.setState({
-                time,
-                width: this.width.width,
-                ctnHeight: this.width.height,
-                height: this.height.height
-            });
-        }
+        setTimeout(() => {
+            this.setState({show: true})
+        }, 3000);
     }
 
     onClick() {
@@ -56,54 +48,71 @@ export default class MainPage extends Component {
         alert(os);
     }
 
-    setHeight(e) {
-        this.setState({height: e.target.height});
-    }
-
-    setWidth(e) {
-        this.setState({
-            width: e.target.width,
-            ctnHeight: e.target.height
-        });
-    }
-
     render() {
-        const { os, height, width,ctnHeight } = this.state;
+        const {show, os} = this.state;
         return (
             <div style={styles.main}>
+                {show && <Toast style={styles.toast} show={show} onClose={() => this.setState({show: false})}>
+                    <Toast.Header>
+                        <strong className="mr-auto">RichList</strong>
+                        <small>2 mins ago</small>
+                    </Toast.Header>
+                    <Toast.Body>RichList is currently the most popular app on the Appstore!</Toast.Body>
+                </Toast>}
                 <div style={styles.container}>
-                    <div id="hoverImg"  onClick={() => window.location="/pay"} style={styles.textBGCTN}>
-                        <img ref={ref => this.width = ref}  onLoad={(e) => this.setWidth(e)} style={styles.textBG} src={BackgroundButton} />
-                        <div style={{height: ctnHeight,...styles.insidePay}}>
-                            <div style={styles.buttonCtn}>
-                                <Button style={{...styles.text}} href="/pay">GET ON THE LIST</Button>
-                            </div>
-                            <div style={styles.paymentmethods}>
-                                <div />
-                                <div />
-                                <img alt="Logo1" src={PAYPAL} style={{width: width/4, ...styles.payImg}} />
-                                <img alt="Logo2" src={STRIPE}  style={{width: width/4, ...styles.payImg}} />
-                                <div />
-                                <div />
-                            </div>
-                        </div>
-                    </div>
-                    <div style={styles.imageContainerMain}>
-                        <div style={{...styles.imageContainer, marginTop: height/3}}>
-                            <img onClick={() => this.onClick()} style={styles.image} src={PLAYSTORE} />
-                            <br />
-                            <img onClick={() => this.onClick()} style={styles.image} src={APPSTORE} />
-                        </div>
-                        <img ref={ref => this.height = ref} onLoad={(e) => this.setHeight(e)} style={styles.phone} src={IPHONE} />
-                    </div>
+                    <Card style={styles.mobileCard}>
+                        <Card.Img variant="top" src={SCHRÄG2} />
+                        <Card.Body>
+                            <Card.Title>Get on the list!</Card.Title>
+                            <Card.Text style={{fontSize: 15}}>
+                                Choose a username and upload a picture to become a RichList member!
+                            </Card.Text>
+                            <Button href="/pay" variant="primary">Checkout</Button>
+                        </Card.Body>
+                    </Card>
+                    <Card style={isMobile ? styles.mobileCard : styles.card}>
+                        <Card.Img variant="top" src={RLAPP} />
+                        <Card.Body>
+                            <Card.Title>Download the app!</Card.Title>
+                            <Card.Text style={{fontSize: 15}}>
+                                Download the app to check who is on the RichList!
+                            </Card.Text>
+                            <Button onClick={() => this.onClick()} variant="primary">Info</Button>
+                        </Card.Body>
+                    </Card>
+                    <Card style={isMobile ? styles.mobileCard : styles.card}>
+                        <Card.Img variant="top" src={RLINSTA} />
+                        <Card.Body>
+                            <Card.Title>Stay up to date!</Card.Title>
+                            <Card.Text style={{fontSize: 15}}>
+                                Follow us on Instagram!
+                            </Card.Text>
+                            <Button target="_blank" href="https://www.instagram.com/richlistapp/" variant="primary">Instagram</Button>
+                        </Card.Body>
+                    </Card>
                 </div>
             </div>
         );
     }
 }
 
-
 const styles = {
+    card: { 
+        minWidth: 300,
+        width: "48%", 
+        margin: "1%",
+     },
+     mobileCard: {
+        minWidth: 300,
+        width: "96%", 
+        margin: "2%",
+     },
+    toast: {
+        position: "fixed",
+        top: 0,
+        right: 0,
+        height: 100
+    },
     textImage: {
         height: "40%",
         position: "absolute",
@@ -114,20 +123,24 @@ const styles = {
         display: "flex",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         justifyContent: "center",
-        minHeight: "100vh"
 
     },
     imageContainerMain: {
         flex: 1
     },
     container: {
+        flexWrap: "wrap",
         display: "flex",
         flex: 1,
         fontSize: "3vh",
         width: "100%",
         maxWidth: 900,
         justifyContent: "center",
-        flexDirection: "column",
+        flexDirection: "row",
+        marginBottom: "10vh",
+        marginTop: "2vh",
+        paddingLeft: "1vw",
+        paddingRight: "1vw",
     },
     imageContainer: {
         maxWidth: 900,

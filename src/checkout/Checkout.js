@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import API from '../api';
 import PAYPAL from '../res/Paypal.png';
 import STRIPE from '../res/Stripe.png';
+import INFOICON from '../res/info-button.png';
 import CameraIcon from '../res/camera.png';
 import local from '../local';
 import Modal from 'react-modal';
 import StripeCheckout from 'react-stripe-checkout';
 import BackgroundText from '../res/Platz4-6_Border.png';
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Image, Popover, OverlayTrigger } from 'react-bootstrap';
 
 Modal.setAppElement('#root')
 
@@ -185,7 +186,6 @@ class Checkout extends Component {
       return string.replace(regex, '')
     }
 
-
     setAmount(e) {
         const reg = new RegExp('^[0-9]*$');
         let amount = "" + e.target.value;
@@ -213,7 +213,17 @@ class Checkout extends Component {
 
     render() {
         const { height, width, paid, loading, name, amount, mail, message, instagram, twitter, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
+        
+        const popover = (
+            <Popover id="popover-basic">
+              <Popover.Title as="h3">{local.paymentKey}</Popover.Title>
+              <Popover.Content>
+                {local.paymentInfo}
+              </Popover.Content>
+            </Popover>
+          );
 
+          
         return (
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
             {loading && 
@@ -257,9 +267,12 @@ class Checkout extends Component {
                             <input value={twitter} onChange={e => /^$|[0-9A-Za-z_]{1,15}/.test(e.target.value)&& !/[\/]/.test(e.target.value)  && this.setState({ twitter: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.twitter}/>
                         </div>
                         {!paid && <div style={{...styles.flexOne}}>
+                            <OverlayTrigger placement="left" overlay={popover}>
+                                <Image style={styles.infoIcon} src={INFOICON} roundedCircle />
+                            </OverlayTrigger>
                             <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setState({ uniqueKey: e.target.value })} style={styles.input} maxLength={16} type="text" placeholder={local.uniqueKey}/>
                         </div>}
-                        <p style={styles.paymentlabel}>Zahlungsmethode</p>
+                        <p style={styles.paymentlabel}>{local.method}</p>
                         <div style={{...styles.flexOne, ...styles.paymentMethods}}>
                             <button onClick={(e) => this.selectPaymentMethod(e, "paypal")} style={{...styles.methodButton, ...{marginRight: "0.5%", borderWidth: method==="paypal" ? "0.85vh": 1, borderColor: method==="paypal" ? "#443dff": "lightgrey"}}}>
                                 <img alt="Logo1" src={PAYPAL} style={styles.payImg} />
@@ -316,6 +329,11 @@ const styles = {
     checkBox: {
         width: "10vh",
         height: "10vh",
+    },
+    infoIcon: {
+        width: "6%",
+        position: "absolute",
+        right: "7.5%"
     },
     iconStyle: {
         width: "5vh"
@@ -444,6 +462,7 @@ const styles = {
         justifyContent: "center"
     },
     flexOne: {
+        position: "relative",
         flex: 1,
         width: "100%",
         textAlign: "center",

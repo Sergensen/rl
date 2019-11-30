@@ -19,9 +19,12 @@ const styles = {
     container: {
         display: "flex",
         justifyContent: "center",
+        height: "90vh",
     },
     success: {
         maxWidth: 900,
-        flex: 1
+        flex: 1,
+        paddingLeft: 10,
+        paddingRight: 10,
     }
 }

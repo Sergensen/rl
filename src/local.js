@@ -34,7 +34,10 @@ module.exports = {
     cookies2: ", including cookie policy.",
     buttonText: "I understand",
     declineButtonText: "I decline",
-    support: "If you have any questions about you payment, other payment methods or a collaboration, feel free to contact us via Email info(at)richlist.net."
+    support: "If you have any questions about you payment, other payment methods or a collaboration, feel free to contact us via Email info(at)richlist.net.",
+    method: "Payment method",
+    paymentkey: "Payment key",
+    paymentInfo: "After your first payment you will receive an unique payment key which you can provide in your next payment to accumulate your payments."
   },
   de: {
     tos1: "Mit der Benutzung des bezahlen Buttons bestätigen Sie, dass Sie die",
@@ -71,7 +74,9 @@ module.exports = {
     cookies2: ", inklusive unseren Cookierichtlinien zu.",
     buttonText: "Ich verstehe",
     declineButtonText: "Ablehnen",
-    support: "Falls Sie Fragen zu Ihrer Zahlen, weiteren Zahlungsmethoden oder einer Kollaboration haben, schreiben Sie uns gerne eine Email an info(at)richlist.net."
-
+    support: "Falls Sie Fragen zu Ihrer Zahlung, weiteren Zahlungsmethoden oder einer Kollaboration haben, schreiben Sie uns gerne eine Email an info(at)richlist.net.",
+    method: "Zahlungsmethode",
+    paymentKey: "Zahlungsschlüssel",
+    paymentInfo: "Nach Ihrer ersten Zahlung erhalten Sie einen individuellen Zahlungsschlüssel, den Sie bei Ihrer nächsten Zahlung angeben können, um Ihre Zahlungen zu summieren."
   }
 };

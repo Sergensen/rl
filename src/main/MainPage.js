@@ -57,7 +57,7 @@ export default class MainPage extends Component {
                         <strong className="mr-auto">RichList</strong>
                         <small>2 mins ago</small>
                     </Toast.Header>
-                    <Toast.Body>RichList is currently the most popular app on the Appstore!</Toast.Body>
+                    <Toast.Body>RichList is currently the #1 trending app in the App Store!</Toast.Body>
                 </Toast>}
                 <div style={styles.container}>
                     <Card style={styles.mobileCard}>
@@ -99,8 +99,8 @@ export default class MainPage extends Component {
 const styles = {
     card: { 
         minWidth: 300,
-        width: "48%", 
-        margin: "1%",
+        width: "46%", 
+        margin: "2%",
      },
      mobileCard: {
         minWidth: 300,

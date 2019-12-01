@@ -9,6 +9,7 @@ import Modal from 'react-modal';
 import StripeCheckout from 'react-stripe-checkout';
 import BackgroundText from '../res/Platz4-6_Border.png';
 import { Spinner, Image, Popover, OverlayTrigger } from 'react-bootstrap';
+import loadImage from 'blueimp-load-image';
 
 Modal.setAppElement('#root')
 
@@ -193,12 +194,33 @@ class Checkout extends Component {
         if (reg.test(amount)) this.setState({ amount: parseInt(amount, 10) });
     }
 
-    fileChangedHandler(e) {
+    async fileChangedHandler(e) {
         let image = e.target.files[0]
         if(image) {
-            image.src = URL.createObjectURL(image);
-            this.setState({image})
+            const img = await this.fixImage(image);
+            this.setState({image: img});
         }
+    }
+
+    fixImage(image) {
+        return new Promise((resolve, reject) => {
+            loadImage.parseMetaData(image, function(data) {
+                let orientation = 0;
+                if (data.exif) orientation = data.exif.get('Orientation');
+                const newImage = loadImage(
+                    image,
+                    function(canvas) {
+                        let base64data = canvas.toDataURL('image/jpeg');
+                        let img_src = base64data.replace(/^data\:image\/\w+\;base64\,/, '');
+                        image.src = base64data;
+                        resolve(image);
+                    }, {
+                        canvas: true,
+                        orientation: orientation
+                    }
+                );
+            });
+        });
     }
 
     onLoad() {
@@ -246,13 +268,13 @@ class Checkout extends Component {
                         }
                         <div style={{...styles.flexOne}}>
                             <div className="info-button"></div>
-                            <input value={name} onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? "0.5vh solid red": "1px solid lightgrey"}}} maxLength="20" type="text" placeholder={local.name}/>
+                            <input value={name} onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? window.innerHeight*0.005+"px solid red": "1px solid lightgrey"}}} maxLength="20" type="text" placeholder={local.name}/>
                         </div>
                         <div style={{...styles.flexOne}}>
-                            <input onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? "0.5vh solid red": "1px solid lightgrey"}}} maxLength={35} type="text" placeholder={local.email}/>
+                            <input onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? window.innerHeight*0.005+"px solid red": "1px solid lightgrey"}}} maxLength={35} type="text" placeholder={local.email}/>
                         </div>
                         <div style={{...styles.flexOne}}>
-                            <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? "0.5vh solid red": "1px solid lightgrey"}}} maxLength={8} type="text" placeholder={local.amount}/>
+                            <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? window.innerHeight*0.005+"px solid red": "1px solid lightgrey"}}} maxLength={8} type="text" placeholder={local.amount}/>
                         </div>
                         <div style={{...styles.flexOne}}>
                             <input value={message} onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({ message: e.target.value })} style={styles.input} maxLength={35} type="text" placeholder={local.message}/>
@@ -274,10 +296,10 @@ class Checkout extends Component {
                         </div>}
                         <p style={styles.paymentlabel}>{local.method}</p>
                         <div style={{...styles.flexOne, ...styles.paymentMethods}}>
-                            <button onClick={(e) => this.selectPaymentMethod(e, "paypal")} style={{...styles.methodButton, ...{marginRight: "0.5%", borderWidth: method==="paypal" ? "0.85vh": 1, borderColor: method==="paypal" ? "#443dff": "lightgrey"}}}>
+                            <button onClick={(e) => this.selectPaymentMethod(e, "paypal")} style={{...styles.methodButton, ...{marginRight: "0.5%", borderWidth: method==="paypal" ? window.innerHeight*0.0085: 1, borderColor: method==="paypal" ? "#443dff": "lightgrey"}}}>
                                 <img alt="Logo1" src={PAYPAL} style={styles.payImg} />
                             </button>
-                            <button onClick={(e) => this.selectPaymentMethod(e, "stripe")} style={{...styles.methodButton, ...{marginLeft: "0.5%", borderWidth: method==="stripe" ? "0.85vh" : 1, borderColor: method==="stripe" ? "#443dff": "lightgrey"}}}>
+                            <button onClick={(e) => this.selectPaymentMethod(e, "stripe")} style={{...styles.methodButton, ...{marginLeft: "0.5%", borderWidth: method==="stripe" ? window.innerHeight*0.0085 : 1, borderColor: method==="stripe" ? "#443dff": "lightgrey"}}}>
                                 <img alt="Logo2" src={STRIPE} style={styles.payImg} />
                             </button>
                         </div>
@@ -327,8 +349,8 @@ const styles = {
         color: "lightgrey"
     },
     checkBox: {
-        width: "10vh",
-        height: "10vh",
+        width: window.innerHeight*0.1,
+        height: window.innerHeight*0.1
     },
     infoIcon: {
         width: "6%",
@@ -336,13 +358,13 @@ const styles = {
         right: "7.5%"
     },
     iconStyle: {
-        width: "5vh"
+        width: window.innerHeight*0.05
     },
     spinner: {
         color: "white",
         left: "44vw",
         width: "12vw",
-        height: "12vw",
+        height: window.innerHeight*0.12,
         position: "fixed",
         top: "30%",
         textAlign: "center"
@@ -356,14 +378,14 @@ const styles = {
         backgroundColor: "rgba(0,0,0,0.75)"
     },
     image: {
-        height: "22vh",
+        height: window.innerHeight*0.22,
         margin: 0
     },
     cropButton: {
         width: "50%",
         backgroundColor: "blue",
         color: "white",
-        height: "3vh",
+        height: window.innerHeight*0.03,
         position: "absolute",
         zIndex: 1000,
         bottom: 0
@@ -394,10 +416,11 @@ const styles = {
     imageContainer: {
         margin: "10px 0",
         backgroundColor: "rgba(0, 0, 0, 0)",
-        height: "20vh",
+        height: window.innerHeight*0.2,
         overflow: "hidden",
-        width: "20vh",
-        border: "0.5vh solid lightgrey",
+        width: window.innerHeight*0.2,
+        border: "1px solid lightgrey",
+        borderWidth: window.innerHeight*0.005,
         borderRadius: "50%"
     },
     link: {
@@ -408,7 +431,7 @@ const styles = {
         verticalAlign: "middle",
         padding: 10,
         flex: 1,
-        fontSize: "2.5vh",
+        fontSize: window.innerHeight*0.025,
         height: "100%"
     },
     payContainer:{
@@ -424,7 +447,7 @@ const styles = {
     methodButton: {
         textAlign: "center",
         width: "49.5%",
-        height: "10vh",
+        height: window.innerHeight*0.1,
         backgroundColor: "black",
         border: "0px solid #443dff",
         boxSizing: "border-box",
@@ -448,8 +471,9 @@ const styles = {
         width: "100%",
         backgroundColor: "black",
         color: "white",
-        margin: "2vh 0",
-        fontSize: "2.5vh"
+        marginBottom: window.innerHeight*0.02,
+        marginTop: window.innerHeight*0.02,
+        fontSize: window.innerHeight*0.025,
     },
     imageButton: {
         backgroundColor:" rgba(0, 0, 0, 0)",
@@ -471,13 +495,14 @@ const styles = {
     },
     paymentText: {
         color: "white",
-        fontSize: "3vh",
+        fontSize: window.innerHeight*0.03,
+        
     },
     input: {
         textAlign: "center",
         width: "100%",
-        height: "5vh",
-        fontSize: "3vh",
+        height: window.innerHeight*0.06,
+        fontSize: window.innerHeight*0.03,
         border: "1px solid lightgrey",
         color: "white",
         margin: "2% 0%",
@@ -491,8 +516,8 @@ const styles = {
     submit: {
         textAlign: "center",
         width: "100%",
-        height: "5vh",
-        fontSize: "3vh",
+        height: window.innerHeight*0.05,
+        fontSize: window.innerHeight*0.03,
         backgroundColor: "blue",
         color: "white",
         border: "0px solid white",

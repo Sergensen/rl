@@ -101,11 +101,15 @@ const styles = {
         minWidth: 300,
         width: "46%", 
         margin: "2%",
+        backgroundColor: "black",
+        color: "white"
      },
      mobileCard: {
         minWidth: 300,
         width: "96%", 
         margin: "2%",
+        backgroundColor: "black",
+        color: "white"
      },
     toast: {
         position: "fixed",

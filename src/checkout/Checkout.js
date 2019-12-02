@@ -363,11 +363,12 @@ const styles = {
     spinner: {
         color: "white",
         left: "44vw",
-        width: "12vw",
-        height: window.innerHeight*0.12,
+        width: window.innerWidth*0.12,
+        height: window.innerWidth*0.12,
         position: "fixed",
         top: "30%",
-        textAlign: "center"
+        textAlign: "center",
+        zIndex: 1000
     },
     loading: {
         position: "fixed",

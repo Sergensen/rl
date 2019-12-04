@@ -6,7 +6,7 @@ export default class Legal extends Component {
             <div className="container">
                 <div className="termctn">
                     <p className="legal language">
-                        Die deutsche Version finden Sie <a className="linkcolor" href="impressum">hier</a>
+                        <a className="linkcolor" href="impressum">Die deutsche Version finden Sie hier</a>
                     </p>
                     <p className="header">Legal notice</p>
 

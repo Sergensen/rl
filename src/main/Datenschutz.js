@@ -5,7 +5,7 @@ export default class Datenschutz extends React.Component {
         return (
             <div className="container">
                 <div className="termctn">
-                    <p className="terms language">For the English privacy notices click <a className="linkcolor" href="privacy">here</a>. </p>
+                    <p className="terms language"><a className="linkcolor" href="privacy">For the English privacy notices click here.</a> </p>
                     <p className="header">Datenschutzerklärung der Richlist-App</p>
                         
                     <p className="terms">

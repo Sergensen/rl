@@ -7,7 +7,7 @@ export default class Success extends Component {
                 <div style={styles.success} className="specialbody">
                     <h1 id="paytext">Payment successful, check your Email inbox!</h1> <br />
                     <h1 id="paytext">Download the app and check your rank!</h1> <br />
-                    <a href="pay" id="paytext">Or go back</a>
+                    <a href="pay" id="paytext" class="link">Or go back</a>
                 </div>
             </div>
             

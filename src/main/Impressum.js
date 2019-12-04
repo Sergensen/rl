@@ -6,7 +6,7 @@ export default class Impressum extends Component {
             <div className="container">
                 <div className="termctn">
                     <p className="legal language">
-                        You can find the English version <a className="linkcolor" href="legal">here</a>
+                        <a className="linkcolor" href="legal"> You can find the English version here</a>
                     </p>
                     <p className="header">Impressum</p>
                     <p id="english" className="legal">

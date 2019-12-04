@@ -6,7 +6,7 @@ export default class Widerruf extends Component {
             <div className="container">
             <div className="termctn">
                 <p className="legal language">
-                    You can find the English version <a className="linkcolor" href="withdraw">here</a>
+                    <a className="linkcolor" href="withdraw">You can find the English version here</a>
                 </p>
                 <p className="header">
                     Widerrufsbelehrung (Nur Staatsangehörige von EU Ländern)

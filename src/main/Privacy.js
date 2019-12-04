@@ -5,7 +5,7 @@ export default class Privacy extends Component {
         return (
             <div className="container">
                 <div className="termctn">
-                    <p className="terms language">Die deutsche Datenschutzerklärung finden Sie <a className="linkcolor" href="datenschutz">hier</a>.</p>
+                    <p className="terms language"><a className="linkcolor" href="datenschutz">Die deutsche Datenschutzerklärung finden Sie hier</a>.</p>
                     <p className="header">Data protection declaration for RICHLIST’s App</p> 
 
                     <p className="terms">

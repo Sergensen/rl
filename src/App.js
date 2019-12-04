@@ -66,12 +66,6 @@ export default class App extends Component {
                     <Route path="/success">
                         <Success />
                     </Route>
-                    <Route path="/withdraw">
-                        <Withdraw />
-                    </Route>
-                    <Route path="/widerruf">
-                        <Widerruf /> 
-                    </Route>
                     <Route path="/terms">
                         <Terms />
                     </Route>

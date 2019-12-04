@@ -5,8 +5,8 @@ export default class Terms extends Component {
         return (
             <div className="container">
                 <div className="termctn">
-                    <p className="legal language">
-                        Die deutsche Version finden Sie <a className="linkcolor" href="agb">hier</a>
+                    <p className="terms language">
+                    <a className="linkcolor" href="agb">Die deutsche Version finden Sie hier</a>
                     </p>
                     <br />
                     <p className="header">

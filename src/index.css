@@ -204,6 +204,7 @@ input:focus {
 
 .linkcolor {
   color: white;
+  text-decoration: underline;
 }
 
 
@@ -273,4 +274,8 @@ input{
 }
 :-moz-placeholder { /* Firefox 18- */
   color: lightgrey;
+}
+
+.link{
+  text-decoration: underline;
 }

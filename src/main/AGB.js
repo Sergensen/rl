@@ -5,8 +5,8 @@ export default class AGB extends Component {
         return (
             <div className="container">
                 <div className="termctn">
-                    <p className="legal language">
-                            You can find the English version <a className="linkcolor" href="terms">here</a>
+                    <p className="terms language">
+                            <a className="linkcolor" href="terms">You can find the English version here.</a>
                     </p>
                     <br />
                     <p className="header">

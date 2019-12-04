@@ -6,7 +6,7 @@ export default class Widerruf extends Component {
             <div className="container">
             <div className="termctn">
                 <p className="legal language">
-                        Die deutsche Version finden Sie <a className="linkcolor" href="widerruf">hier</a>
+                        <a className="linkcolor" href="widerruf">Die deutsche Version finden Sie hier</a>
                     </p>
                     <p className="header">
                             Right of Cancellation (EU Members only)

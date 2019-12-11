@@ -23,7 +23,7 @@ export default class Legal extends Component {
                         E-Mail: info(at)richlist.net<br />
                         Due to the small settlement of the USTG (Sales tax law) section 19 par. 1 sales tax is not calculated.<br /><br />
 
-                        <h2>dispute settlement</h2>
+                        <h2>Dispute settlement</h2>
                         <p>The European Commission provides a platform for online dispute resolution (OS): <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr</a><br />
                             You can find our e-mail address in the imprint above.</p>
                         <p>We are not prepared or obliged to participate in dispute resolution proceedings before a consumer arbitration board.</p>

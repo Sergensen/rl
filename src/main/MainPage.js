@@ -101,6 +101,7 @@ const styles = {
         minWidth: 300,
         width: "46%", 
         margin: "2%",
+        borderColor: "darkgrey",
         backgroundColor: "black",
         color: "white"
      },
@@ -109,6 +110,7 @@ const styles = {
         width: "96%", 
         margin: "2%",
         backgroundColor: "black",
+        borderColor: "darkgrey",
         color: "white"
      },
     toast: {

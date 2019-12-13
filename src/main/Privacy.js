@@ -29,12 +29,12 @@ export default class Privacy extends Component {
                         <br />– User name (pseudonym)
                         <br />– E-mail address
                         <br />– Password
-                        <br />– Instagram-, Twitter- and Snapchat-Account
+                        <br />– Instagram-, Twitter- , Tiktok- and Snapchat-Account
                         <br />– Paid amount
                         <br />6.2 If you make in-app purchases through RICHLIST, this will be done through external payment providers. We do not collect and process any payment data. Payment data is entered and processed directly by the payment providers. Only technical data (including the transaction ID) is exchanged between us and the payment providers to validate the purchases.
                         <br />6.3 Third parties can only see the following information from the mandatory data provided during registration in the user’s “profile”:
                         <br />– Username
-                        <br />– Instagram-, Twitter- and Snapchat-Account
+                        <br />– Instagram-, Twitter- , Tiktok- and Snapchat-Account
                         <br />– Paid amount
                         <br />All other mandatory information (date of birth, e-mail address, password, postcode) cannot be viewed by third parties.
                         <br />7. Voluntary information
@@ -43,6 +43,7 @@ export default class Privacy extends Component {
                         <br />– Textmessage
                         <br />– Instagramname
                         <br />– Snapchatname
+                        <br />– Tiktokname
                         <br />7.2 The Member may also provide free descriptions of him/herself and any likes or dislikes, upload photos, etc.
                         <br />8. Intended purpose
                         <br />The purpose of collecting, storing, processing and using the personal data mentioned in the above paragraphs is to enable the operation and maintenance and improvement of RICHLIST’s online services.
@@ -111,7 +112,12 @@ export default class Privacy extends Component {
                         <br />20. Data Protection Officer
                         <br />We are also at your disposal in case of requests for information, applications or complaints:
                         <br />E-Mail: info(at)richlist.net
-                        <br />21. Contact details of the person responsible:
+                        <br />21. Google Vision AI
+                        <br />This page uses the image recognition service Google Vision AI via an API. Provider is Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA.
+                        <br />To use the Vision AI features, it is necessary to save your uploaded image when purchasing. This information is usually transferred to a Google server in the USA and stored there. The provider of this site has no influence on this data transfer.
+                        <br />Vision AI is used to automatically block inappropriate content that is displayed in the RichList app offered by us. This constitutes a legitimate interest within the meaning of the Apple App Store and Google Play Store guidelines.
+                        <br />You can find more information about the handling of user data in Google's privacy policy: https://www.google.de/intl/de/policies/privacy/.
+                        <br />22. Contact details of the person responsible:
                         <br />info(at)richlist.net                    
                     </p>
                     <br />
@@ -195,12 +201,12 @@ export default class Privacy extends Component {
                         <br />– User name (pseudonym)
                         <br />– E-mail address
                         <br />– Password
-                        <br />– Instagram-, Twitter- and Snapchat-Account
+                        <br />– Instagram-, Twitter-, Tiktok- and Snapchat-Account
                         <br />– Paid amount
                         <br />13.2 If you make in-app purchases through RICHLIST, this will be done through external payment providers. We do not collect and process any payment data. Payment data is entered and processed directly by the payment providers. Only technical data (including the transaction ID) is exchanged between us and the payment providers to validate the purchases.
                         <br />13.3 Third parties can only see the following information from the mandatory data provided during registration in the user’s “profile”:
                         <br />– Username
-                        <br />– Instagram-, Twitter- and Snapchat-Account
+                        <br />– Instagram-, Twitter-, Tiktok- and Snapchat-Account
                         <br />– Paid amount
                         <br />All other mandatory information (date of birth, e-mail address, password, postcode) cannot be viewed by third parties.
                         <br />14. Voluntary information
@@ -209,7 +215,13 @@ export default class Privacy extends Component {
                         <br />– Textmessage
                         <br />– Instagramname
                         <br />– Snapchatname
-                        <br />15. Data protection officer
+                        <br />– Tiktokname
+                        <br />15. Google Vision AI
+                        <br />This page uses the image recognition service Google Vision AI via an API. Provider is Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA.
+                        <br />To use the Vision AI features, it is necessary to save your uploaded image when purchasing. This information is usually transferred to a Google server in the USA and stored there. The provider of this site has no influence on this data transfer.
+                        <br />Vision AI is used to automatically block inappropriate content that is displayed in the RichList app offered by us. This constitutes a legitimate interest within the meaning of the Apple App Store and Google Play Store guidelines.
+                        <br />You can find more information about the handling of user data in Google's privacy policy: https://www.google.de/intl/de/policies/privacy/.
+                        <br />16. Data protection officer
                         <br />We are also at your disposal in case of requests for information, applications or complaints:
                         <br />E-Mail: info(at)richlist.net
                         <br />Contact details of the person responsible:

@@ -94,13 +94,13 @@ export default class App extends Component {
                                 <h5 className="title">Links</h5>
                                 <ul style={styles.listcontainer}>
                                 <li>
-                                    <a target="_blank" style={styles.link} href={local.toLegal}>{local.tos6}</a>
+                                    <a style={styles.link} href={local.toLegal}>{local.tos6}</a>
                                 </li>
                                 <li>
-                                    <a target="_blank" style={styles.link} href={local.toTerms}>{local.tos7}</a>
+                                    <a style={styles.link} href={local.toTerms}>{local.tos7}</a>
                                 </li>
                                 <li>
-                                    <a target="_blank" style={styles.link} href={local.toPrivacy}>{local.tos4}</a>
+                                    <a style={styles.link} href={local.toPrivacy}>{local.tos4}</a>
                                 </li>
                                 </ul>
                             </MDBCol>

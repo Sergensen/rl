@@ -72,7 +72,7 @@ export default class Datenschutz extends React.Component {
                         <br />11.2 Wenn Sie In-App-Käufe über RICHLIST tätigen, geschieht dies über externe Zahlungsanbieter. Wir erheben und verarbeiten dabei keine Zahlungsdaten. Die Eingabe sowie Verarbeitung der Zahlungsdaten erfolgt direkt bei den Zahlungsanbietern. Zwischen uns und den Zahlungsanbietern werden lediglich technische Daten (u.a. die Transaktion ID) zur Validierung der Käufe ausgetauscht.
                         <br />11.3 Dritte können von den zwingend bei der Bezahlung angegebenen Daten nur folgende Angaben im “Profil” des Nutzers sehen:
                         <br />– Benutzername
-                        <br />– Instagram-, Twitter- und Snapchat-Account
+                        <br />– Instagram-, Twitter-, Tiktok- und Snapchat-Account
                         <br />– Bezahlter Betrag
                         <br />Alle weiteren Pflichtangaben (Geburtsdatum, E-Mail-Adresse, Passwort, PLZ) sind für Dritte nicht einsehbar.
                         <br />12. Freiwillige Angaben
@@ -81,6 +81,7 @@ export default class Datenschutz extends React.Component {
                         <br />– Instagramname
                         <br />– Nachrichtentext
                         <br />– Snapchatname
+                        <br />– Tiktokname
                         <br />13. In-Game-Käufe 
                         <br />In-Game Käufe werden in der Regel von dem jeweiligen Plattformanbieter (z.B. Apple oder Google) abgewickelt, und wir werden Ihre Finanzdaten, z.B. Ihre Kreditkartennummern oder Ihr Bankkonto, nicht erheben oder speichern. Wir können jedoch Ihre nicht-finanziellen personenbezogenen Daten im Zusammenhang mit dem Kauf erhalten, wie z.B. Ihren Namen, Ihre Rechnungsadresse, Ihre E-Mail-Adresse und die gekauften Artikel, um Ihren Kauf abzuwickeln und für unsere Buchhaltungszwecke.
                         <br />14. Cookies und Tracking-Technologien
@@ -103,7 +104,13 @@ export default class Datenschutz extends React.Component {
                         <br />17. Datenschutzbeauftragte
                         <br />Wir stehen Ihnen auch im Falle von Auskunftsersuchen, Anträgen oder Beschwerden zur Verfügung:
                         <br />E-Mail: info(at)richlist.net
-                        <br />18. Kontaktdaten des Verantwortlichen:
+                        <br />18. Google Vision AI
+                        <br />Diese Seite nutzt über eine API den Bilderkennungsdienst Google Vision AI. Anbieter ist die Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA.
+                        <br />Zur Nutzung der Funktionen von Vision AI ist es notwendig, beim Kauf ihr hochgeladenes Bild zu speichern. Diese Informationen werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Der Anbieter dieser Seite hat keinen Einfluss auf diese Datenübertragung.
+                        <br />Die Nutzung von Vision AI erfolgt im Interesse einer automatischen Blockierung von unangemessenen Inhalten, welche in der von uns angebotenen App RichList angezeigt werden. Dies stellt ein berechtigtes Interesse im Sinne der Richlinien des App Stores von Apple und des Play Stores von Google da.
+                        <br />Mehr Informationen zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von Google: https://www.google.de/intl/de/policies/privacy/.
+
+                        <br />19. Kontaktdaten des Verantwortlichen:
                         <br />info(at)richlist.net
                     </p>
                     <p className="header">Datenschutzerklärung der Richlist-Webseite</p>
@@ -128,12 +135,12 @@ export default class Datenschutz extends React.Component {
                         <br />– Benutzername (Pseudonym)
                         <br />– E-Mail-Adresse
                         <br />– Passwort
-                        <br />– Instagram-, Twitter- und Snapchat-Account
+                        <br />– Instagram-, Twitter-, Tiktok- und Snapchat-Account
                         <br />– Bezahlter Betrag
                         <br />6.2 Wenn Sie In-App-Käufe über RICHLIST tätigen, geschieht dies über externe Zahlungsanbieter. Wir erheben und verarbeiten dabei keine Zahlungsdaten. Die Eingabe sowie Verarbeitung der Zahlungsdaten erfolgt direkt bei den Zahlungsanbietern. Zwischen uns und den Zahlungsanbietern werden lediglich technische Daten (u.a. die Transaktion ID) zur Validierung der Käufe ausgetauscht.
                         <br />6.3 Dritte können von den zwingend bei der Bezahlung angegebenen Daten nur folgende Angaben im “Profil” des Nutzers sehen:
                         <br />– Benutzername
-                        <br />– Instagram-, Twitter- und Snapchat-Account
+                        <br />– Instagram-, Twitter-, Tiktok- und Snapchat-Account
                         <br />– Bezahlter Betrag
                         <br />Alle weiteren Pflichtangaben (Geburtsdatum, E-Mail-Adresse, Passwort, PLZ) sind für Dritte nicht einsehbar.
                         <br />7. Freiwillige Angaben
@@ -142,6 +149,7 @@ export default class Datenschutz extends React.Component {
                         <br />– Instagramname
                         <br />– Nachrichtentext
                         <br />– Snapchatname
+                        <br />– Tiktokname
                         <br />8. Zweckbestimmung
                         <br />Zweck der Erhebung, Speicherung, Verarbeitung und Nutzung der in den vorstehenden Ziffern genannten personenbezogenen Daten ist die Ermöglichung des Betriebes und der Aufrechterhaltung und Verbesserung des Online-Angebots von RICHLIST.
                         <br />9. Kontakt
@@ -216,7 +224,12 @@ export default class Datenschutz extends React.Component {
                         <br />21. Datenschutzbeauftragte
                         <br />Wir stehen Ihnen auch im Falle von Auskunftsersuchen, Anträgen oder Beschwerden zur Verfügung:
                         <br />E-Mail: info(at)richlist.net 
-                        <br />22. Kontaktdaten des Verantwortlichen:
+                        <br />22. Google Vision AI
+                        <br />Diese Seite nutzt über eine API den Bilderkennungsdienst Google Vision AI. Anbieter ist die Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA.
+                        <br />Zur Nutzung der Funktionen von Vision AI ist es notwendig, beim Kauf ihr hochgeladenes Bild zu speichern. Diese Informationen werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Der Anbieter dieser Seite hat keinen Einfluss auf diese Datenübertragung.
+                        <br />Die Nutzung von Vision AI erfolgt im Interesse einer automatischen Blockierung von unangemessenen Inhalten, welche in der von uns angebotenen App RichList angezeigt werden. Dies stellt ein berechtigtes Interesse im Sinne der Richlinien des App Stores von Apple und des Play Stores von Google da.
+                        <br />Mehr Informationen zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von Google: https://www.google.de/intl/de/policies/privacy/.
+                        <br />23. Kontaktdaten des Verantwortlichen:
                         <br />info(at)richlist.net
                     </p>
                 </div>

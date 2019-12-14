@@ -108,7 +108,7 @@ export default class App extends Component {
                         </MDBContainer>
                         <div className="footer-copyright text-center py-3">
                             <MDBContainer fluid>
-                                &copy; {new Date().getFullYear()} Made with 💰by RichList
+                                &copy; {new Date().getFullYear()} Made for 💰 by RichList
                             </MDBContainer>
                         </div>
                     </MDBFooter>

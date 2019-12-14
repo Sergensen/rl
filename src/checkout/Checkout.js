@@ -23,6 +23,7 @@ class Checkout extends Component {
         instagram: "",
         cropped: false,
         twitter: "",
+        tiktok: "",
         snapchat: "",
         image: null,
         checkBox: false,
@@ -120,9 +121,9 @@ class Checkout extends Component {
 
     checkout() {
         return new Promise((resolve, reject) => {
-            const { image, name, mail, instagram, twitter, snapchat, message, loading, amount, method, uniqueKey } = this.state;
+            const { image, name, mail, instagram, twitter, snapchat, tiktok, message, loading, amount, method, uniqueKey } = this.state;
             this.setState({ loading: !loading });
-                API.addUser({ uniqueKey , mail, uniqueName: name.trim(), amount, instagram, twitter, snapchat, method, message: encodeURI(message.trim()), timestamp: Date.now() })
+                API.addUser({ uniqueKey , mail, uniqueName: name.trim(), amount, instagram, twitter, snapchat, tiktok, method, message: encodeURI(message.trim()), timestamp: Date.now() })
                     .then(async res => {
                         if(image && image.size <15000000) {
                             const resp = await API.putImage(image, res.data.result.uploadUrl);
@@ -234,7 +235,7 @@ class Checkout extends Component {
     }
 
     render() {
-        const { height, width, paid, loading, name, amount, mail, message, instagram, twitter, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
+        const { height, width, paid, loading, name, amount, mail, message, instagram, twitter, tiktok, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
         
         const popover = (
             <Popover id="popover-basic">
@@ -280,13 +281,16 @@ class Checkout extends Component {
                             <input value={message} onChange={e => /[\/]/.test(e.target.value) ? {} : this.setState({ message: e.target.value })} style={styles.input} maxLength={35} type="text" placeholder={local.message}/>
                         </div>
                         <div style={{...styles.flexOne}}>
-                            <input value={instagram} onChange={e =>/^$|[0-9A-Za-z_]{1,15}/.test(e.target.value)&& !/[\/]/.test(e.target.value) && this.setState({ instagram: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.instagram}/>
+                            <input value={instagram} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/]/.test(e.target.value) && this.setState({ instagram: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.instagram}/>
                         </div>
                         <div style={{...styles.flexOne}}>
-                            <input value={snapchat} onChange={e => /^$|[0-9A-Za-z_]{1,15}/.test(e.target.value)&& !/[\/]/.test(e.target.value) && this.setState({ snapchat: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.snapchat}/>
+                            <input value={tiktok} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/]/.test(e.target.value) && this.setState({ tiktok: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.tiktok}/>
                         </div>
                         <div style={{...styles.flexOne}}>
-                            <input value={twitter} onChange={e => /^$|[0-9A-Za-z_]{1,15}/.test(e.target.value)&& !/[\/]/.test(e.target.value)  && this.setState({ twitter: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.twitter}/>
+                            <input value={snapchat} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/]/.test(e.target.value) && this.setState({ snapchat: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.snapchat}/>
+                        </div>
+                        <div style={{...styles.flexOne}}>
+                            <input value={twitter} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/]/.test(e.target.value)  && this.setState({ twitter: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.twitter}/>
                         </div>
                         {!paid && <div style={{...styles.flexOne}}>
                             <OverlayTrigger placement="left" overlay={popover}>
@@ -379,7 +383,7 @@ const styles = {
         backgroundColor: "rgba(0,0,0,0.75)"
     },
     image: {
-        height: window.innerHeight*0.22,
+        maxHeight: window.innerHeight*0.22,
         margin: 0
     },
     cropButton: {

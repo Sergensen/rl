@@ -1,7 +1,7 @@
 import Resizer from 'react-image-file-resizer';
 import axios from 'axios';
-const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
-//const API_URL = "http://localhost:5001/";
+//const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
+const API_URL = "http://localhost:5001/";
 
 export default {
     validatePayment(uniqueKey, amount, mail, message, tokenId, type) {
@@ -27,7 +27,7 @@ export default {
                     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                     credentials: 'same-origin', // include, *same-origin, omit
                     headers: {
-                        'Content-Type': image.type,
+                        'Content-Type': 'image/jpeg',
                     },
                     redirect: 'follow', // manual, *follow, error
                     referrer: 'no-referrer', // no-referrer, *client

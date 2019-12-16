@@ -335,6 +335,7 @@ class Checkout extends Component {
                                 stripeKey="pk_test_281Xn05bEub9ENuPn0Y8EQaZ00cV8WCyfJ"
                                 amount={amount*100}
                                 currency="USD"
+                                allowRememberMe={false}
                                 email={mail}>
                                 <button ref={ref => this.stripeCheckout = ref} style={{...styles.submit, ...{backgroundColor: name && amount && mail && checkBox ? "blue":"grey"}}} maxLength={30}>{local.pay}</button>
                             </StripeCheckout>

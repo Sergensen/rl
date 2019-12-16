@@ -14,7 +14,7 @@ body {
 
 .specialbody {
   display: flex;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.5);
   flex-direction: column;
   flex: 1;
   position: absolute;
@@ -130,11 +130,6 @@ input:focus {
 
 .language {
   margin: 0;
-}
-
-.link:hover {
-  color: orange;
-  background-color: #111111;
 }
 
 .explicit {

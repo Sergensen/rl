@@ -23,7 +23,6 @@ export default class Validation extends Component {
                     uniqueKey, uniqueName, amount, mail, message, paymentId, token,PayerID
                 })
             }).then(res => {
-                console.log("Then");
                 res.json().then(val => {
                     window.location = val.url;
                 });
@@ -51,9 +50,10 @@ const styles = {
     container: {
         display: "flex",
         justifyContent: "center",
+        height: "90vh",
     },
     validation: {
-        maxWidth: 900,
+        height: "100vh",
         flex: 1
     }
 }

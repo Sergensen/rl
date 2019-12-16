@@ -7,7 +7,7 @@ export default class Success extends Component {
                 <div style={styles.success} className="specialbody">
                     <h1 id="paytext">Payment successful, check your Email inbox!</h1> <br />
                     <h1 id="paytext">Download the app and check your rank!</h1> <br />
-                    <a href="pay" id="paytext" class="link">Or go back</a>
+                    <a style={{height: 50}} href="pay" id="paytext" class="link">Or go back</a>
                 </div>
             </div>
             
@@ -22,7 +22,7 @@ const styles = {
         height: "90vh",
     },
     success: {
-        maxWidth: 900,
+        height: "100vh",
         flex: 1,
         paddingLeft: 10,
         paddingRight: 10,

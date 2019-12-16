@@ -6,14 +6,14 @@ const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
 export default {
     validatePayment(uniqueKey, amount, mail, message, tokenId, type) {
         return new Promise((resolve, reject) => {
-            axios.post(API_URL + 'pay', { tokenId, type, mail, message, uniqueKey, amount, method: "stripe" }, {timeout: 5500})
+            axios.post(API_URL + 'pay', { tokenId, type, mail, message, uniqueKey, amount, method: "stripe" })
                 .then(res => resolve(res))
                 .catch(err => reject(err));
         });
     },
     addUser(user) {
         return new Promise((resolve, reject) => {
-            axios.post(API_URL + 'user', { ...user }, {timeout: 5500})
+            axios.post(API_URL + 'user', { ...user })
                 .then(res => resolve(res))
                 .catch(err => reject(err));
         });
@@ -41,7 +41,7 @@ export default {
     },
     nameExists(uniqueKey, uniqueName) {
         return new Promise(async (resolve, reject) => {
-            axios.get(API_URL + 'userexists/' + (uniqueKey ? uniqueKey : "NO_KEY_EXISTING_1337") + '/' + uniqueName, {timeout: 5500}).then(result => {
+            axios.get(API_URL + 'userexists/' + (uniqueKey ? uniqueKey : "NO_KEY_EXISTING_1337") + '/' + uniqueName).then(result => {
                 const { success, message } = result.data;
                 success ? resolve(result.data) : reject(message);
             }).catch(err => {

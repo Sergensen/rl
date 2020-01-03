@@ -9,11 +9,12 @@ export default class Second extends Component {
 
 
 
-    render(){
+    render() {
 
-        return(
+        return (
             <div style={styles.container}>
-
+                <ImageContainer />
+                <TextContainer />
             </div>
         );
     }
@@ -24,6 +25,7 @@ const styles = {
     container: {
         width: "100%",
         display: "flex",
+        flexDirection: "column",
         //justifyContent: "center",
         backgroundImage: `url(${placeBg})`,
         backgroundSize: "cover",

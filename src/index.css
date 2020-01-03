@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Calisto MT";
+  src: local('Calisto MT'), url("./res/fonts/Calisto MT.ttf") format('truetype');
+  font-family: "Cash Currency";
+  src: local('Cash Currency'), url("./res/fonts/Cash Currency.ttf") format('truetype');
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

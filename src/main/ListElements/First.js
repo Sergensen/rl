@@ -12,7 +12,8 @@ export default class First extends Component {
 
         return (
             <div style={styles.container}>
-
+                <ImageContainer />
+                <TextContainer />
             </div>
         );
     }
@@ -24,6 +25,7 @@ const styles = {
         height: 200,
         width: "100%",
         display: "flex",
+        flexDirection: "column",
         //justifyContent: "center",
         backgroundImage: `url(${placeBg})`,
         backgroundSize: "cover",

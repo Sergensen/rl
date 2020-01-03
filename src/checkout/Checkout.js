@@ -442,7 +442,7 @@ const styles = {
     },
     payContainer:{
         backgroundColor: "rgba(0, 0, 0, 0.5)",
-        backgroundImage: "url('res/background.png')",
+        //backgroundImage: "url('res/background.png')",
         backgroundRepeat: "repeat",
     }, 
     paymentMethods: {

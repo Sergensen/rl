@@ -43,7 +43,7 @@ export default class MainPage extends Component {
 
     onClick() {
         const { os } = this.state;
-        alert(os);
+        window.open('https://play.google.com/store/apps/details?id=net.richlist');
     }
 
     render() {
@@ -55,7 +55,7 @@ export default class MainPage extends Component {
                         <strong className="mr-auto">RichList</strong>
                         <small>2 mins ago</small>
                     </Toast.Header>
-                    <Toast.Body>RichList is currently the #1 trending app in the App Store!</Toast.Body>
+                    <Toast.Body>RichList is currently the #1 trending app in the Play Store!</Toast.Body>
                 </Toast>}
                 <div style={styles.container}>
                     <Card style={styles.mobileCard}>

@@ -1,3 +1,4 @@
+import API from '../api';
 import React, { Component } from 'react';
 import local from '../local';
 import SCHRÄG from '../res/rl-schräg.png';
@@ -23,6 +24,7 @@ export default class MainPage extends Component {
     }
 
     componentDidMount(){
+        API.getTop10().then(res => console.log(res));
         const userLang = navigator.language || navigator.userLanguage; 
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
         let os = "all";

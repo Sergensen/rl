@@ -6,7 +6,8 @@ export default class TextContainer extends Component {
         const { topThree } = this.props;
         
         let topThreeTransform = topThree ? {transform: "translate(0px, 12%)"} : {}
-
+        //TODO: sowas wie formattedcurrency gucken
+        //TODO: gucken ob der Text iwie autosized werden kann
         return (
             <div style={{...styles.container, ...topThreeTransform}}>
                 <div style={styles.textContainer}>

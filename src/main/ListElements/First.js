@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ImageContainer from './ImageContainer';
 import TextContainer from './TextContainer';
 import placeBg from '../../res/images/profiles/Platz1_Profil.png'
-
+import RollsNLion from '../../res/images/profiles/RollsNLion.png';
+import Mercedes from '../../res/images/profiles/BlackMercedes.png';
 
 export default class First extends Component {
 
@@ -14,6 +15,8 @@ export default class First extends Component {
             <div style={styles.container}>
                 <ImageContainer topThree />
                 <TextContainer topThree />
+                {/* <img src={RollsNLion} style={styles.rollsNLion} /> */}
+                {/* <img src={Mercedes} style={styles.rollsNLion} /> */}
             </div>
         );
     }
@@ -30,6 +33,20 @@ const styles = {
         backgroundImage: `url(${placeBg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+    },
+    rollsNLion: {
+        position: "absolute",
+        //left: "-8%",
+        //bottom: "3%",
+        width: "100%",
+        paddingTop: "100%"
+    },
+    mercedes: {
+        position: "absolute",
+        //right: "-5%",
+        //bottom: "1%",
+        paddingTop: "100%",
+        width: "100%",
     }
 
 }

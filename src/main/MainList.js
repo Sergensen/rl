@@ -38,7 +38,8 @@ export default class MainList extends Component {
                     </div>
 
                     <div style={styles.sevenToNine} >
-                        {/* {this.render7to9()} */}
+                        {/* {this.render7to10()} */}
+                        <ListElement />
                         <ListElement />
                         <ListElement />
                         <ListElement />

@@ -8,7 +8,7 @@ export default class ImageContainer extends Component {
 
 
     componentDidMount() {
-        const height = this.imageContainer.clientHeight * 0.95;        
+        const height = this.imageContainer.clientHeight * 0.95;
         this.setState({ height });
     }
 
@@ -16,17 +16,20 @@ export default class ImageContainer extends Component {
         const { height } = this.state;
         const { topThree } = this.props;
 
+        let topThreeTransform = topThree ? {transform: "translate(0px, 23%) scale(0.85)"} : {};
+
         return (
-            <div style={styles.container} ref={ref => this.imageContainer = ref}>
+            <div ref={ref => this.imageContainer = ref} style={{...styles.container, ...topThreeTransform}}>
                 <div
-                style={{
-                    ...styles.imageContainer, width: height, height: height,
-                    border: topThree ? '0px solid #393939' : '3px solid #393939',
-                    // transform: [
-                    //     { scaleX: imageTouchScale },
-                    //     { scaleY: imageTouchScale }
-                    // ]
-                }}>
+                    style={{
+                        ...styles.imageContainer, width: height, height: height,
+                        border: topThree ? '0px solid #393939' : '3px solid #393939',
+
+                        // transform: [
+                        //     { scaleX: imageTouchScale },
+                        //     { scaleY: imageTouchScale }
+                        // ]
+                    }}>
                     <img src={testImage}
                         style={styles.image} />
                 </div>

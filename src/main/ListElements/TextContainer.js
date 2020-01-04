@@ -3,9 +3,12 @@ import React, { Component } from 'react';
 export default class TextContainer extends Component {
 
     render() {
+        const { topThree } = this.props;
+        
+        let topThreeTransform = topThree ? {transform: "translate(0px, 12%)"} : {}
 
         return (
-            <div style={styles.container}>
+            <div style={{...styles.container, ...topThreeTransform}}>
                 <div style={styles.textContainer}>
                     {/* <p style={styles.name}>Name</p> */}
                     <div style={styles.name}>Name</div>
@@ -43,6 +46,7 @@ const styles = {
         fontFamily: "Calisto MT",
         color: "#ffffff",
         textShadow: "1px 1px 3px #000000",
+        fontWeight: 'bold'
     },
     currency: {
         color: "white",

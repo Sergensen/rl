@@ -12,8 +12,8 @@ export default class First extends Component {
 
         return (
             <div style={styles.container}>
-                <ImageContainer />
-                <TextContainer />
+                <ImageContainer topThree />
+                <TextContainer topThree />
             </div>
         );
     }

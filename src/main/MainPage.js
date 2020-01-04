@@ -1,15 +1,11 @@
 import API from '../api';
 import React, { Component } from 'react';
 import local from '../local';
-import SCHRÄG from '../res/rl-schräg.png';
 import SCHRÄG2 from '../res/rl-teaser.png';
 import RLAPP from '../res/rl-app.png';
 import RLINSTA from '../res/rl-insta.png';
 import { Button, Card, Toast } from 'react-bootstrap';
 import {
-    BrowserView,
-    MobileView,
-    isBrowser,
     isMobile
   } from "react-device-detect";
 
@@ -131,7 +127,6 @@ const styles = {
         display: "flex",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         justifyContent: "center",
-
     },
     imageContainerMain: {
         flex: 1

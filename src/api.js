@@ -43,7 +43,7 @@ export default {
             axios.post(API_URL + 'paystripe', { uniqueKey, amount, uniqueName, mail, message })
                 .then(async res => {
                     /* global Stripe */
-                    var stripe = Stripe('pk_test_281Xn05bEub9ENuPn0Y8EQaZ00cV8WCyfJ');
+                    var stripe = Stripe('pk_live_tkMZOGMXAbfPMMZNBGICo7sW00nYaxrMmy');
                     const {error} = await stripe.redirectToCheckout({
                         sessionId: res.data.id
                       });

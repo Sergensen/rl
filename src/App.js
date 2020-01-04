@@ -6,9 +6,8 @@ import Privacy from './main/Privacy';
 import Datenschutz from './main/Datenschutz';
 import AGB from './main/AGB';
 import Impressum from './main/Impressum';
-import Widerruf from './main/Widerruf';
-import Withdraw from './main/Withdraw';
 import HEAD from './res/logo_header.png';
+import MainList from './main/MainList';
 import MainPage from './main/MainPage';
 import Fail from './main/Fail';
 import Success from './main/Success';
@@ -23,7 +22,6 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
   } from "react-router-dom";
 
 export default class App extends Component {

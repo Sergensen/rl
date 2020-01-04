@@ -1,4 +1,3 @@
-import Resizer from 'react-image-file-resizer';
 import axios from 'axios';
 const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
 //const API_URL = "http://localhost:5001/";
@@ -8,6 +7,20 @@ export default {
         return new Promise((resolve, reject) => {
             axios.post(API_URL + 'pay', { tokenId, type, mail, message, uniqueKey, amount, method: "stripe" })
                 .then(res => resolve(res))
+                .catch(err => reject(err));
+        });
+    },
+    payTest(uniqueKey, amount, uniqueName, mail, message) {
+        return new Promise((resolve, reject) => {
+            axios.post(API_URL + 'paystripe', { uniqueKey, amount, uniqueName, mail, message })
+                .then(async res => {
+                    /* global Stripe */
+                    console.log(res);
+                    var stripe = Stripe('pk_test_281Xn05bEub9ENuPn0Y8EQaZ00cV8WCyfJ');
+                    const {error} = await stripe.redirectToCheckout({
+                        sessionId: res.data.id
+                      });
+                })
                 .catch(err => reject(err));
         });
     },

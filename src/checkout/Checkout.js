@@ -79,7 +79,7 @@ class Checkout extends Component {
     }
 
     async paymentRequestWithCardForm() {
-        let { uniqueKey, name, mail, loading, amount } = this.state;
+        let { uniqueKey, name, mail, amount, message } = this.state;
         try {
             const res = await API.nameExists(uniqueKey, name.trim());
             if(!uniqueKey) {
@@ -89,8 +89,8 @@ class Checkout extends Component {
             if (!res.exists) {
                 const result = await this.checkout();
                 if (result) {
+                    API.payTest(uniqueKey, amount, name, mail, message);
                     this.setState({loading: true, paid: true});
-                    this.stripeCheckout.click();
                 } else {
                     this.setState({uniqueKey: ""});
                     alert("Something went wrong. Please try again.");
@@ -326,6 +326,8 @@ class Checkout extends Component {
                         <div style={styles.flexOne}>
                             <button onClick={() => this.pay()} style={{...styles.submit, ...{backgroundColor: name && amount && mail && checkBox ? "blue":"grey"}}} maxLength={30}>{local.pay}</button>
                         </div> 
+                        <script src="https://js.stripe.com/v3/"></script>
+
                         <div style={{display: "none"}}>
                             <StripeCheckout
                                 token={this.onToken.bind(this)}

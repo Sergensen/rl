@@ -10,12 +10,11 @@ export default {
                 .catch(err => reject(err));
         });
     },
-    payTest(uniqueKey, amount, uniqueName, mail, message) {
+    payStripe(uniqueKey, amount, uniqueName, mail, message) {
         return new Promise((resolve, reject) => {
             axios.post(API_URL + 'paystripe', { uniqueKey, amount, uniqueName, mail, message })
                 .then(async res => {
                     /* global Stripe */
-                    console.log(res);
                     var stripe = Stripe('pk_test_281Xn05bEub9ENuPn0Y8EQaZ00cV8WCyfJ');
                     const {error} = await stripe.redirectToCheckout({
                         sessionId: res.data.id

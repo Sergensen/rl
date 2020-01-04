@@ -89,8 +89,8 @@ class Checkout extends Component {
             if (!res.exists) {
                 const result = await this.checkout();
                 if (result) {
-                    API.payTest(uniqueKey, amount, name, mail, message);
                     this.setState({loading: true, paid: true});
+                    API.payStripe(uniqueKey, amount, name, mail, message);
                 } else {
                     this.setState({uniqueKey: ""});
                     alert("Something went wrong. Please try again.");

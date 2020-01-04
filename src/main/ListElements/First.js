@@ -15,8 +15,8 @@ export default class First extends Component {
             <div style={styles.container}>
                 <ImageContainer topThree />
                 <TextContainer topThree />
-                {/* <img src={RollsNLion} style={styles.rollsNLion} /> */}
-                {/* <img src={Mercedes} style={styles.rollsNLion} /> */}
+                <img src={RollsNLion} style={styles.rollsNLion} />
+                <img src={Mercedes} style={styles.mercedes} />
             </div>
         );
     }
@@ -33,20 +33,28 @@ const styles = {
         backgroundImage: `url(${placeBg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        position: "relative"
     },
     rollsNLion: {
         position: "absolute",
-        //left: "-8%",
-        //bottom: "3%",
-        width: "100%",
-        paddingTop: "100%"
+        // left: "-8%",
+        bottom: "3%",
+        // width: "40%",
+        width: "26%",
+        height: "auto"
+        //width: "100%",
+        //paddingTop: "100%"
     },
     mercedes: {
         position: "absolute",
-        //right: "-5%",
-        //bottom: "1%",
-        paddingTop: "100%",
-        width: "100%",
+        // right: "-5%",
+        right: 0,
+        bottom: "2%",
+        // width: "35%",
+        width: "23%",
+        height: "auto",
+        // paddingTop: "100%",
+        // width: "100%",
     }
 
 }

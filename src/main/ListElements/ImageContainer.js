@@ -24,13 +24,13 @@ export default class ImageContainer extends Component {
             <div ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
                 <div
                     style={{
-                        ...styles.imageContainer, width: height, height: height,
+                        ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`, 
                         border: topThree ? '0px solid #393939' : '3px solid #393939',
                     }}
                     ref={(ref) => this.imageCanvas = ref}
                 >
-                    <img src={imgUrl}
-                        style={styles.image} />
+                    {/* <img src={imgUrl} crossOrigin="anonymous"
+                        style={styles.image} /> */}
                 </div>
             </div>
         );
@@ -54,12 +54,12 @@ const styles = {
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center',
-        maxWidth: '100%', maxHeight: '100%'
-        //border: '3px solid #393939'
+        backgroundSize: "cover",
+        backgroundPosition: "center",
     },
-    image: {
-        height: "100%",
-        width: "auto",
-    },
+    // image: {
+    //     height: "100%",
+    //     width: "auto",
+    // },
 
 }

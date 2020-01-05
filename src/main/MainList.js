@@ -9,40 +9,32 @@ import placeSevenToNineBg from '../res/images/profiles/Platz7-9_Border.png'
 
 
 export default class MainList extends Component {
-    state = {
-
-    }
-
-    componentDidMount() {
-
-    }
-
-
     render() {
+        const { data } = this.props;
         return (
             <div style={styles.main}>
 
                 <div style={styles.container}>
-                    <First />
+                    <First user={data[0]} />
 
                     <div style={styles.twoAndThree}>
-                        <Second />
-                        <Third />
+                        <Second user={data[1]} />
+                        <Third user={data[2]} />
                     </div>
 
                     <div style={styles.fourToSix}>
                         {/* {this.render4to6()} */}
-                        <ListElement />
-                        <ListElement />
-                        <ListElement />
+                        <ListElement user={data[3]} />
+                        <ListElement user={data[4]} />
+                        <ListElement user={data[5]} />
                     </div>
 
                     <div style={styles.sevenToNine} >
                         {/* {this.render7to10()} */}
-                        <ListElement />
-                        <ListElement />
-                        <ListElement />
-                        <ListElement />
+                        <ListElement user={data[6]} />
+                        <ListElement user={data[7]} />
+                        <ListElement user={data[8]} />
+                        <ListElement user={data[9]} />
                     </div>
 
                 </div>

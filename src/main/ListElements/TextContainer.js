@@ -33,7 +33,7 @@ const styles = {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-
+        backgroundColor: "red"
     },
     textContainer: {
         // backgroundColor: "yellow",
@@ -41,6 +41,8 @@ const styles = {
         // flex: 1,
         // justifyContent: "center",
         // alignItems: "center",
+        backgroundColor: "green"
+
     },
     name: {
         color: "white",
@@ -55,6 +57,8 @@ const styles = {
         color: "#a2ce8f",
         textShadow: "1px 1px 3px #000000",
         letterSpacing: 1,
+        backgroundColor: "blue",
+        fontSize: 30,
     }
 
 }

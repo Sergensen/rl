@@ -8,12 +8,14 @@ import AGB from './main/AGB';
 import Impressum from './main/Impressum';
 import HEAD from './res/logo_header.png';
 import MainList from './main/MainList';
+import MainPage from './main/MainPage';
 import Fail from './main/Fail';
 import Success from './main/Success';
 import Validation from './main/Validation';
 import CookieConsent from "react-cookie-consent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import API from './api';
 
 import local from './local';
 
@@ -26,17 +28,20 @@ import {
 export default class App extends Component {
     state = {
         local: null,
+        data: {}
     }
 
     componentDidMount(){
         const userLang = navigator.language || navigator.userLanguage; 
+        API.getTop10().then(data => this.setState({data}));
+
         this.setState({
             local: userLang==="de-DE" ? local.de : local.en,
         });
     }
 
     render() {
-        const { local } = this.state;
+        const { local, data } = this.state;
         return (
             <Router>
                 <div style={styles.headerContainer}>
@@ -76,7 +81,7 @@ export default class App extends Component {
                         <Privacy />
                     </Route>
                     <Route path="/">
-                        <MainList />
+                        <MainList data={data} />
                     </Route>
                 </Switch>
                 {local && <div style={styles.footer}>

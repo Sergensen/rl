@@ -12,9 +12,10 @@ export default class Validation extends Component {
         const paymentId = urlParams.get('paymentId');
         const token = urlParams.get('token');
         const PayerID = urlParams.get('PayerID');
+        const method = urlParams.get('method');
 
         if(uniqueKey && uniqueName && amount && mail && paymentId && PayerID && token) {
-            fetch(API.API_URL + "websuccess", {
+            fetch(API.API_URL + (method==="stripe" ? "stripesuccess" : "websuccess"), {
                 method: 'POST', 
                 headers: {
                 'Content-Type': 'application/json'

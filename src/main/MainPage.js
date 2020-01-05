@@ -1,3 +1,4 @@
+import API from '../api';
 import React, { Component } from 'react';
 import local from '../local';
 import SCHRÄG2 from '../res/rl-teaser.png';
@@ -19,6 +20,7 @@ export default class MainPage extends Component {
     }
 
     componentDidMount(){
+        API.getTop10().then(res => console.log(res));
         const userLang = navigator.language || navigator.userLanguage; 
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
         let os = "all";
@@ -41,7 +43,7 @@ export default class MainPage extends Component {
 
     onClick() {
         const { os } = this.state;
-        alert(os);
+        window.open('https://play.google.com/store/apps/details?id=net.richlist');
     }
 
     render() {
@@ -53,7 +55,7 @@ export default class MainPage extends Component {
                         <strong className="mr-auto">RichList</strong>
                         <small>2 mins ago</small>
                     </Toast.Header>
-                    <Toast.Body>RichList is currently the #1 trending app in the App Store!</Toast.Body>
+                    <Toast.Body>RichList is currently the #1 trending app in the Play Store!</Toast.Body>
                 </Toast>}
                 <div style={styles.container}>
                     <Card style={styles.mobileCard}>

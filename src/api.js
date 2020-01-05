@@ -1,12 +1,53 @@
+import GLOBAL from './Globals'
 import axios from 'axios';
 const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
 //const API_URL = "http://localhost:5001/";
 
 export default {
+    getTop10(){
+        return new Promise((resolve, reject) => {
+            axios.get(API_URL + 'user/lastamount/-1', { timeout: 10000 }).then(async res => {
+                res.data.forEach((user, i, users) => {
+                    if(users[i].imgUrl === "" || !users[i].imgUrl) users[i].imgUrl = GLOBAL.PROFILE_PLACEHOLDER;
+                    if(user.nsfw) users[i].imgUrl = GLOBAL.PROFILE_PLACEHOLDER_TO_VERIFY;
+                    if(user.banned) users[i] = {
+                        ...user, 
+                        uniqueName: "Banned user",
+                        unblock: user.uniqueName,
+                        props: 0,
+                        instagram: "",
+                        message: "",
+                        twitter: "",
+                        snapchat: "",
+                        tiktok: "",
+                        imgUrl: GLOBAL.PROFILE_PLACEHOLDER,
+                        nsfw: false
+                    }
+                });
+                resolve(res.data);
+            })
+            .catch(err => {
+                reject(err)
+            });
+        });
+    },
     validatePayment(uniqueKey, amount, mail, message, tokenId, type) {
         return new Promise((resolve, reject) => {
             axios.post(API_URL + 'pay', { tokenId, type, mail, message, uniqueKey, amount, method: "stripe" })
                 .then(res => resolve(res))
+                .catch(err => reject(err));
+        });
+    },
+    payStripe(uniqueKey, amount, uniqueName, mail, message) {
+        return new Promise((resolve, reject) => {
+            axios.post(API_URL + 'paystripe', { uniqueKey, amount, uniqueName, mail, message })
+                .then(async res => {
+                    /* global Stripe */
+                    var stripe = Stripe('pk_live_tkMZOGMXAbfPMMZNBGICo7sW00nYaxrMmy');
+                    const {error} = await stripe.redirectToCheckout({
+                        sessionId: res.data.id
+                      });
+                })
                 .catch(err => reject(err));
         });
     },

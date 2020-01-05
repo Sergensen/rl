@@ -1,17 +1,40 @@
 import GLOBAL from './Globals'
 import axios from 'axios';
+import * as loadImage from 'blueimp-load-image';
+
+
 const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
 //const API_URL = "http://localhost:5001/";
 
+function loadImg(url) {
+    return new Promise((resolve, reject) => {
+        loadImage(url, async (canvas) => {
+            resolve(canvas.toDataURL());
+        }, { orientation: true });
+    })
+}
+
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  }
+
 export default {
-    getTop10(){
+    getTop10() {
         return new Promise((resolve, reject) => {
             axios.get(API_URL + 'user/lastamount/-1', { timeout: 10000 }).then(async res => {
-                res.data.forEach((user, i, users) => {
-                    if(users[i].imgUrl === "" || !users[i].imgUrl) users[i].imgUrl = GLOBAL.PROFILE_PLACEHOLDER;
-                    if(user.nsfw) users[i].imgUrl = GLOBAL.PROFILE_PLACEHOLDER_TO_VERIFY;
-                    if(user.banned) users[i] = {
-                        ...user, 
+                await asyncForEach(res.data, async (user, i, users) => {
+                    if (users[i].imgUrl === "" || !users[i].imgUrl) {
+                        users[i].imgUrl = GLOBAL.PROFILE_PLACEHOLDER
+                    }
+                    else {
+                        users[i].imgBase64 = await loadImg(users[i].imgUrl);
+                    }
+                    
+                    if (user.nsfw) users[i].imgUrl = GLOBAL.PROFILE_PLACEHOLDER_TO_VERIFY;
+                    if (user.banned) users[i] = {
+                        ...user,
                         uniqueName: "Banned user",
                         unblock: user.uniqueName,
                         props: 0,
@@ -26,9 +49,9 @@ export default {
                 });
                 resolve(res.data);
             })
-            .catch(err => {
-                reject(err)
-            });
+                .catch(err => {
+                    reject(err)
+                });
         });
     },
     validatePayment(uniqueKey, amount, mail, message, tokenId, type) {
@@ -44,9 +67,9 @@ export default {
                 .then(async res => {
                     /* global Stripe */
                     var stripe = Stripe('pk_live_tkMZOGMXAbfPMMZNBGICo7sW00nYaxrMmy');
-                    const {error} = await stripe.redirectToCheckout({
+                    const { error } = await stripe.redirectToCheckout({
                         sessionId: res.data.id
-                      });
+                    });
                 })
                 .catch(err => reject(err));
         });
@@ -90,9 +113,9 @@ export default {
             });
         })
     },
-    paypal( uniqueKey, amount, mail, uniqueName, message) {
+    paypal(uniqueKey, amount, mail, uniqueName, message) {
         return new Promise(async (resolve, reject) => {
-            axios.get(API_URL + 'webpaypal?uniqueKey=' + uniqueKey + '&amount=' + amount + "&mail=" + mail + "&uniqueName=" + encodeURI(uniqueName) + "&message="+message).then(res => {
+            axios.get(API_URL + 'webpaypal?uniqueKey=' + uniqueKey + '&amount=' + amount + "&mail=" + mail + "&uniqueName=" + encodeURI(uniqueName) + "&message=" + message).then(res => {
                 resolve(res.data)
             }).catch(err => {
                 reject(err);

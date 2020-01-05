@@ -62,7 +62,7 @@ const styles = {
         //alignItems: "center",
     },
     twoAndThree: {
-        height: 175,
+        height: 150,
         display: "flex",
         flexDirection: "row"
     },
@@ -74,7 +74,7 @@ const styles = {
         bottom: 0,        
     },
     fourToSix: {
-        height: 150,
+        height: 125,
         display: "flex",
         flexDirection: "row",
         backgroundImage: `url(${placeFourToSixBg})`,

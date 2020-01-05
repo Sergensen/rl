@@ -11,11 +11,12 @@ export default class Second extends Component {
 
 
     render() {
+        const { user } = this.props;
 
         return (
             <div style={styles.container}>
-                <ImageContainer topThree />
-                <TextContainer topThree />
+                <ImageContainer topThree user={user} />
+                <TextContainer topThree user={user} />
                 <img src={AksCrossed} style={styles.aksCrossed} />
 
             </div>

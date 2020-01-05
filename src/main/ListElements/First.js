@@ -11,11 +11,13 @@ export default class First extends Component {
 
 
     render() {
+        const { user } = this.props;     
+
 
         return (
             <div style={styles.container}>
-                <ImageContainer topThree />
-                <TextContainer topThree />
+                <ImageContainer topThree user={user} />
+                <TextContainer first topThree user={user} />
                 <img src={RollsNLion} style={styles.rollsNLion} />
                 <img src={Mercedes} style={styles.mercedes} />
             </div>

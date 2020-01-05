@@ -9,11 +9,14 @@ export default class ListElement extends Component {
 
 
     render() {
+        const { user } = this.props;
+
+        // console.log(user);
 
         return (
             <div style={styles.container}>
-                <ImageContainer />
-                <TextContainer />
+                <ImageContainer user={user}/>
+                <TextContainer user={user}/>
             </div>
         );
     }

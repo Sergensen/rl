@@ -80,8 +80,11 @@ export default class App extends Component {
                     <Route path="/privacy">
                         <Privacy />
                     </Route>
-                    <Route path="/">
+                    <Route path="/dev">
                         <MainList data={data} />
+                    </Route>
+                    <Route path="/">
+                        <MainPage />
                     </Route>
                 </Switch>
                 {local && <div style={styles.footer}>

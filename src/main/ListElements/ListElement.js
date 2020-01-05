@@ -16,11 +16,13 @@ export default class ListElement extends Component {
 
     render() {
         const { show } = this.state;
+        const { user } = this.props;
+
         return (
             <div style={styles.container}>
-                <ImageContainer />
-                <ModalContainer toggleModal={() => this.toggleModal()} show={show} {...this.props} />
-                <TextContainer />
+                <ImageContainer user={user} />
+                <ModalContainer user={user} toggleModal={() => this.toggleModal()} show={show} {...this.props} />
+                <TextContainer user={user} />
             </div>
         );
     }

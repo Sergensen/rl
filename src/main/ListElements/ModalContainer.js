@@ -24,7 +24,6 @@ export default class ModalContainer extends Component {
         const messageFontSize = message ? Math.sqrt(width * height / (message.length + 10)) * 0.25 : nameFontSize;
         const amountFontSize = Math.sqrt(width * height / (("" + amount).length + 10)) * 0.25;
 
-        console.log(width, height, nameFontSize, messageFontSize, amountFontSize)
         this.setState({
             nameFontSize,
             messageFontSize,
@@ -35,8 +34,8 @@ export default class ModalContainer extends Component {
 
     render() {
         const { show, toggleModal, user } = this.props;
-        if(user && user.amount === 2) {
-            let { uniqueName, instagram, message, tiktok, snapchat, twitter, imgUrl, amount, props } = this.props.user;
+        if(user && user.amount === 10) {
+            let { uniqueName, instagram, message, tiktok, snapchat, twitter, imgUrl, imgBase64, amount, props } = this.props.user;
 
             uniqueName = uniqueName === "" ? "Anonymous" : uniqueName;
             props = !props ? 0 : props;
@@ -54,7 +53,7 @@ export default class ModalContainer extends Component {
               >
                 <div style={styles.background}>
                         <div style={{...styles.imageContainer}}>
-                            <img src={imgUrl} style={styles.image} />
+                            <img src={imgBase64} style={styles.image} />
                         </div>
                         <div style={{...styles.textContainer, backgroundImage: `url(${ProfileText})`}}>
                             <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/ProfileIcon.png")} />

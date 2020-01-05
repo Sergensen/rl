@@ -6,8 +6,6 @@ import ListElement from './ListElements/ListElement';
 import placeFourToSixBg from '../res/images/profiles/Platz4-6_Border.png'
 import placeSevenToNineBg from '../res/images/profiles/Platz7-9_Border.png'
 
-
-
 export default class MainList extends Component {
     render() {
         const { data } = this.props;
@@ -62,7 +60,7 @@ const styles = {
         //alignItems: "center",
     },
     twoAndThree: {
-        height: 175,
+        height: 150,
         display: "flex",
         flexDirection: "row"
     },
@@ -74,7 +72,7 @@ const styles = {
         bottom: 0,        
     },
     fourToSix: {
-        height: 150,
+        height: 125,
         display: "flex",
         flexDirection: "row",
         backgroundImage: `url(${placeFourToSixBg})`,

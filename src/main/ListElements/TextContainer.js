@@ -1,23 +1,68 @@
 import React, { Component } from 'react';
 
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+})
+
 export default class TextContainer extends Component {
 
+    state = {
+        nameFontSize: 1,
+        amountFontSize: 1
+    }
+
+
+    componentDidMount() {
+        const { first, topThree, user } = this.props;
+
+        const topThreeFactor = first ? 0.6 : topThree ? 0.85 : 1;
+
+        let uniqueName = "Anonymous";
+        let amount = 0;
+
+        if (user) {
+            uniqueName = user.uniqueName;
+            amount = user.amount;
+        }
+
+
+
+        const width = this.textContainer.clientHeight * topThreeFactor;
+        const height = this.textContainer.clientWidth * 0.5 * topThreeFactor;
+        const nameFontSize = Math.sqrt(width * height / (uniqueName.length * 2))
+        const amountFontSize = Math.sqrt(width * height / (("" + amount).length + 20))
+
+        this.setState({ nameFontSize, amountFontSize })
+    }
+
     render() {
-        const { topThree } = this.props;
-        
-        let topThreeTransform = topThree ? {transform: "translate(0px, 12%)"} : {}
+        const { topThree, user } = this.props;
+        const { nameFontSize, amountFontSize } = this.state;
+
+        let uniqueName = "Anonymous";
+        let amount = 0;
+
+        if (user) {
+            uniqueName = user.uniqueName;
+            amount = user.amount;
+        }
+
+        let topThreeTransform = topThree ? { transform: "translate(0px, 16%)" } : {}
         //TODO: sowas wie formattedcurrency gucken
         //TODO: gucken ob der Text iwie autosized werden kann
         return (
-            <div style={{...styles.container, ...topThreeTransform}}>
+            <div ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
                 <div style={styles.textContainer}>
                     {/* <p style={styles.name}>Name</p> */}
-                    <div style={styles.name}>Name</div>
+                    <div ref={ref => this.amountText = ref} style={{ ...styles.name, fontSize: nameFontSize }}>{uniqueName}</div>
 
                 </div>
                 <div style={styles.textContainer}>
                     {/* <p style={styles.name}>10.99$</p> */}
-                    <div style={styles.currency}>10.99$</div>
+                    {/* <div style={{ ...styles.currency, fontSize: amountFontSize }}>{amount}</div> */}
+                    <div style={{ ...styles.currency, fontSize: amountFontSize }}>{formatter.format(amount)}</div>
                 </div>
             </div>
         );
@@ -33,7 +78,7 @@ const styles = {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-
+        // backgroundColor: "red"
     },
     textContainer: {
         // backgroundColor: "yellow",
@@ -41,13 +86,17 @@ const styles = {
         // flex: 1,
         // justifyContent: "center",
         // alignItems: "center",
+        // backgroundColor: "green"
+
     },
     name: {
         color: "white",
         fontFamily: "Calisto MT",
         color: "#ffffff",
         textShadow: "1px 1px 3px #000000",
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: "center",
+        lineHeight: "1.1em",
     },
     currency: {
         color: "white",
@@ -55,6 +104,11 @@ const styles = {
         color: "#a2ce8f",
         textShadow: "1px 1px 3px #000000",
         letterSpacing: 1,
+        textAlign: "center",
+        lineHeight: "1.6em",
+
+        // backgroundColor: "blue",
+        //fontSize: 30,
     }
 
 }

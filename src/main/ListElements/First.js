@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ImageContainer from './ImageContainer';
 import TextContainer from './TextContainer';
-import ModalContainer from './ModalContainer';
 import placeBg from '../../res/images/profiles/Platz1_Profil.png'
 import RollsNLion from '../../res/images/profiles/RollsNLion.png';
 import Mercedes from '../../res/images/profiles/BlackMercedes.png';

@@ -72,6 +72,10 @@ code {
   hyphens: auto;
 }
 
+p {
+  margin-bottom: 0 !important;
+}
+
 .header-image {
   display: inline-block;
   margin: 0 auto;

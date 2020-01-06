@@ -29,7 +29,7 @@ import {
 export default class App extends Component {
     state = {
         local: null,
-        data: {}
+        data: []
     }
 
     componentDidMount(){
@@ -167,7 +167,7 @@ const styles = {
         fontFamily: "sans-serif",
     },
     headerImg: {
-        maxWidth: "900px",
+        maxWidth: "500px",
         width: "100%",
         height: "100%",
         flex: 1

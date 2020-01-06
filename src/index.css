@@ -11,7 +11,8 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  background-image: url("./res/background.png");
+  background-image: url("./res/images/Background_pattern.jpg");
+  background-size: 100px;
   background-repeat: repeat;
   -moz-osx-font-smoothing: grayscale;
   padding: 0;

@@ -6,7 +6,10 @@ import TwitterBg from '../../res/images/profiles/TwitterBackground.png';
 import SnapchatBG from '../../res/images/profiles/SnapchatBackground.png';
 import TikTokBG from '../../res/images/profiles/TikTokBackground.png';
 import ProfileText from '../../res/images/profiles/ProfileText.png';
-
+import {
+    isMobile
+  } from "react-device-detect";
+  
 export default class ModalContainer extends Component {
     state = {
         nameFontSize: '2.5vh',
@@ -19,117 +22,112 @@ export default class ModalContainer extends Component {
         const { uniqueName, amount, message } = this.props.user;
 
         const width = event.currentTarget.offsetWidth;
-        const height = event.currentTarget.offsetHeight * 0.5;
-        const nameFontSize = Math.sqrt(width * height / (uniqueName.length + 10)) * 0.25;
-        const messageFontSize = message ? Math.sqrt(width * height / (message.length + 10)) * 0.25 : nameFontSize;
-        const amountFontSize = Math.sqrt(width * height / (("" + amount).length + 10)) * 0.25;
+        const height = event.currentTarget.offsetHeight * (isMobile ? 0.9 : 0.5);
+        const nameFontSize = Math.sqrt(width * height / (uniqueName.length + 10)) * 0.2;
+        const messageFontSize = message ? Math.sqrt(width * height / (message.length + 10)) * 0.2 : nameFontSize;
+        const amountFontSize = Math.sqrt(width * height / (("" + amount).length + 10)) * 0.15;
 
         this.setState({
             nameFontSize,
             messageFontSize,
             amountFontSize,
-            iconSize: height * 0.1,
+            iconSize: height * (isMobile ? 0.05 : 0.065)
         })
     }
 
     render() {
         const { show, toggleModal, user } = this.props;
-        if(user && user.amount === 10) {
-            let { uniqueName, instagram, message, tiktok, snapchat, twitter, imgUrl, imgBase64, amount, props } = this.props.user;
+        let { uniqueName, instagram, message, tiktok, snapchat, twitter, imgUrl, imgBase64, amount, props } = this.props.user;
 
-            uniqueName = uniqueName === "" ? "Anonymous" : uniqueName;
-            props = !props ? 0 : props;
-            message = !message || message === "undefined" ? null : message;
-    
-            const { nameFontSize, messageFontSize, amountFontSize, iconSize } = this.state;
-            return (
-                <Modal
-                onLoad={(e) => this.setFontSize(e)}
-                show={show}
-                scrollable={false}
-                size="md"
-                centered
-                style={styles.backgroundCtn}
-              >
-                <div style={styles.background}>
-                        <div style={{...styles.imageContainer}}>
-                            <img src={imgBase64} style={styles.image} />
-                        </div>
-                        <div style={{...styles.textContainer, backgroundImage: `url(${ProfileText})`}}>
-                            <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/ProfileIcon.png")} />
-                            <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/ProfileIcon.png")} />
-                            <p style={{...styles.name, ...{ fontSize: nameFontSize}}}>{uniqueName}</p>
-                            <p style={{...styles.amount, ...{ fontSize: amountFontSize}}}>{'$' + amount.toFixed(2)}</p>
-                        </div>
-        
-                        {props ? <div style={{...styles.infoContainer, backgroundImage: `url(${ProfileText})`}}>
-                            <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/heart_red.png")} />
-                            <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/heart_red.png")} />
-                            <p style={{...styles.name, ...{ fontSize: nameFontSize}}} >
-                                {props}
-                            </p>
-                        </div> : <div></div>}
-        
-                        {message && <div style={{...styles.infoContainer, backgroundImage: `url(${ProfileText})`}}>
-                            <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/messageIcon.png")} />
-                            <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/messageIcon.png")} />
-                            <p style={{...styles.name, ...{ fontSize: messageFontSize}}}>
-                                {message}
-                            </p>
-                        </div>}
-        
-                        {instagram ? <div style={{...styles.infoContainer, backgroundImage: `url(${InstaBG})`}}>
-                            <a style={styles.infoContainer} onClick={() => window.open('https://www.instagram.com/'+instagram)}>
-                                <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/instagram.png")} />
-                                <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/instagram.png")} />
-                                <p style={{...styles.name, ...{ fontSize: nameFontSize, textDecorationLine: "underline" }}} >
-                                    @{instagram}
-                                </p>
-                            </a>
-                        </div> : <div></div>}
-        
-                        {twitter ? <div style={{...styles.infoContainer, backgroundImage: `url(${TwitterBg})`}}>
-                            <a style={styles.infoContainer} onClick={() => window.open('https://www.twitter.com/'+twitter)}>
-                                <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/twitter.png")} />
-                                <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/twitter.png")} />
-                                <p style={{...styles.name, ...{ fontSize: nameFontSize, textDecorationLine: "underline" }}} >
-                                    @{twitter}
-                                </p>
-                            </a>
-                        </div> : <div></div>}
-        
-                        {tiktok ? <div style={{...styles.infoContainer, backgroundImage: `url(${TikTokBG})`}}>
-                            <a style={styles.infoContainer} onClick={() => window.open('https://www.tiktok.com/@'+tiktok)}>
-                                <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/TikTok.png")} />
-                                <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/TikTok.png")} />
-                                <p style={{...styles.name, ...{ fontSize: nameFontSize, textDecorationLine: "underline" }}} >
-                                    @{tiktok}
-                                </p>
-                            </a>
-                        </div> : <div></div>}
-                                
-                        {snapchat ? <div style={{...styles.infoContainer, ...{backgroundImage: `url(${SnapchatBG})`}}}>
-                            <a style={styles.infoContainer} onClick={() => window.open('https://www.snapchat.com/add/'+snapchat)}>
-                                <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/snapchat.png")} />
-                                <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/snapchat.png")} />
-                                <p style={{...styles.name, ...{ fontSize: nameFontSize, textDecorationLine: "underline" }}} >
-                                    @{snapchat}
-                                </p>
-                            </a>
-                        </div> : <div></div>}
+        uniqueName = uniqueName === "" ? "Anonymous" : uniqueName;
+        props = !props ? 0 : props;
+        message = !message || message === "undefined" ? null : message;
 
-                    <div style={{...styles.infoContainer, backgroundImage: `url(${ProfileText})`}}>
-                        <a style={{...styles.infoContainer, ...styles.back}} onClick={() => toggleModal()}>
-                            <p style={{...styles.name, ...{ fontSize: nameFontSize }}} >Close</p>
-                        </a>
+        const { nameFontSize, messageFontSize, amountFontSize, iconSize } = this.state;
+        return (
+            <Modal
+            onLoad={(e) => this.setFontSize(e)}
+            show={show}
+            scrollable={false}
+            size="md"
+            centered
+            style={styles.backgroundCtn}
+            >
+            <div style={styles.background}>
+                    <div style={{...styles.imageContainer}}>
+                        <img src={imgBase64} style={styles.image} />
                     </div>
+                    <div style={{...styles.textContainer, backgroundImage: `url(${ProfileText})`}}>
+                        <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/ProfileIcon.png")} />
+                        <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/ProfileIcon.png")} />
+                        <p style={{...styles.name, ...{ fontSize: nameFontSize}}}>{uniqueName}</p>
+                        <p style={{...styles.amount, ...{ fontSize: amountFontSize}}}>{'$' + amount.toFixed(2)}</p>
+                    </div>
+    
+                    {props ? <div style={{...styles.infoContainer, backgroundImage: `url(${ProfileText})`}}>
+                        <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/heart_red.png")} />
+                        <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/heart_red.png")} />
+                        <p style={{...styles.name, ...{ fontSize: nameFontSize}}} >
+                            {props}
+                        </p>
+                    </div> : <div></div>}
+    
+                    {message && <div style={{...styles.infoContainer, backgroundImage: `url(${ProfileText})`}}>
+                        <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/messageIcon.png")} />
+                        <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/messageIcon.png")} />
+                        <p style={{...styles.name, ...{ fontSize: messageFontSize}}}>
+                            {message}
+                        </p>
+                    </div>}
+    
+                    {instagram ? <div style={{...styles.infoContainer,cursor: 'pointer', backgroundImage: `url(${InstaBG})`}}>
+                        <a style={styles.infoContainer} onClick={() => window.open('https://www.instagram.com/'+instagram)}>
+                            <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/instagram.png")} />
+                            <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/instagram.png")} />
+                            <p style={{...styles.name, ...{ fontSize: nameFontSize, textDecorationLine: "underline" }}} >
+                                @{instagram}
+                            </p>
+                        </a>
+                    </div> : <div></div>}
+    
+                    {twitter ? <div style={{...styles.infoContainer, cursor: 'pointer',backgroundImage: `url(${TwitterBg})`}}>
+                        <a style={styles.infoContainer} onClick={() => window.open('https://www.twitter.com/'+twitter)}>
+                            <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/twitter.png")} />
+                            <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/twitter.png")} />
+                            <p style={{...styles.name, ...{ fontSize: nameFontSize, textDecorationLine: "underline" }}} >
+                                @{twitter}
+                            </p>
+                        </a>
+                    </div> : <div></div>}
+    
+                    {tiktok ? <div style={{...styles.infoContainer, cursor: 'pointer',backgroundImage: `url(${TikTokBG})`}}>
+                        <a style={styles.infoContainer} onClick={() => window.open('https://www.tiktok.com/@'+tiktok)}>
+                            <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/TikTok.png")} />
+                            <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/TikTok.png")} />
+                            <p style={{...styles.name, ...{ fontSize: nameFontSize, textDecorationLine: "underline" }}} >
+                                @{tiktok}
+                            </p>
+                        </a>
+                    </div> : <div></div>}
+                            
+                    {snapchat ? <div style={{...styles.infoContainer,cursor: 'pointer', ...{backgroundImage: `url(${SnapchatBG})`}}}>
+                        <a style={styles.infoContainer} onClick={() => window.open('https://www.snapchat.com/add/'+snapchat)}>
+                            <img style={{...styles.iconLeft, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/snapchat.png")} />
+                            <img style={{...styles.iconRight, ...{ width: iconSize, height: iconSize }}} src={require("../../res/images/profiles/snapchat.png")} />
+                            <p style={{...styles.name, ...{ fontSize: nameFontSize, textDecorationLine: "underline" }}} >
+                                @{snapchat}
+                            </p>
+                        </a>
+                    </div> : <div></div>}
+
+                <div style={{...styles.infoContainer,cursor: 'pointer', backgroundImage: `url(${ProfileText})`}}>
+                    <a style={{...styles.infoContainer, ...styles.back}} onClick={() => toggleModal()}>
+                        <p style={{...styles.name, ...{ fontSize: nameFontSize }}} >Close</p>
+                    </a>
                 </div>
-              </Modal>
-            );
-        } else {
-            return <div />;
-        }
-        
+            </div>
+            </Modal>
+        );
     }
 }
 
@@ -188,7 +186,7 @@ const styles = {
     },
     textContainer: {
         width: "100%",
-        height: "10vh",
+        height: isMobile ? "9vh" : "7.5vh",
         justifyContent: "center",
         display: "flex",
         flexDirection: "column",
@@ -197,7 +195,7 @@ const styles = {
     },
     infoContainer: {
         width: "100%",
-        height: "7vh",
+        height: isMobile ? "6.5vh" : "5vh",
         justifyContent: "center",
         display: 'flex',
         alignItems: "center",

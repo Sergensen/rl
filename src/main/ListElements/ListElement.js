@@ -5,7 +5,7 @@ import ModalContainer from './ModalContainer';
 
 export default class ListElement extends Component {
     state = {
-        show: true
+        show: false
     }
 
     toggleModal() {
@@ -20,9 +20,9 @@ export default class ListElement extends Component {
 
         return (
             <div style={styles.container}>
-                <ImageContainer user={user} />
-                <ModalContainer user={user} toggleModal={() => this.toggleModal()} show={show} {...this.props} />
-                <TextContainer user={user} />
+                <ImageContainer toggleModal={() => this.toggleModal()} user={user} />
+                {user && <ModalContainer user={user} toggleModal={() => this.toggleModal()} show={show} {...this.props} />}
+                <TextContainer toggleModal={() => this.toggleModal()} user={user} />
             </div>
         );
     }

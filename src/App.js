@@ -16,6 +16,7 @@ import CookieConsent from "react-cookie-consent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import API from './api';
+import firebase from './firebase';
 
 import local from './local';
 
@@ -37,6 +38,21 @@ export default class App extends Component {
 
         this.setState({
             local: userLang==="de-DE" ? local.de : local.en,
+        });
+
+        this.handleCounter();
+    }
+
+    handleCounter() {
+        var counterref = firebase.database().ref('counter');
+        var connectedRef = firebase.database().ref('.info/connected');
+        connectedRef.on('value', function(snap) {
+            if (snap.val() === true) {
+                counterref.transaction(counter => {
+                    return (counter || 0) + 1
+                });
+            }
+            console.log(snap.val())
         });
     }
 

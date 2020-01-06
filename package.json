@@ -8,6 +8,7 @@
     "bootstrap": "^4.4.0",
     "browser-image-compression": "^1.0.6",
     "exif-js": "^2.3.0",
+    "firebase": "^7.6.1",
     "mdbreact": "^4.23.0",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.16",

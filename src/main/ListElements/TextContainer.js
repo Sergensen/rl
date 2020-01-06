@@ -10,7 +10,8 @@ export default class TextContainer extends Component {
 
     state = {
         nameFontSize: 1,
-        amountFontSize: 1
+        amountFontSize: 1,
+        opacity: 1
     }
 
 
@@ -37,9 +38,18 @@ export default class TextContainer extends Component {
         this.setState({ nameFontSize, amountFontSize })
     }
 
+    onMouseUp() {
+        this.setState({opacity: 1})
+        this.props.toggleModal();
+    }
+
+    onMouseDown() {
+        this.setState({opacity: 0.75})
+    }
+
     render() {
         const { topThree, user } = this.props;
-        const { nameFontSize, amountFontSize } = this.state;
+        const { nameFontSize, amountFontSize, opacity } = this.state;
 
         let uniqueName = "Anonymous";
         let amount = 0;
@@ -53,7 +63,7 @@ export default class TextContainer extends Component {
         //TODO: sowas wie formattedcurrency gucken
         //TODO: gucken ob der Text iwie autosized werden kann
         return (
-            <div ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
+            <div onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()} ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform, opacity }}>
                 <div style={styles.textContainer}>
                     {/* <p style={styles.name}>Name</p> */}
                     <div ref={ref => this.amountText = ref} style={{ ...styles.name, fontSize: nameFontSize }}>{uniqueName}</div>

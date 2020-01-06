@@ -7,6 +7,7 @@ import Datenschutz from './main/Datenschutz';
 import AGB from './main/AGB';
 import Impressum from './main/Impressum';
 import HEAD from './res/logo_header.png';
+import parental from './res/images/parentalAdvisoryLogo.png';
 import MainList from './main/MainList';
 import MainPage from './main/MainPage';
 import Fail from './main/Fail';
@@ -24,7 +25,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-  } from "react-router-dom";
+} from "react-router-dom";
 
 export default class App extends Component {
     state = {
@@ -32,12 +33,12 @@ export default class App extends Component {
         data: []
     }
 
-    componentDidMount(){
-        const userLang = navigator.language || navigator.userLanguage; 
-        API.getTop10().then(data => this.setState({data}));
+    componentDidMount() {
+        const userLang = navigator.language || navigator.userLanguage;
+        API.getTop10().then(data => this.setState({ data }));
 
         this.setState({
-            local: userLang==="de-DE" ? local.de : local.en,
+            local: userLang === "de-DE" ? local.de : local.en,
         });
 
         this.handleCounter();
@@ -46,7 +47,7 @@ export default class App extends Component {
     handleCounter() {
         var counterref = firebase.database().ref('counter');
         var connectedRef = firebase.database().ref('.info/connected');
-        connectedRef.on('value', function(snap) {
+        connectedRef.on('value', function (snap) {
             if (snap.val() === true) {
                 counterref.transaction(counter => {
                     return (counter || 0) + 1
@@ -88,7 +89,7 @@ export default class App extends Component {
                         <Terms />
                     </Route>
                     <Route path="/agb">
-                        <AGB /> 
+                        <AGB />
                     </Route>
                     <Route path="/datenschutz">
                         <Datenschutz />
@@ -107,24 +108,27 @@ export default class App extends Component {
                     <MDBFooter color="blue" className="font-small pt-4 mt-4">
                         <MDBContainer fluid className="text-center text-md-left">
                             <MDBRow>
-                            <MDBCol md="6">
-                                <h5 className="title">Support</h5>
-                                <p>{local.support}</p>
-                            </MDBCol>
-                            <MDBCol md="6">
-                                <h5 className="title">Links</h5>
-                                <ul style={styles.listcontainer}>
-                                <li>
-                                    <a style={styles.link} href={local.toLegal}>{local.tos6}</a>
-                                </li>
-                                <li>
-                                    <a style={styles.link} href={local.toTerms}>{local.tos7}</a>
-                                </li>
-                                <li>
-                                    <a style={styles.link} href={local.toPrivacy}>{local.tos4}</a>
-                                </li>
-                                </ul>
-                            </MDBCol>
+                                <MDBCol md="5">
+                                    <h5 className="title">Support</h5>
+                                    <p>{local.support}</p>
+                                </MDBCol>
+                                <MDBCol md="4">
+                                    <h5 className="title">Links</h5>
+                                    <ul style={styles.listcontainer}>
+                                        <li>
+                                            <a style={styles.link} href={local.toLegal}>{local.tos6}</a>
+                                        </li>
+                                        <li>
+                                            <a style={styles.link} href={local.toTerms}>{local.tos7}</a>
+                                        </li>
+                                        <li>
+                                            <a style={styles.link} href={local.toPrivacy}>{local.tos4}</a>
+                                        </li>
+                                    </ul>
+                                </MDBCol>
+                                <MDBCol md="3">
+                                    <img style={styles.parental} src={parental} />
+                                </MDBCol>
                             </MDBRow>
                         </MDBContainer>
                         <div className="footer-copyright text-center py-3">
@@ -135,16 +139,16 @@ export default class App extends Component {
                     </MDBFooter>
                 </div>}
 
-                {local && <CookieConsent 
-                    onAccept={() => {}}
-                    onDecline={() => {}}
+                {local && <CookieConsent
+                    onAccept={() => { }}
+                    onDecline={() => { }}
                     buttonText={local.buttonText}
                     declineButtonText={local.declineButtonText}
                     enableDeclineButton
-                    style={{ fontSize: "2vh"}}> 
-                        {local.cookies1}
-                        <a style={{color: "white"}} href={local.toPrivacy}>{local.tos4}</a> 
-                        {local.cookies2}
+                    style={{ fontSize: "2vh" }}>
+                    {local.cookies1}
+                    <a style={{ color: "white" }} href={local.toPrivacy}>{local.tos4}</a>
+                    {local.cookies2}
                 </CookieConsent>}
             </Router>
         );
@@ -188,5 +192,9 @@ const styles = {
     },
     listcontainer: {
         textAlign: "left"
+    },
+    parental: {
+        width: "50%",
+        height: "auto"
     }
 };

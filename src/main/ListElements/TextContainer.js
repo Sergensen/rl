@@ -44,7 +44,7 @@ export default class TextContainer extends Component {
     }
 
     onMouseDown() {
-        this.setState({opacity: 0.75})
+        this.setState({opacity: 0.65})
     }
 
     render() {
@@ -60,18 +60,13 @@ export default class TextContainer extends Component {
         }
 
         let topThreeTransform = topThree ? { transform: "translate(0px, 16%)" } : {}
-        //TODO: sowas wie formattedcurrency gucken
-        //TODO: gucken ob der Text iwie autosized werden kann
         return (
             <div onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()} ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform, opacity }}>
                 <div style={styles.textContainer}>
-                    {/* <p style={styles.name}>Name</p> */}
                     <div ref={ref => this.amountText = ref} style={{ ...styles.name, fontSize: nameFontSize }}>{uniqueName}</div>
 
                 </div>
                 <div style={styles.textContainer}>
-                    {/* <p style={styles.name}>10.99$</p> */}
-                    {/* <div style={{ ...styles.currency, fontSize: amountFontSize }}>{amount}</div> */}
                     <div style={{ ...styles.currency, fontSize: amountFontSize }}>{formatter.format(amount)}</div>
                 </div>
             </div>
@@ -82,22 +77,14 @@ export default class TextContainer extends Component {
 
 const styles = {
     container: {
-        // backgroundColor: "blue",
         display: "flex",
         flex: 1,
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         cursor: 'pointer'
-        // backgroundColor: "red"
     },
     textContainer: {
-        // backgroundColor: "yellow",
-        // display: "flex",
-        // flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center",
-        // backgroundColor: "green"
 
     },
     name: {
@@ -117,9 +104,6 @@ const styles = {
         letterSpacing: 1,
         textAlign: "center",
         lineHeight: "1.6em",
-
-        // backgroundColor: "blue",
-        //fontSize: 30,
     }
 
 }

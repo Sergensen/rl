@@ -72,6 +72,7 @@ const styles = {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        cursor: 'pointer'
     },
     imageContainer: {
         backgroundColor: "black",

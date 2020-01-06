@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import Background from '../../res/images/profiles/ModalBackground.png';
+import Background from '../../res/images/Background_pattern.jpg';
 import InstaBG from '../../res/images/profiles/InstaBackground.png';
 import TwitterBg from '../../res/images/profiles/TwitterBackground.png';
 import SnapchatBG from '../../res/images/profiles/SnapchatBackground.png';
@@ -145,6 +145,9 @@ const styles = {
     background: {
         alignItems: "center",
         backgroundImage: `url(${Background})`,
+        backgroundSize: 100,
+        backgroundRepeat: "repeat",
+        backgroundPosition: "center",
         display: 'flex',
         flexDirection: 'column'
     },

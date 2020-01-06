@@ -9,7 +9,7 @@ export default class ImageContainer extends Component {
 
     componentDidMount() {
         const height = this.imageContainer.clientHeight * 0.95;
-        this.setState({ height, tempHeight: height*0.95  });
+        this.setState({ height, tempHeight: height * 0.95 });
     }
 
     componentDidUpdate() {

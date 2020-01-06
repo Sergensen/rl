@@ -36,7 +36,7 @@ export default class First extends Component {
 
 const styles = {
     container: {
-        height: 200,
+        height: 225,
         width: "100%",
         display: "flex",
         flexDirection: "column",

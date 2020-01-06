@@ -60,7 +60,7 @@ const styles = {
         //alignItems: "center",
     },
     twoAndThree: {
-        height: 150,
+        height: 175,
         display: "flex",
         flexDirection: "row"
     },
@@ -76,17 +76,17 @@ const styles = {
         display: "flex",
         flexDirection: "row",
         backgroundImage: `url(${placeFourToSixBg})`,
-        backgroundSize: "auto 50%",
+        backgroundSize: "100% 50%",
         backgroundPosition: "bottom",
         backgroundRepeat: "no-repeat",
 
     },
     sevenToNine: {
-        height: 125,
+        height: 100,
         display: "flex",
         flexDirection: "row",
         backgroundImage: `url(${placeSevenToNineBg})`,
-        backgroundSize: "auto 50%",
+        backgroundSize: "100% 50%",
         backgroundPosition: "bottom",
         backgroundRepeat: "no-repeat",
     },

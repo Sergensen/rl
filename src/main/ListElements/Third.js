@@ -21,7 +21,7 @@ export default class Third extends Component {
 
         return (
             <div style={styles.container}>
-                <ImageContainer toggleModal={() => this.toggleModal()} topThree user={user} />
+                <ImageContainer {...this.props} toggleModal={() => this.toggleModal()} topThree user={user} />
                 {user && <ModalContainer user={user} toggleModal={() => this.toggleModal()} show={show} {...this.props} />}
                 <TextContainer toggleModal={() => this.toggleModal()} topThree user={user} />
             </div>

@@ -120,6 +120,16 @@ export default {
             }).catch(err => reject(err));
         });
     },
+    updateProps(props) {
+        props = props.filter(prop => {
+            return Object.keys(prop)[0] !== ""
+        });
+        return new Promise((resolve, reject) => {
+            axios.post(API_URL + 'props', { ...props }, { timeout: 10000 }).then(result => {
+                resolve(result.data);
+            }).catch(err => reject(err));
+        });
+    },
 
     API_URL: API_URL
 }

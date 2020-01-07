@@ -9,36 +9,108 @@ import { Button } from 'react-bootstrap';
 import {
     isMobile
 } from "react-device-detect";
+import API from '../api';
+
+
 export default class MainList extends Component {
-    render() {
+
+    state = {
+        props: {},
+        interval: null,
+        localProps: {},
+    }
+
+    componentDidMount() {
+        const { interval } = this.state;
+        if (!interval) {
+            //TODO: längeren Intervall machen
+            this.setState({
+                interval: setInterval(this.sendProps.bind(this), 5000)
+            })
+        };
+    }
+
+    async sendProps() {
+        const { props } = this.state;
         const { data } = this.props;
+        let temp = {};
+        for (let key in data) temp[data[key].uniqueName] = 0;
+        for (let key in props) temp[key] = props[key];
+
+        let propsArr = [];
+        for (let key in temp) propsArr.push({ [key]: temp[key] });
+
+        this.setState({ props: {} });
+        API.updateProps(propsArr).then(res => {
+            this.mapPropsToUsers(res.props);
+            // this.props.setToasts(res.toasts);
+        });
+    }
+
+    mapPropsToUsers(newProps) {
+        const { props } = this.state;
+        const { data } = this.props;
+        let out = {};
+
+        newProps.forEach(user => out[Object.keys(user)[0]] = user[Object.keys(user)[0]]);
+        for (let key in data) {
+            if (out[data[key].uniqueName]) {
+                data[key].props = out[data[key].uniqueName];
+            }
+        }
+
+        this.setState({ localProps: { ...props } });
+    }
+
+    addPropsToUser(uniqueName) {
+        if (uniqueName !== "") {
+            const { props, localProps } = this.state;
+            if (!props[uniqueName]) props[uniqueName] = 0;
+            if (!localProps[uniqueName]) localProps[uniqueName] = 0;
+
+            props[uniqueName]++;
+            localProps[uniqueName]++;
+
+            this.setState({
+                props,
+                localProps,
+            });
+        }
+    }
+
+    render() {
+        const { localProps } = this.state;
+        let { data } = this.props;
+
+        data = data || {};
+
         return (
             <div style={styles.main}>
 
                 <div style={styles.container}>
-                    <First user={data[0]} />
+                    <First user={data[0]} localProps={localProps[data[0] ? data[0].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
 
                     <div style={styles.twoAndThree}>
-                        <Second user={data[1]} />
-                        <Third user={data[2]} />
+                        <Second user={data[1]} localProps={localProps[data[1] ? data[1].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                        <Third user={data[2]} localProps={localProps[data[2] ? data[2].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                     </div>
 
                     <div style={styles.fourToSix}>
                         {/* {this.render4to6()} */}
-                        <ListElement user={data[3]} />
-                        <ListElement user={data[4]} />
-                        <ListElement user={data[5]} />
+                        <ListElement user={data[3]} localProps={localProps[data[3] ? data[3].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                        <ListElement user={data[4]} localProps={localProps[data[4] ? data[4].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                        <ListElement user={data[5]} localProps={localProps[data[5] ? data[5].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                     </div>
 
                     <div style={styles.sevenToNine} >
                         {/* {this.render7to10()} */}
-                        <ListElement user={data[6]} />
-                        <ListElement user={data[7]} />
-                        <ListElement user={data[8]} />
-                        <ListElement user={data[9]} />
+                        <ListElement user={data[6]} localProps={localProps[data[6] ? data[6].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                        <ListElement user={data[7]} localProps={localProps[data[7] ? data[7].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                        <ListElement user={data[8]} localProps={localProps[data[8] ? data[8].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                        <ListElement user={data[9]} localProps={localProps[data[9] ? data[9].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                     </div>
                     <Button onClick={() => window.location.href = '/pay'} variant="primary" size="lg" block style={styles.payButton}>
-                    💸 Get on the list 💸
+                        💸 Get on the list 💸
                     </Button>
                 </div>
             </div>
@@ -77,7 +149,7 @@ const styles = {
         position: "absolute",
         //height: "50%",
         //width: "100%",
-        bottom: 0,        
+        bottom: 0,
     },
     fourToSix: {
         height: 125,

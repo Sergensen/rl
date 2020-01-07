@@ -6,7 +6,8 @@ import * as loadImage from 'blueimp-load-image';
 export default class ImageContainer extends Component {
     state = {
         user: {},
-        moving: false
+        moving: false,
+        imgBase64: {},
     }
 
     componentDidMount() {
@@ -15,25 +16,32 @@ export default class ImageContainer extends Component {
     }
 
     componentDidUpdate() {
+        const { uniqueName } = this.state;
         let { user } = this.props;
 
-        if (user && user.imgUrl && !user.imgBase64 && !user.uniqueName !== 'Anonymous') {
+        if (user && user.imgUrl && uniqueName !== user.uniqueName && !user.uniqueName !== 'Anonymous') {
             loadImage(user.imgUrl, async (canvas) => {
-                user.imgBase64 = canvas.toDataURL();
-                //user.imgBase64 = user.imgUrl;
-                this.setState({ user, update: true });
+                let imgBase64 = canvas.toDataURL();
+                //imgBase64 = user.imgUrl;
+                this.setState({ imgBase64, uniqueName: user.uniqueName });
             }, { orientation: true });
         }
     }
 
     onMouseUp() {
-        const { moving } = this.state;
+        const { addPropsToUser } = this.props;
+        const { moving, uniqueName } = this.state;
         this.setState(prev => ({
             height: prev.tempHeight,
             tempHeight: prev.height,
             moving: false
         }))
-        if (!moving) this.props.toggleModal();
+        if (!moving && uniqueName && uniqueName !== "Blocked User" && uniqueName !== "Anonymous" && uniqueName !== "Banned user") {
+            addPropsToUser(uniqueName)
+        }
+
+
+        // this.props.toggleModal();
     }
 
     onMouseDown() {
@@ -44,15 +52,14 @@ export default class ImageContainer extends Component {
     }
 
     render() {
-        let { topThree, user } = this.props;
-        const { height } = this.state;
-
-        user = this.state.user ? this.state.user : user;
+        let { topThree, user, localProps } = this.props;
+        const { height, imgBase64 } = this.state;
 
         let topThreeTransform = topThree ? { transform: "translate(0px, 23%) scale(0.85)" } : {};
 
-        let imgUrl = user && user.imgBase64 ? user.imgBase64 : AnonymousImage;
+        let imgUrl = imgBase64 || AnonymousImage;
         let propsCount = user && user.props ? user.props : 0;
+        propsCount += localProps || 0
 
         return (
             <div onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()} onTouchMove={() => this.setState({ moving: true })} onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>

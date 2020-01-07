@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AnonymousImage from '../../res/images/profiles/ProfileIcon.png'
 import * as loadImage from 'blueimp-load-image';
+import { Spinner } from 'react-bootstrap';
 
 export default class ImageContainer extends Component {
     state = {
@@ -50,20 +51,22 @@ export default class ImageContainer extends Component {
 
         let topThreeTransform = topThree ? { transform: "translate(0px, 23%) scale(0.85)" } : {};
 
-        let imgUrl = user && user.imgBase64 ? user.imgBase64 : AnonymousImage;
+        let imgUrl = user.imgBase64 ? user.imgBase64 : false;
 
         return (
             <div onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()} onTouchMove={() => this.setState({moving: true})} onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
-                <div
-                    style={{
-                        ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`, 
-                        border: topThree ? '0px solid #393939' : '3px solid #393939',
-                    }}
-                    ref={(ref) => this.imageCanvas = ref}
-                >
-                    {/* <img src={imgUrl} crossOrigin="anonymous"
+                {imgUrl ? 
+                    (<div
+                        style={{
+                            ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`, 
+                            border: topThree ? '0px solid #393939' : '3px solid #393939',
+                        }}
+                        ref={(ref) => this.imageCanvas = ref}
+                    />) :
+                    (<Spinner animation="border" role="status" />)
+                }
+                {/* <img src={imgUrl} crossOrigin="anonymous"
                         style={styles.image} /> */}
-                </div>
             </div>
         );
     }

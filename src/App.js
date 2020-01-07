@@ -84,9 +84,6 @@ export default class App extends Component {
                     <Route path="/">
                         <MainList data={data} />
                     </Route>
-                    <Route path="/">
-                        <MainPage />
-                    </Route>
                 </Switch>
                 {local && <div style={styles.footer}>
                     <MDBFooter color="blue" className="font-small pt-4 mt-4">

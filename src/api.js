@@ -108,5 +108,18 @@ export default {
             });
         });
     },
+    getProps(data) {
+        return new Promise((resolve, reject) => {
+            let params = [];
+            data.forEach(user => params.push({ [user.uniqueName]: 0 }));
+            axios.post(API_URL + 'props', { ...params }, { timeout: 10000 }).then(res => {
+                let props = {};
+                res.data.props.forEach(user => props[Object.keys(user)[0]] = user[Object.keys(user)[0]]);
+                for (let user of data) user.props = props[user.uniqueName];
+                resolve(data);
+            }).catch(err => reject(err));
+        });
+    },
+
     API_URL: API_URL
 }

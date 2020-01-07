@@ -34,11 +34,21 @@ export default class App extends Component {
 
     componentDidMount() {
         const userLang = navigator.language || navigator.userLanguage;
-        API.getTop10().then(data => this.setState({ data }));
+        //TODO: erstmal ohne await testen
+        this.fetchData();
 
         this.setState({
             local: userLang === "de-DE" ? local.de : local.en,
         });
+    }
+
+    fetchData(){
+        API.getTop10().then(users => {
+            API.getProps(users).then(data => {
+                this.setState({ data });
+            });
+        });
+
     }
 
     render() {

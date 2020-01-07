@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AnonymousImage from '../../res/images/profiles/ProfileIcon.png'
+import HeartImage from '../../res/images/profiles/heart.png'
 import * as loadImage from 'blueimp-load-image';
 
 export default class ImageContainer extends Component {
@@ -16,11 +17,11 @@ export default class ImageContainer extends Component {
     componentDidUpdate() {
         let { user } = this.props;
 
-        if(user && user.imgUrl && !user.imgBase64 && !user.uniqueName !== 'Anonymous') {
-            loadImage(user.imgUrl, async (canvas) => {                
+        if (user && user.imgUrl && !user.imgBase64 && !user.uniqueName !== 'Anonymous') {
+            loadImage(user.imgUrl, async (canvas) => {
                 user.imgBase64 = canvas.toDataURL();
                 //user.imgBase64 = user.imgUrl;
-                this.setState({user, update: true});
+                this.setState({ user, update: true });
             }, { orientation: true });
         }
     }
@@ -32,7 +33,7 @@ export default class ImageContainer extends Component {
             tempHeight: prev.height,
             moving: false
         }))
-        if(!moving) this.props.toggleModal();
+        if (!moving) this.props.toggleModal();
     }
 
     onMouseDown() {
@@ -51,19 +52,25 @@ export default class ImageContainer extends Component {
         let topThreeTransform = topThree ? { transform: "translate(0px, 23%) scale(0.85)" } : {};
 
         let imgUrl = user && user.imgBase64 ? user.imgBase64 : AnonymousImage;
+        let propsCount = user && user.props ? user.props : 0;
 
         return (
-            <div onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()} onTouchMove={() => this.setState({moving: true})} onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
+            <div onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()} onTouchMove={() => this.setState({ moving: true })} onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
                 <div
                     style={{
-                        ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`, 
+                        ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`,
                         border: topThree ? '0px solid #393939' : '3px solid #393939',
                     }}
                     ref={(ref) => this.imageCanvas = ref}
                 >
-                    {/* <img src={imgUrl} crossOrigin="anonymous"
-                        style={styles.image} /> */}
                 </div>
+
+                {/* <div style={{ ...styles.mainPropsContainer }}> */}
+                <div style={{ ...styles.propsTextBackground }}>
+                    <img style={styles.heartImage} src={HeartImage} />
+                    <div style={{ ...styles.propText }}>{propsCount}</div>
+                </div>
+                {/* </div> */}
             </div>
         );
     }
@@ -76,16 +83,17 @@ const styles = {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        cursor: 'pointer'
+        cursor: "pointer",
+        position: "relative",
     },
     imageContainer: {
         backgroundColor: "black",
         overflow: "hidden",
         borderRadius: "100%",
-        width: '100%', 
-        height: '100%', 
-        display: 'flex', 
-        alignItems: 'center', 
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'center',
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -94,5 +102,48 @@ const styles = {
     //     height: "100%",
     //     width: "auto",
     // },
+    mainPropsContainer: {
+
+        // left: 0,
+        // right: 0,
+        // bottom: 0,
+        // alignItems: 'center',
+
+        // opacity: 0,
+    },
+    propsTextBackground: {
+        position: 'absolute',
+        top: 0,
+        pointerEvents: 'none',
+        height: "30%",
+        width: "auto",
+        display: "flex",
+        backgroundColor: "#EB4956",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderRadius: "25px",
+        // height: "100%",
+        // width: "auto",
+    },
+    propText: {
+        textAlign: "center",
+        textAlignVertical: "center",
+        fontFamily: "Calisto MT",
+        color: "white",
+        letterSpacing: 1,
+        marginRight: 10,
+        fontWeight: "bold",
+        // fontSize: "10%"
+    },
+    heartImage: {
+        // position: "relative",
+        height: "70%",
+        width: "auto",
+        // objectFit: "contain",
+        // maxWidth: "10%",
+        marginLeft: 10,
+        marginRight: 5,
+    }
 
 }

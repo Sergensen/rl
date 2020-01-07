@@ -97,7 +97,7 @@ export default class App extends Component {
                     <Route path="/privacy">
                         <Privacy />
                     </Route>
-                    <Route path="/dev">
+                    <Route path="/">
                         <MainList data={data} />
                     </Route>
                     <Route path="/">
@@ -182,8 +182,6 @@ const styles = {
         display: "flex",
         backgroundColor: "rgba(0, 0, 0, 0.6)",
         justifyContent: "center",
-        borderBottom: "1px solid rgba(99,99,99,0.5)",
-        boxShadow: "0 5px 10px -1px grey",
         paddingBottom: 5
     },
     headerLink: {

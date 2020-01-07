@@ -4,7 +4,8 @@ import * as loadImage from 'blueimp-load-image';
 
 export default class ImageContainer extends Component {
     state = {
-        user: {}
+        user: {},
+        moving: false
     }
 
     componentDidMount() {
@@ -26,11 +27,13 @@ export default class ImageContainer extends Component {
     }
 
     onMouseUp() {
+        const { moving } = this.state;
         this.setState(prev => ({
             height: prev.tempHeight,
             tempHeight: prev.height,
+            moving: false
         }))
-        this.props.toggleModal();
+        if(!moving) this.props.toggleModal();
     }
 
     onMouseDown() {
@@ -51,7 +54,7 @@ export default class ImageContainer extends Component {
         let imgUrl = user && user.imgBase64 ? user.imgBase64 : AnonymousImage;
 
         return (
-            <div onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()} onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
+            <div onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()} onTouchMove={() => this.setState({moving: true})} onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
                 <div
                     style={{
                         ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`, 

@@ -5,7 +5,10 @@ import Third from './ListElements/Third';
 import ListElement from './ListElements/ListElement';
 import placeFourToSixBg from '../res/images/profiles/Platz4-6_Border.png'
 import placeSevenToNineBg from '../res/images/profiles/Platz7-9_Border.png'
-
+import { Button } from 'react-bootstrap';
+import {
+    isMobile
+} from "react-device-detect";
 export default class MainList extends Component {
     render() {
         const { data } = this.props;
@@ -34,7 +37,9 @@ export default class MainList extends Component {
                         <ListElement user={data[8]} />
                         <ListElement user={data[9]} />
                     </div>
-
+                    <Button onClick={() => window.location.href = '/pay'} variant="primary" size="lg" block style={styles.payButton}>
+                    💸 Get on the list 💸
+                    </Button>
                 </div>
             </div>
         );
@@ -46,21 +51,24 @@ const styles = {
         //backgroundColor: "red",
         width: "100%",
         display: "flex",
-        //backgroundColor: "rgba(0, 0, 0, 0.5)",
+        backgroundColor: "rgba(0, 0, 0, 0.2)",
         justifyContent: "center",
         flex: 1,
     },
     container: {
         //backgroundColor: "green",
         width: "100%",
+        alignItems: 'center',
         maxWidth: 500,
         display: "flex",
         flexDirection: "column",
+        margin: '1rem 0'
         //justifyContent: "center",
         //alignItems: "center",
     },
     twoAndThree: {
         height: 175,
+        width: "100%",
         display: "flex",
         flexDirection: "row"
     },
@@ -73,6 +81,7 @@ const styles = {
     },
     fourToSix: {
         height: 125,
+        width: "100%",
         display: "flex",
         flexDirection: "row",
         backgroundImage: `url(${placeFourToSixBg})`,
@@ -86,9 +95,14 @@ const styles = {
         display: "flex",
         flexDirection: "row",
         backgroundImage: `url(${placeSevenToNineBg})`,
+        width: "100%",
         backgroundSize: "100% 50%",
         backgroundPosition: "bottom",
         backgroundRepeat: "no-repeat",
     },
-
+    payButton: {
+        width: '90%',
+        marginTop: 30,
+        marginBottom: 10,
+    }
 }

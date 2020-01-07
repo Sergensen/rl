@@ -11,7 +11,8 @@ export default class TextContainer extends Component {
     state = {
         nameFontSize: 1,
         amountFontSize: 1,
-        opacity: 1
+        opacity: 1,
+        moving: false
     }
 
 
@@ -39,8 +40,12 @@ export default class TextContainer extends Component {
     }
 
     onMouseUp() {
-        this.setState({opacity: 1})
-        this.props.toggleModal();
+        const { moving } = this.state;
+        this.setState({
+            opacity: 1,
+            moving: false
+        })
+        if(!moving) this.props.toggleModal();
     }
 
     onMouseDown() {
@@ -61,7 +66,7 @@ export default class TextContainer extends Component {
 
         let topThreeTransform = topThree ? { transform: "translate(0px, 16%)" } : {}
         return (
-            <div onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()} ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform, opacity }}>
+            <div onMouseDown={() => this.onMouseDown()} onTouchMove={() => this.setState({moving: true})} onMouseUp={() => this.onMouseUp()} ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform, opacity }}>
                 <div style={styles.textContainer}>
                     <div ref={ref => this.amountText = ref} style={{ ...styles.name, fontSize: nameFontSize }}>{uniqueName}</div>
 

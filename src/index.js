@@ -5,6 +5,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './res/fonts/Calisto MT.ttf'
 import './res/fonts/Cash Currency.ttf'
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-155751725-1');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

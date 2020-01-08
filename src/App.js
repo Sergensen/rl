@@ -9,7 +9,6 @@ import Impressum from './main/Impressum';
 import HEAD from './res/logo_header.png';
 import parental from './res/images/parentalAdvisoryLogo.png';
 import MainList from './main/MainList';
-import MainPage from './main/MainPage';
 import Fail from './main/Fail';
 import Success from './main/Success';
 import Validation from './main/Validation';
@@ -32,7 +31,7 @@ export default class App extends Component {
         data: []
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const userLang = navigator.language || navigator.userLanguage;
         //TODO: erstmal ohne await testen
         this.fetchData();
@@ -46,6 +45,7 @@ export default class App extends Component {
         API.getTop10().then(users => {
             API.getProps(users).then(data => {
                 this.setState({ data });
+                // API.getTop10().then(data => this.setState({ data }));
             });
         });
 
@@ -94,9 +94,6 @@ export default class App extends Component {
                     <Route path="/">
                         <MainList data={data} />
                     </Route>
-                    <Route path="/">
-                        <MainPage />
-                    </Route>
                 </Switch>
                 {local && <div style={styles.footer}>
                     <MDBFooter color="blue" className="font-small pt-4 mt-4">
@@ -121,7 +118,7 @@ export default class App extends Component {
                                     </ul>
                                 </MDBCol>
                                 <MDBCol md="3">
-                                    <img style={styles.parental} src={parental} />
+                                    <img alt="prnt" style={styles.parental} src={parental} />
                                 </MDBCol>
                             </MDBRow>
                         </MDBContainer>
@@ -174,7 +171,7 @@ const styles = {
         flex: 1,
         width: "100%",
         display: "flex",
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        backgroundColor: "rgba(0, 0, 0, 0.4)",
         justifyContent: "center",
         paddingBottom: 5
     },

@@ -10,9 +10,9 @@ export default class AGB extends Component {
                     </p>
                     <br />
                     <p className="header">
-                            RichList Term of Service
+                            RichList Allgemeine Geschäftsbedingungen
                     </p>
-                    <p className="terms">Last Updated on August 10, 2019</p>
+                    <p className="terms">Zuletzt bearbeitet am 10. August 2019</p>
 
                     <p className="terms">
                     <b>Überblick.</b><br />

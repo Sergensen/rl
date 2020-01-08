@@ -3,9 +3,7 @@ import AnonymousImage from '../../res/images/profiles/ProfileIcon.png'
 import HeartImage from '../../res/images/profiles/heart.png'
 import * as loadImage from 'blueimp-load-image';
 import { motion, useAnimation, useMotionValue, useTransform } from "framer-motion"
-
-
-
+import { Spinner } from 'react-bootstrap';
 
 export default class ImageContainer extends Component {
     state = {
@@ -99,7 +97,8 @@ export default class ImageContainer extends Component {
                 onTouchMove={() => this.setState({ moving: true })}
                 //onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} 
                 ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
-                <motion.div
+                (imgUrl ? 
+                    <motion.div
                     //onTap={this.onTap.bind(this)}
                     //whileTap={{ scale: 0.95 }} 
                     style={styles.motionContainer}>
@@ -111,7 +110,9 @@ export default class ImageContainer extends Component {
                         ref={(ref) => this.imageCanvas = ref}
                     >
                     </div>
-                </motion.div>
+                </motion.div> : 
+                (<Spinner animation="border" role="status" />)
+
 
                 {hideProps || <motion.div initial="visible" animate={opacityState} variants={variants}  style={{ ...styles.propsTextBackground }}>
                     <img style={styles.heartImage} src={HeartImage} />

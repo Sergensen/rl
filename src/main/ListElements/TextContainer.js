@@ -56,8 +56,8 @@ export default class TextContainer extends Component {
         const { topThree, user } = this.props;
         const { nameFontSize, amountFontSize, opacity } = this.state;
 
-        let uniqueName = "Anonymous";
-        let amount = 0;
+        let uniqueName = "";
+        let amount;
 
         if (user) {
             uniqueName = user.uniqueName;
@@ -72,7 +72,7 @@ export default class TextContainer extends Component {
 
                 </div>
                 <div style={styles.textContainer}>
-                    <div style={{ ...styles.currency, fontSize: amountFontSize }}>{formatter.format(amount)}</div>
+                    <div style={{ ...styles.currency, fontSize: amountFontSize }}>{amount ? formatter.format(amount): ""}</div>
                 </div>
             </div>
         );
@@ -93,7 +93,6 @@ const styles = {
 
     },
     name: {
-        color: "white",
         fontFamily: "Calisto MT",
         textShadow: "1px 1px 3px #000000",
         fontWeight: 'bold',

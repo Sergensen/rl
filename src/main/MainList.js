@@ -6,9 +6,6 @@ import ListElement from './ListElements/ListElement';
 import placeFourToSixBg from '../res/images/profiles/Platz4-6_Border.png'
 import placeSevenToNineBg from '../res/images/profiles/Platz7-9_Border.png'
 import { Button } from 'react-bootstrap';
-import {
-    isMobile
-} from "react-device-detect";
 import API from '../api';
 import { motion } from "framer-motion"
 

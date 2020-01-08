@@ -35,6 +35,7 @@ export default class App extends Component {
     componentDidMount() {
         const userLang = navigator.language || navigator.userLanguage;
         API.getTop10().then(data => this.setState({ data }));
+        API.getOnline().then(online => console.log(online));
 
         this.setState({
             local: userLang === "de-DE" ? local.de : local.en,

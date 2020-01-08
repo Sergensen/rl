@@ -53,6 +53,7 @@ export default class ModalContainer extends Component {
         const { nameFontSize, messageFontSize, amountFontSize, iconSize } = this.state;
         return (
             <Modal
+                onHide={() => toggleModal()}
                 onLoad={(e) => this.setFontSize(e)}
                 show={show}
                 scrollable={false}

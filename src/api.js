@@ -108,5 +108,9 @@ export default {
             });
         });
     },
+    async getOnline() {
+        const online = 210 + Math.floor(Math.random() * 10);
+        return online
+    },
     API_URL: API_URL
 }

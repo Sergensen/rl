@@ -93,6 +93,7 @@ const styles = {
 
     },
     name: {
+        color: "white",
         fontFamily: "Calisto MT",
         textShadow: "1px 1px 3px #000000",
         fontWeight: 'bold',

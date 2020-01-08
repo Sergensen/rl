@@ -97,7 +97,7 @@ export default class ImageContainer extends Component {
                 onTouchMove={() => this.setState({ moving: true })}
                 //onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} 
                 ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
-                (imgUrl ? 
+                {imgUrl ? 
                     <motion.div
                     //onTap={this.onTap.bind(this)}
                     //whileTap={{ scale: 0.95 }} 
@@ -111,7 +111,7 @@ export default class ImageContainer extends Component {
                     >
                     </div>
                 </motion.div> : 
-                (<Spinner animation="border" role="status" />)
+                <Spinner animation="border" role="status" />}
 
 
                 {hideProps || <motion.div initial="visible" animate={opacityState} variants={variants}  style={{ ...styles.propsTextBackground }}>

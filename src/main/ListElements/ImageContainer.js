@@ -58,11 +58,11 @@ export default class ImageContainer extends Component {
         }))
     }
 
-    onTap(event, info) {
-        const { addPropsToUser } = this.props;
-        const { uniqueName } = this.state;
-        //addPropsToUser(uniqueName);
-    }
+    // onTap(event, info) {
+    //     const { addPropsToUser } = this.props;
+    //     const { uniqueName } = this.state;
+    //     //addPropsToUser(uniqueName);
+    // }
 
     render() {
         // let propsControls = useAnimation();
@@ -100,7 +100,7 @@ export default class ImageContainer extends Component {
                 //onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} 
                 ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
                 <motion.div
-                    onTap={this.onTap.bind(this)}
+                    //onTap={this.onTap.bind(this)}
                     //whileTap={{ scale: 0.95 }} 
                     style={styles.motionContainer}>
                     <div

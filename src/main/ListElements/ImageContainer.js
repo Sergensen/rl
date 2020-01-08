@@ -4,6 +4,7 @@ import HeartImage from '../../res/images/profiles/heart.png'
 import * as loadImage from 'blueimp-load-image';
 import { motion, useAnimation, useMotionValue, useTransform } from "framer-motion"
 import { Spinner } from 'react-bootstrap';
+import { globalIntro } from '../../Globals'
 
 export default class ImageContainer extends Component {
     state = {
@@ -64,7 +65,7 @@ export default class ImageContainer extends Component {
 
     render() {
         // let propsControls = useAnimation();
-        let { topThree, user, localProps } = this.props;
+        let { topThree, user, localProps, position } = this.props;
         const { height, imgBase64, uniqueName, opacityState } = this.state;
 
         const hideProps = uniqueName === "" || uniqueName === "Anonymous" || uniqueName === "Banned user" || uniqueName === "Blocked user"
@@ -90,7 +91,7 @@ export default class ImageContainer extends Component {
             },
         }
         // console.log("opacity: " + opacityState)
-
+        console.log(globalIntro)
         return (
             <div
                 onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()}
@@ -98,10 +99,7 @@ export default class ImageContainer extends Component {
                 //onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} 
                 ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
                 {imgUrl ? 
-                    <motion.div
-                    //onTap={this.onTap.bind(this)}
-                    //whileTap={{ scale: 0.95 }} 
-                    style={styles.motionContainer}>
+                    <motion.div custom={position} initial="hidden" animate="visible" variants={globalIntro}  style={styles.motionContainer}>
                     <div
                         style={{
                             ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`,

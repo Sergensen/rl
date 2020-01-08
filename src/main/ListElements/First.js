@@ -5,6 +5,21 @@ import placeBg from '../../res/images/profiles/Platz1_Profil.png'
 import RollsNLion from '../../res/images/profiles/RollsNLion.png';
 import Mercedes from '../../res/images/profiles/BlackMercedes.png';
 import ModalContainer from './ModalContainer';
+import { motion } from "framer-motion"
+
+const variants = {
+    visible: {
+        x: 0,
+        opacity: 1,
+        transition: { duration: 1, delay: 2.5, type: "spring" }
+    },
+    hidden: i => ({
+        x: i * 100,
+        opacity: 0
+    }),
+}
+
+
 
 export default class First extends Component {
     state = {
@@ -17,17 +32,21 @@ export default class First extends Component {
         }))
     }
 
+
     render() {
-        const { user } = this.props;     
+        const { user } = this.props;
         const { show } = this.state;
+
+
+
 
         return (
             <div style={styles.container}>
-                <ImageContainer  {...this.props} toggleModal={() => this.toggleModal()} topThree user={user} />
+                <ImageContainer position={1} {...this.props} toggleModal={() => this.toggleModal()} topThree user={user} />
                 {user && <ModalContainer user={user} toggleModal={() => this.toggleModal()} show={show} {...this.props} />}
-                <TextContainer toggleModal={() => this.toggleModal()} first topThree user={user} />
-                <img alt="RR" src={RollsNLion} style={styles.rollsNLion} />
-                <img alt="BNZ" src={Mercedes} style={styles.mercedes} />
+                <TextContainer position={1} toggleModal={() => this.toggleModal()} first topThree user={user} />
+                <motion.img custom={-1} initial="hidden" animate="visible" variants={variants} alt="RR" src={RollsNLion} style={styles.rollsNLion} />
+                <motion.img custom={1} initial="hidden" animate="visible" variants={variants} alt="BNZ" src={Mercedes} style={styles.mercedes} />
             </div>
         );
     }

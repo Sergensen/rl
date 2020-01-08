@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { motion } from "framer-motion"
+import { globalIntro } from '../../Globals'
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -45,15 +47,15 @@ export default class TextContainer extends Component {
             opacity: 1,
             moving: false
         })
-        if(!moving) this.props.toggleModal();
+        if (!moving) this.props.toggleModal();
     }
 
     onMouseDown() {
-        this.setState({opacity: 0.65})
+        this.setState({ opacity: 0.65 })
     }
 
     render() {
-        const { topThree, user } = this.props;
+        const { topThree, user, position } = this.props;
         const { nameFontSize, amountFontSize, opacity } = this.state;
 
         let uniqueName = "";
@@ -66,21 +68,33 @@ export default class TextContainer extends Component {
 
         let topThreeTransform = topThree ? { transform: "translate(0px, 16%)" } : {}
         return (
-            <div onMouseDown={() => this.onMouseDown()} onTouchMove={() => this.setState({moving: true})} onMouseUp={() => this.onMouseUp()} ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform, opacity }}>
-                <div style={styles.textContainer}>
-                    <div ref={ref => this.amountText = ref} style={{ ...styles.name, fontSize: nameFontSize }}>{uniqueName}</div>
+            <div onMouseDown={() => this.onMouseDown()} onTouchMove={() => this.setState({ moving: true })} onMouseUp={() => this.onMouseUp()} ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform, opacity }}>
 
-                </div>
-                <div style={styles.textContainer}>
-                    <div style={{ ...styles.currency, fontSize: amountFontSize }}>{amount ? formatter.format(amount): ""}</div>
-                </div>
+                <motion.div custom={position} initial="hidden" animate="visible" variants={globalIntro} style={styles.animationContainer}>
+                    <div style={styles.textContainer}>
+                        <div ref={ref => this.amountText = ref} style={{ ...styles.name, fontSize: nameFontSize }}>{uniqueName}</div>
+
+                    </div>
+                    <div style={styles.textContainer}>
+                        <div style={{ ...styles.currency, fontSize: amountFontSize }}>{amount ? formatter.format(amount) : ""}</div>
+                    </div>
+                </motion.div>
             </div>
+
         );
     }
 }
 
 
 const styles = {
+    animationContainer: {
+        display: "flex",
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        cursor: 'pointer'
+    },
     container: {
         display: "flex",
         flex: 1,

@@ -22,7 +22,7 @@ export default class ListElement extends Component {
             <div style={styles.container}>
                 <ImageContainer {...this.props} toggleModal={() => this.toggleModal()} user={user} />
                 {user && <ModalContainer user={user} toggleModal={() => this.toggleModal()} show={show} {...this.props} />}
-                <TextContainer toggleModal={() => this.toggleModal()} user={user} />
+                <TextContainer {...this.props} toggleModal={() => this.toggleModal()} user={user} />
             </div>
         );
     }

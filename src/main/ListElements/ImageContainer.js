@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import AnonymousImage from '../../res/images/profiles/ProfileIcon.png'
 import HeartImage from '../../res/images/profiles/heart.png'
 import * as loadImage from 'blueimp-load-image';
+import { motion, useAnimation, useMotionValue, useTransform } from "framer-motion"
+
+
+
 
 export default class ImageContainer extends Component {
     state = {
         user: {},
         moving: false,
         imgBase64: {},
+        uniqueName: "",
+        opacityState: "hidden",
     }
 
     componentDidMount() {
@@ -21,8 +27,8 @@ export default class ImageContainer extends Component {
 
         if (user && user.imgUrl && uniqueName !== user.uniqueName && !user.uniqueName !== 'Anonymous') {
             loadImage(user.imgUrl, async (canvas) => {
-                let imgBase64 = canvas.toDataURL();
-                //imgBase64 = user.imgUrl;
+                //let imgBase64 = canvas.toDataURL();
+                let imgBase64 = user.imgUrl;
                 this.setState({ imgBase64, uniqueName: user.uniqueName });
             }, { orientation: true });
         }
@@ -34,50 +40,83 @@ export default class ImageContainer extends Component {
         this.setState(prev => ({
             height: prev.tempHeight,
             tempHeight: prev.height,
-            moving: false
+            moving: false,
+            opacityState: "hidden",
+
         }))
         if (!moving && uniqueName && uniqueName !== "Blocked User" && uniqueName !== "Anonymous" && uniqueName !== "Banned user") {
             addPropsToUser(uniqueName)
         }
 
-
-        // this.props.toggleModal();
     }
 
     onMouseDown() {
         this.setState(prev => ({
             height: prev.tempHeight,
             tempHeight: prev.height,
+            opacityState: "visible",
         }))
     }
 
-    render() {
-        let { topThree, user, localProps } = this.props;
-        const { height, imgBase64 } = this.state;
+    onTap(event, info) {
+        const { addPropsToUser } = this.props;
+        const { uniqueName } = this.state;
+        //addPropsToUser(uniqueName);
+    }
 
+    render() {
+        // let propsControls = useAnimation();
+        let { topThree, user, localProps } = this.props;
+        const { height, imgBase64, uniqueName, opacityState } = this.state;
+
+        const hideProps = uniqueName === "" || uniqueName === "Anonymous" || uniqueName === "Banned user" || uniqueName === "Blocked user"
         let topThreeTransform = topThree ? { transform: "translate(0px, 23%) scale(0.85)" } : {};
 
         let imgUrl = imgBase64 || AnonymousImage;
+
         let propsCount = user && user.props ? user.props : 0;
         propsCount += localProps || 0
 
-        return (
-            <div onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()} onTouchMove={() => this.setState({ moving: true })} onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
-                <div
-                    style={{
-                        ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`,
-                        border: topThree ? '0px solid #393939' : '3px solid #393939',
-                    }}
-                    ref={(ref) => this.imageCanvas = ref}
-                >
-                </div>
+        const variants = {
+            hidden: { 
+                opacity: [1, 0], 
+                transition:{ 
+                    duration: 1, delay: 2
+                } 
+            },
+            visible: { 
+                opacity: [0, 1],
+                transition:{ 
+                    duration: 0.01
+                }  
+            },
+        }
+        // console.log("opacity: " + opacityState)
 
-                {/* <div style={{ ...styles.mainPropsContainer }}> */}
-                <div style={{ ...styles.propsTextBackground }}>
+        return (
+            <div
+                onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()}
+                onTouchMove={() => this.setState({ moving: true })}
+                //onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} 
+                ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
+                <motion.div
+                    onTap={this.onTap.bind(this)}
+                    //whileTap={{ scale: 0.95 }} 
+                    style={styles.motionContainer}>
+                    <div
+                        style={{
+                            ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`,
+                            border: topThree ? '0px solid #393939' : '3px solid #393939',
+                        }}
+                        ref={(ref) => this.imageCanvas = ref}
+                    >
+                    </div>
+                </motion.div>
+
+                {hideProps || <motion.div initial="visible" animate={opacityState} variants={variants}  style={{ ...styles.propsTextBackground }}>
                     <img style={styles.heartImage} src={HeartImage} />
                     <div style={{ ...styles.propText }}>{propsCount}</div>
-                </div>
-                {/* </div> */}
+                </motion.div>}
             </div>
         );
     }
@@ -86,6 +125,16 @@ export default class ImageContainer extends Component {
 
 const styles = {
     container: {
+        display: "flex",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        cursor: "pointer",
+        position: "relative",
+
+    },
+    motionContainer: {
+        touchAction: "pan-y",
         display: "flex",
         flex: 1,
         justifyContent: "center",
@@ -105,19 +154,7 @@ const styles = {
         backgroundSize: "cover",
         backgroundPosition: "center",
     },
-    // image: {
-    //     height: "100%",
-    //     width: "auto",
-    // },
-    mainPropsContainer: {
 
-        // left: 0,
-        // right: 0,
-        // bottom: 0,
-        // alignItems: 'center',
-
-        // opacity: 0,
-    },
     propsTextBackground: {
         position: 'absolute',
         top: 0,
@@ -130,8 +167,7 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'space-between',
         borderRadius: "25px",
-        // height: "100%",
-        // width: "auto",
+
     },
     propText: {
         textAlign: "center",

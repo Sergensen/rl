@@ -10,6 +10,8 @@ import {
     isMobile
 } from "react-device-detect";
 import API from '../api';
+import { motion } from "framer-motion"
+
 
 
 export default class MainList extends Component {
@@ -84,35 +86,56 @@ export default class MainList extends Component {
 
         data = data || {};
 
+        const list = {
+            visible: {
+                opacity: 1,
+                transition: {
+                    when: "beforeChildren",
+                    staggerChildren: 0.4,
+                    duration: 1.4,
+                    ease: "circIn",
+                    // delay: 1,
+                },
+            },
+            hidden: {
+                opacity: 0,
+            },
+        }
+
         return (
             <div style={styles.main}>
 
-                <div style={styles.container}>
-                    <First user={data[0]} localProps={localProps[data[0] ? data[0].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                <motion.div initial="hidden" animate="visible" variants={list} style={styles.container}>
+                    <motion.div variants={list} style={styles.first}>
+                        <First user={data[0]} localProps={localProps[data[0] ? data[0].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                    </motion.div>
 
-                    <div style={styles.twoAndThree}>
+                    <motion.div variants={list} style={styles.twoAndThree}>
                         <Second user={data[1]} localProps={localProps[data[1] ? data[1].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                         <Third user={data[2]} localProps={localProps[data[2] ? data[2].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
-                    </div>
+                    </motion.div>
 
-                    <div style={styles.fourToSix}>
+                    <motion.div variants={list} style={styles.fourToSix}>
                         {/* {this.render4to6()} */}
                         <ListElement user={data[3]} localProps={localProps[data[3] ? data[3].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                         <ListElement user={data[4]} localProps={localProps[data[4] ? data[4].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                         <ListElement user={data[5]} localProps={localProps[data[5] ? data[5].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
-                    </div>
+                    </motion.div>
 
-                    <div style={styles.sevenToNine} >
+                    <motion.div variants={list} style={styles.sevenToNine} >
                         {/* {this.render7to10()} */}
                         <ListElement user={data[6]} localProps={localProps[data[6] ? data[6].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                         <ListElement user={data[7]} localProps={localProps[data[7] ? data[7].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                         <ListElement user={data[8]} localProps={localProps[data[8] ? data[8].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                         <ListElement user={data[9]} localProps={localProps[data[9] ? data[9].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
-                    </div>
-                    <Button onClick={() => window.location.href = '/pay'} variant="primary" size="lg" block style={styles.payButton}>
-                        💸 Get on the list 💸
-                    </Button>
-                </div>
+                    </motion.div>
+                    <motion.div initial={false} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95, x: "-5px", y: "5px" }} style={styles.buttonContainer}>
+                        <Button onClick={() => window.location.href = '/pay'} variant="primary" size="lg" block style={styles.payButton}>
+                            💸 Get on the list 💸
+                        </Button>
+                    </motion.div>
+
+                </motion.div>
             </div>
         );
     }
@@ -137,6 +160,11 @@ const styles = {
         margin: '1rem 0'
         //justifyContent: "center",
         //alignItems: "center",
+    },
+    first: {
+        width: "100%",
+        alignItems: 'center',
+        display: "flex",
     },
     twoAndThree: {
         height: 175,
@@ -176,5 +204,10 @@ const styles = {
         width: '90%',
         marginTop: 30,
         marginBottom: 10,
+    },
+    buttonContainer:{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
     }
 }

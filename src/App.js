@@ -161,7 +161,7 @@ const styles = {
         flex: 1,
         width: "100%",
         display: "flex",
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        backgroundColor: "rgba(0, 0, 0, 0.4)",
         justifyContent: "center",
         paddingBottom: 5
     },

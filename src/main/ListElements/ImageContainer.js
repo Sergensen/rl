@@ -15,7 +15,6 @@ export default class ImageContainer extends Component {
 
     componentDidUpdate() {
         let { user } = this.props;
-
         if(user && user.imgUrl && !user.imgBase64 && !user.uniqueName !== 'Anonymous') {
             loadImage(user.imgUrl, async (canvas) => {                
                 user.imgBase64 = canvas.toDataURL();
@@ -45,7 +44,6 @@ export default class ImageContainer extends Component {
     render() {
         let { topThree, user } = this.props;
         const { height } = this.state;
-
         user = this.state.user ? this.state.user : user;
 
         let topThreeTransform = topThree ? { transform: "translate(0px, 23%) scale(0.85)" } : {};

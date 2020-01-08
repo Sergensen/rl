@@ -7,7 +7,6 @@ import CameraIcon from '../res/camera.png';
 import local from '../local';
 import Modal from 'react-modal';
 import StripeCheckout from 'react-stripe-checkout';
-import BackgroundText from '../res/Platz4-6_Border.png';
 import { Spinner, Image, Popover, OverlayTrigger } from 'react-bootstrap';
 import loadImage from 'blueimp-load-image';
 
@@ -45,7 +44,7 @@ class Checkout extends Component {
     }
 
     async paymentRequestWithPaypal() {
-        let { uniqueKey, name, loading, mail, message, amount } = this.state;
+        let { uniqueKey, name, mail, message, amount } = this.state;
         try {
             const res = await API.nameExists(uniqueKey, name.trim());
             if(!uniqueKey) {
@@ -208,7 +207,7 @@ class Checkout extends Component {
             loadImage.parseMetaData(image, function(data) {
                 let orientation = 0;
                 if (data.exif) orientation = data.exif.get('Orientation');
-                const newImage = loadImage(
+                loadImage(
                     image,
                     function(canvas) {
                         let base64data = canvas.toDataURL('image/jpeg');

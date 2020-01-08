@@ -25,7 +25,7 @@ export default class Second extends Component {
                 <ImageContainer toggleModal={() => this.toggleModal()} topThree user={user} />
                 {user && <ModalContainer user={user} toggleModal={() => this.toggleModal()} show={show} {...this.props} />}
                 <TextContainer toggleModal={() => this.toggleModal()} topThree user={user} />
-                <img src={AksCrossed} style={styles.aksCrossed} />
+                <img alt="AK" src={AksCrossed} style={styles.aksCrossed} />
             </div>
         );
     }

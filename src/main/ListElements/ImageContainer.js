@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AnonymousImage from '../../res/images/profiles/ProfileIcon.png'
 import * as loadImage from 'blueimp-load-image';
 import { Spinner } from 'react-bootstrap';
 

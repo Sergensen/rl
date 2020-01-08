@@ -9,7 +9,6 @@ import Impressum from './main/Impressum';
 import HEAD from './res/logo_header.png';
 import parental from './res/images/parentalAdvisoryLogo.png';
 import MainList from './main/MainList';
-import MainPage from './main/MainPage';
 import Fail from './main/Fail';
 import Success from './main/Success';
 import Validation from './main/Validation';
@@ -32,10 +31,10 @@ export default class App extends Component {
         data: []
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const userLang = navigator.language || navigator.userLanguage;
         API.getTop10().then(data => this.setState({ data }));
-        API.getOnline().then(online => console.log(online));
+        //API.getOnline().then(online => console.log(online));
 
         this.setState({
             local: userLang === "de-DE" ? local.de : local.en,
@@ -109,7 +108,7 @@ export default class App extends Component {
                                     </ul>
                                 </MDBCol>
                                 <MDBCol md="3">
-                                    <img style={styles.parental} src={parental} />
+                                    <img alt="prnt" style={styles.parental} src={parental} />
                                 </MDBCol>
                             </MDBRow>
                         </MDBContainer>

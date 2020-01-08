@@ -6,9 +6,6 @@ import ListElement from './ListElements/ListElement';
 import placeFourToSixBg from '../res/images/profiles/Platz4-6_Border.png'
 import placeSevenToNineBg from '../res/images/profiles/Platz7-9_Border.png'
 import { Button } from 'react-bootstrap';
-import {
-    isMobile
-} from "react-device-detect";
 export default class MainList extends Component {
     render() {
         const { data } = this.props;
@@ -38,7 +35,7 @@ export default class MainList extends Component {
                         <ListElement user={data[9]} />
                     </div>
                     <Button onClick={() => window.location.href = '/pay'} variant="primary" size="lg" block style={styles.payButton}>
-                    💸 Get on the list 💸
+                        <span>💸 Get on the list 💸</span>
                     </Button>
                 </div>
             </div>

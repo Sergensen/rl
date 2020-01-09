@@ -10,6 +10,7 @@ import HEAD from './res/logo_header.png';
 import parental from './res/images/parentalAdvisoryLogo.png';
 import MainList from './main/MainList';
 import Fail from './main/Fail';
+import InfoSection from './main/InfoSection';
 import Success from './main/Success';
 import Validation from './main/Validation';
 import CookieConsent from "react-cookie-consent";
@@ -85,6 +86,10 @@ export default class App extends Component {
                         <MainList data={data} />
                     </Route>
                 </Switch>
+                <div style={styles.InfoSection}>
+                    <InfoSection />
+                </div>
+               
                 {local && <div style={styles.footer}>
                     <MDBFooter color="blue" className="font-small pt-4 mt-4">
                         <MDBContainer fluid className="text-center text-md-left">
@@ -137,6 +142,13 @@ export default class App extends Component {
 }
 
 const styles = {
+    InfoSection: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '1vh', 
+        marginBottom: '1vh', 
+    },
     footer: {
         bottom: 0,
         color: "lightgrey",

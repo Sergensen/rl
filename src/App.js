@@ -95,6 +95,7 @@ export default class App extends Component {
                         {data && <MainList data={data} />}
                     </Route>
                 </Switch>
+            
                 {local && <div style={styles.footer}>
                     <MDBFooter color="blue" className="font-small pt-4 mt-4">
                         <MDBContainer fluid className="text-center text-md-left">

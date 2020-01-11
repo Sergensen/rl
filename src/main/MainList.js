@@ -3,6 +3,7 @@ import First from './ListElements/First';
 import Second from './ListElements/Second';
 import Third from './ListElements/Third';
 import ListElement from './ListElements/ListElement';
+import InfoSection from './InfoSection';
 import placeFourToSixBg from '../res/images/profiles/Platz4-6_Border.png'
 import placeSevenToNineBg from '../res/images/profiles/Platz7-9_Border.png'
 import { Button } from 'react-bootstrap';
@@ -108,7 +109,7 @@ export default class MainList extends Component {
                 opacity: 0,
             },
         }
-        
+
         return (
             <div style={styles.main}>
                 <div style={styles.container}>
@@ -143,10 +144,15 @@ export default class MainList extends Component {
                             💸 Get on the list 💸
                         </Button>
                     </motion.div>
+                    
+                    <div style={styles.InfoSection}>
+                        <InfoSection />
+                    </div>
 
                 </div>
+
             </div>
-        )
+        );
     }
 }
 
@@ -180,6 +186,14 @@ const styles = {
         width: "100%",
         alignItems: 'center',
         display: "flex",
+    },
+    InfoSection: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        paddingTop: '1vh',
+        paddingBottom: '1vh',
+        backgroundColor: 'rgba(0,0,0,0.4)',
     },
     twoAndThree: {
         height: 175,

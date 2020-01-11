@@ -31,8 +31,6 @@ export default class TextContainer extends Component {
             amount = user.amount;
         }
 
-
-
         const width = this.textContainer.clientHeight * topThreeFactor;
         const height = this.textContainer.clientWidth * 0.5 * topThreeFactor;
         const nameFontSize = Math.sqrt(width * height / (uniqueName.length * 2))

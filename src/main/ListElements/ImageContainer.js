@@ -149,7 +149,7 @@ export default class ImageContainer extends Component {
                     <Spinner animation="border" role="status" />}
 
 
-                {hideProps || <motion.div custom={position} initial={{ opacity: 0 }} animate={opacityState} variants={variants} style={{ ...styles.propsTextBackground }}>
+                {hideProps || <motion.div custom={position} initial={{ opacity: 0 }} animate={opacityState} variants={variants} style={{ ...styles.propsTextBackground, fontSize: height * 0.2}}>
                     <img style={styles.heartImage} src={HeartImage} />
                     <div style={{ ...styles.propText }}>{propsCount}</div>
                 </motion.div>}

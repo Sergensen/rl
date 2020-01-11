@@ -441,7 +441,7 @@ const styles = {
         height: "100%"
     },
     payContainer:{
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        backgroundColor: "rgba(0, 0, 0, 0.4)",
         backgroundRepeat: "repeat",
     }, 
     paymentMethods: {

@@ -3,6 +3,7 @@ import First from './ListElements/First';
 import Second from './ListElements/Second';
 import Third from './ListElements/Third';
 import ListElement from './ListElements/ListElement';
+import InfoSection from './InfoSection';
 import placeFourToSixBg from '../res/images/profiles/Platz4-6_Border.png'
 import placeSevenToNineBg from '../res/images/profiles/Platz7-9_Border.png'
 import { Button } from 'react-bootstrap';
@@ -37,8 +38,13 @@ export default class MainList extends Component {
                     <Button onClick={() => window.location.href = '/pay'} variant="primary" size="lg" block style={styles.payButton}>
                         <span>💸 Get on the list 💸</span>
                     </Button>
+                    <div style={styles.InfoSection}>
+                        <InfoSection />
+                    </div>
                 </div>
+
             </div>
+
         );
     }
 }
@@ -48,7 +54,7 @@ const styles = {
         //backgroundColor: "red",
         width: "100%",
         display: "flex",
-        backgroundColor: "rgba(0, 0, 0, 0.2)",
+        backgroundColor: "rgba(0, 0, 0, 0.4)",
         justifyContent: "center",
         flex: 1,
     },
@@ -62,6 +68,14 @@ const styles = {
         margin: '1rem 0'
         //justifyContent: "center",
         //alignItems: "center",
+    },
+    InfoSection: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        paddingTop: '1vh', 
+        paddingBottom: '1vh', 
+        backgroundColor: 'rgba(0,0,0,0.4)',
     },
     twoAndThree: {
         height: 175,

@@ -6,6 +6,7 @@ import TwitterBg from '../../res/images/profiles/TwitterBackground.png';
 import SnapchatBG from '../../res/images/profiles/SnapchatBackground.png';
 import TikTokBG from '../../res/images/profiles/TikTokBackground.png';
 import ProfileText from '../../res/images/profiles/ProfileText.png';
+import * as loadImage from 'blueimp-load-image';
 import {
     isMobile
 } from "react-device-detect";
@@ -25,21 +26,36 @@ export default class ModalContainer extends Component {
         iconSize: '3.5vh'
     }
 
+    componentDidUpdate() {
+        let { user } = this.props;
+        if(user && user.imgUrl && !user.imgBase64 && !user.uniqueName !== 'Anonymous') {
+            loadImage(user.imgUrl, async (canvas) => {                
+                user.imgBase64 = canvas.toDataURL();
+                this.setState({user, update: true});
+            }, { orientation: true });
+        }
+    }
+
+
     setFontSize(event) {
-        const { uniqueName, amount, message } = this.props.user;
+        let user = this.props;
+        user = this.state.user ? this.state.user : user;
 
-        const width = event.currentTarget.offsetWidth;
-        const height = event.currentTarget.offsetHeight * (isMobile ? 0.9 : 0.5);
-        const nameFontSize = Math.sqrt(width * height / (uniqueName.length + 10)) * 0.2;
-        const messageFontSize = message ? Math.sqrt(width * height / (message.length + 10)) * 0.2 : nameFontSize;
-        const amountFontSize = Math.sqrt(width * height / (("" + amount).length + 10)) * 0.15;
-
-        this.setState({
-            nameFontSize,
-            messageFontSize,
-            amountFontSize,
-            iconSize: height * (isMobile ? 0.05 : 0.065)
-        })
+        const { uniqueName, amount, message } = user;
+        if(uniqueName) {
+            const width = event.currentTarget.offsetWidth;
+            const height = event.currentTarget.offsetHeight * (isMobile ? 0.9 : 0.5);
+            const nameFontSize = Math.sqrt(width * height / (uniqueName.length + 10)) * 0.2;
+            const messageFontSize = message ? Math.sqrt(width * height / (message.length + 10)) * 0.2 : nameFontSize;
+            const amountFontSize = Math.sqrt(width * height / (("" + amount).length + 10)) * 0.15;
+    
+            this.setState({
+                nameFontSize,
+                messageFontSize,
+                amountFontSize,
+                iconSize: height * (isMobile ? 0.05 : 0.065)
+            })
+        }
     }
 
     render() {

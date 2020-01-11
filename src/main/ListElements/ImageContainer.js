@@ -57,8 +57,8 @@ export default class ImageContainer extends Component {
         if (user) {
             if (user.imgUrl && uniqueName !== user.uniqueName && !user.uniqueName !== 'Anonymous') {
                 loadImage(user.imgUrl, async (canvas) => {
-                    //let imgBase64 = canvas.toDataURL();
-                    let imgBase64 = user.imgUrl;
+                    let imgBase64 = canvas.toDataURL();
+                    // let imgBase64 = user.imgUrl;
                     this.setState({ imgBase64, uniqueName: user.uniqueName });
                 }, { orientation: true });
             }

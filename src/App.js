@@ -171,9 +171,9 @@ const styles = {
         flex: 1,
         width: "100%",
         display: "flex",
-        backgroundColor: "rgba(0, 0, 0, 0.4)",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
         justifyContent: "center",
-        paddingBottom: 5
+        paddingBottom: 5,
     },
     headerLink: {
         marginTop: "1vh",

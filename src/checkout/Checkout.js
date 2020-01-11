@@ -9,6 +9,9 @@ import Modal from 'react-modal';
 import StripeCheckout from 'react-stripe-checkout';
 import { Spinner, Image, Popover, OverlayTrigger, Card } from 'react-bootstrap';
 import loadImage from 'blueimp-load-image';
+import {
+    isMobile
+  } from "react-device-detect";
 
 Modal.setAppElement('#root')
 
@@ -269,6 +272,8 @@ class Checkout extends Component {
                                 <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" style={styles.image} type="file" onChange={(e) => this.fileChangedHandler(e)} />
                             </button>
                         }
+
+
                         <div style={{...styles.flexOne}}>
                             <div className="info-button"></div>
                             <input value={name} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength="20" type="text" placeholder={local.name}/>
@@ -360,13 +365,15 @@ class Checkout extends Component {
 
 const styles = {
     method: {
-        fontSize: window.innerHeight*0.025,
+        fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,
         padding: '2%',
     },
     card: {
         backgroundColor: 'black',
         color: 'white',
         border: '1px solid grey',
+        borderWidth: "1px 0 1px 0",
+        marginTop: '2%',
         width: '100%'
     },
     hidePaypal: {
@@ -377,7 +384,7 @@ const styles = {
         backgroundColor: 'rgba(0,0,0,0.8)',
         cursor: 'not-allowed',
         width: '50%',
-        fontSize: window.innerHeight*0.02,
+        fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,
         height: '100%',
         top: 0,
         left: 0,
@@ -473,7 +480,7 @@ const styles = {
         verticalAlign: "middle",
         padding: 10,
         flex: 1,
-        fontSize: window.innerHeight*0.025,
+        fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,
         height: "100%"
     },
     payContainer:{
@@ -513,7 +520,7 @@ const styles = {
         backgroundColor: "black",
         color: "white",
         padding: window.innerHeight*0.02,
-        fontSize: window.innerHeight*0.025,
+        fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,
     },
     imageButton: {
         backgroundColor:" rgba(0, 0, 0, 0)",
@@ -541,9 +548,10 @@ const styles = {
     input: {
         textAlign: "center",
         width: "100%",
-        height: window.innerHeight*0.06,
-        fontSize: window.innerHeight*0.03,
+        height: isMobile ? window.innerHeight*0.09 : window.innerHeight*0.06,
+        fontSize: isMobile ? window.innerHeight*0.035 : window.innerHeight*0.03,
         border: "1px solid grey",
+        borderWidth: "1px 0 1px 0",
         color: "white",
         margin: "1% 0%",
         boxSizing: "border-box",
@@ -556,7 +564,7 @@ const styles = {
     submit: {
         textAlign: "center",
         width: "100%",
-        height: window.innerHeight*0.05,
+        height: isMobile ? window.innerHeight * 0.1 : window.innerHeight*0.075,
         fontSize: window.innerHeight*0.03,
         backgroundColor: "blue",
         color: "white",

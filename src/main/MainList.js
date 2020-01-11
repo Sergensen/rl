@@ -144,7 +144,7 @@ const styles = {
         //backgroundColor: "red",
         width: "100%",
         display: "flex",
-        backgroundColor: "rgba(0, 0, 0, 0.2)",
+        backgroundColor: "rgba(0, 0, 0, 0.4)",
         justifyContent: "center",
         flex: 1,
     },

@@ -40,6 +40,8 @@ module.exports = {
     paymentkey: "Payment key",
     paymentInfo: "After your first payment you will receive an unique payment key which you can provide in your next payment to accumulate your payments.",
     paypalLimit: "PayPal is only avaiable for payments below $2000",
+    makeAPayment1: "Checkout area",
+    makeAPayment2: "Make your first payment!",
   },
   de: {
     tos1: "Mit der Benutzung des bezahlen Buttons bestätigen Sie, dass Sie die",
@@ -82,5 +84,7 @@ module.exports = {
     paymentKey: "Zahlungsschlüssel",
     paymentInfo: "Nach Ihrer ersten Zahlung erhalten Sie einen individuellen Zahlungsschlüssel, den Sie bei Ihrer nächsten Zahlung angeben können, um Ihre Zahlungen zu summieren.",
     paypalLimit: "PayPal ist nur bei Zahlungen von unter 2.000$ verfügbar",
+    makeAPayment1: "Checkout Bereich",
+    makeAPayment2: "Mache deine erste Zahlung!",
   }
 };

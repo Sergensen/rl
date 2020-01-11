@@ -254,6 +254,10 @@ class Checkout extends Component {
           
         return (
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
+            <div style={styles.header}>
+                <b>{local.makeAPayment1}</b>
+                <div style={{fontSize: isMobile ? window.innerHeight*0.04 : window.innerHeight*0.03}}>{local.makeAPayment2}</div>
+            </div>
             {loading && 
                 <div>
                     <div style={styles.loading} />
@@ -364,6 +368,18 @@ class Checkout extends Component {
 }
 
 const styles = {
+    header: {
+        color: 'white',
+        fontSize: isMobile ? window.innerHeight*0.045 : window.innerHeight*0.035,
+        padding: '1%',
+        maxWidth: 900,
+        width: '100%',
+        margin: '1%',
+        textAlign: 'center',
+        //border: '1px solid grey',
+        //borderWidth: '1px 0 1px 0',
+        //backgroundColor: 'black'
+    },
     method: {
         fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,
         padding: '2%',

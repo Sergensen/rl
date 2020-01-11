@@ -1,5 +1,9 @@
 import GLOBAL from './Globals'
 import axios from 'axios';
+import AnonymousImage from './res/images/profiles/ProfilePlaceholder.jpg'
+import AnonymousImageVerification from './res/images/profiles/ProfilePlaceholder_inVerification.jpg'
+
+
 const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
 
 //const API_URL = "http://localhost:5001/";
@@ -16,10 +20,10 @@ export default {
             axios.get(API_URL + 'user/lastamount/-1', { timeout: 10000 }).then(async res => {
                 await asyncForEach(res.data, async (user, i, users) => {
                     if (users[i].imgUrl === "" || !users[i].imgUrl) {
-                        users[i].imgUrl = GLOBAL.PROFILE_PLACEHOLDER
+                        users[i].imgUrl = AnonymousImage
                     }
 
-                    if (user.nsfw) users[i].imgUrl = GLOBAL.PROFILE_PLACEHOLDER_TO_VERIFY;
+                    if (user.nsfw) users[i].imgUrl = AnonymousImageVerification;
                     if (user.banned) users[i] = {
                         ...user,
                         uniqueName: "Banned user",
@@ -30,7 +34,7 @@ export default {
                         twitter: "",
                         snapchat: "",
                         tiktok: "",
-                        imgUrl: GLOBAL.PROFILE_PLACEHOLDER,
+                        imgUrl: AnonymousImage,
                         nsfw: false
                     }
                 });

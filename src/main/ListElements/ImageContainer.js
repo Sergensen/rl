@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AnonymousImage from '../../res/images/profiles/ProfileIcon.png'
+import AnonymousImage from '../../res/images/profiles/ProfilePlaceholder.jpg'
 import HeartImage from '../../res/images/profiles/heart.png'
 import * as loadImage from 'blueimp-load-image';
 import { motion } from "framer-motion"

@@ -14,21 +14,24 @@ const variants = {
             ease: "circIn",
         }
     },
-    initial: {
-        opacity: [1, 0],
+    initial: i => ({
+        // y: [-5, 0],
+        opacity: [0, 1, 1, 1, 0],
         transition: {
-            delay: 10, 
+            duration: 2,
+            //hab extra "delay" objekt gemacht, aber wenn ich this.deplay benutze geht das nicht :(
+            delay: i * 0.2,
+            type: "spring"
+        }
+    }),
+    propsUpdate: {
+        opacity: [1, 1, 1, 1, 1, 1, 0],
+        rotate: [0, -4, -4, -4, -4, 4, -4, 4, -4, 4, 0, 0, 0],
+        scale: [1, 0.8, 0.8, 0.8, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1, 1, 1],
+        transition: {
             duration: 1
         }
-    },
-    propsUpdate:{
-        opacity:[1,     1,      1,      1,      1,      1,      0],
-        rotate: [0,     -4,     -4,     -4,     -4,     4,      -4,     4,      -4,     4,      0,  0, 0],
-        scale:  [1,     0.8,    0.8,    0.8,    1.2,    1.2,    1.2,    1.2,    1.2,    1.2,    1,  1,  1], 
-        transition: {
-            duration: 1
-        }
-    }    
+    }
 }
 
 export default class ImageContainer extends Component {
@@ -51,7 +54,7 @@ export default class ImageContainer extends Component {
         const { uniqueName } = this.state;
         let { user } = this.props;
 
-        if( user ){
+        if (user) {
             if (user.imgUrl && uniqueName !== user.uniqueName && !user.uniqueName !== 'Anonymous') {
                 loadImage(user.imgUrl, async (canvas) => {
                     //let imgBase64 = canvas.toDataURL();
@@ -59,17 +62,21 @@ export default class ImageContainer extends Component {
                     this.setState({ imgBase64, uniqueName: user.uniqueName });
                 }, { orientation: true });
             }
-            //TODO: auskommentieren!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // if (user.props){
-            //     const {oldProps} = this.state;
-            //     if(user.props > oldProps){
-            //         this.setState({oldProps: user.props});
-            //         this.startPropsAnimation("propsUpdate");
-            //     } 
-            // }
+
+            const { oldProps } = this.state;
+
+            if (oldProps === -1) {
+                this.setState({ oldProps: user.props });
+            }
+            else if (user.props) {
+                if (user.props > oldProps) {
+                    this.setState({ oldProps: user.props });
+                    this.startPropsAnimation("propsUpdate");
+                }
+            }
         }
 
-        
+
 
         //if (props > this.oldProps) this.animateUpdatedProps();
 
@@ -100,7 +107,7 @@ export default class ImageContainer extends Component {
     }
 
     startPropsAnimation(newState) {
-        this.setState({ opacityState: "" }, () => this.setState({opacityState: newState}));
+        this.setState({ opacityState: "" }, () => this.setState({ opacityState: newState }));
     }
 
     render() {
@@ -116,12 +123,12 @@ export default class ImageContainer extends Component {
         // if(user){
         //     imgUrl = user.imgUrl;
         // }
-        
+
 
         let propsCount = user && user.props ? user.props : 0;
         propsCount += localProps || 0;
 
-        
+
         return (
             <div
                 onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()}
@@ -142,7 +149,7 @@ export default class ImageContainer extends Component {
                     <Spinner animation="border" role="status" />}
 
 
-                {hideProps || <motion.div initial={{ opacity: 0 }} animate={opacityState} variants={variants} style={{ ...styles.propsTextBackground }}>
+                {hideProps || <motion.div custom={position} initial={{ opacity: 0 }} animate={opacityState} variants={variants} style={{ ...styles.propsTextBackground }}>
                     <img style={styles.heartImage} src={HeartImage} />
                     <div style={{ ...styles.propText }}>{propsCount}</div>
                 </motion.div>}

@@ -23,12 +23,22 @@ export default class MainList extends Component {
         if (!interval) {
             //TODO: längeren Intervall machen
             this.setState({
-                interval: setInterval(this.sendProps.bind(this), 5000)
+                interval: setInterval(this.sendProps.bind(this), 2500)
             })
+
+            setTimeout(() => {
+                clearInterval(this.state.interval);
+                this.setState({
+                    interval: setInterval(this.sendProps.bind(this), 7000)
+                })
+            }, 30000)
+
+
         };
     }
 
     async sendProps() {
+        console.log("sendProps: " + new Date())
         const { props } = this.state;
         const { data } = this.props;
         let temp = {};

@@ -2,9 +2,34 @@ import React, { Component } from 'react';
 import AnonymousImage from '../../res/images/profiles/ProfileIcon.png'
 import HeartImage from '../../res/images/profiles/heart.png'
 import * as loadImage from 'blueimp-load-image';
-import { motion, useAnimation, useMotionValue, useTransform } from "framer-motion"
+import { motion } from "framer-motion"
 import { Spinner } from 'react-bootstrap';
 import { globalIntro } from '../../Globals'
+
+const variants = {
+    startHiding: {
+        opacity: [1, 0],
+        transition: {
+            duration: 1,
+            ease: "circIn",
+        }
+    },
+    initial: {
+        opacity: [1, 0],
+        transition: {
+            delay: 4, 
+            duration: 1
+        }
+    },
+    propsUpdate:{
+        opacity:[1,     1,      1,      1,      1,      1,      0],
+        rotate: [0,     -4,     -4,     -4,     -4,     4,      -4,     4,      -4,     4,      0,  0, 0],
+        scale:  [1,     0.8,    0.8,    0.8,    1.2,    1.2,    1.2,    1.2,    1.2,    1.2,    1,  1,  1], 
+        transition: {
+            duration: 1
+        }
+    }    
+}
 
 export default class ImageContainer extends Component {
     state = {
@@ -12,7 +37,9 @@ export default class ImageContainer extends Component {
         moving: false,
         imgBase64: {},
         uniqueName: "",
-        opacityState: "hidden",
+        opacityState: "initial",
+        timer: false,
+        oldProps: -1,
     }
 
     componentDidMount() {
@@ -24,13 +51,29 @@ export default class ImageContainer extends Component {
         const { uniqueName } = this.state;
         let { user } = this.props;
 
-        if (user && user.imgUrl && uniqueName !== user.uniqueName && !user.uniqueName !== 'Anonymous') {
-            loadImage(user.imgUrl, async (canvas) => {
-                //let imgBase64 = canvas.toDataURL();
-                let imgBase64 = user.imgUrl;
-                this.setState({ imgBase64, uniqueName: user.uniqueName });
-            }, { orientation: true });
+        if( user ){
+            if (user.imgUrl && uniqueName !== user.uniqueName && !user.uniqueName !== 'Anonymous') {
+                loadImage(user.imgUrl, async (canvas) => {
+                    //let imgBase64 = canvas.toDataURL();
+                    let imgBase64 = user.imgUrl;
+                    this.setState({ imgBase64, uniqueName: user.uniqueName });
+                }, { orientation: true });
+            }
+
+            if (user.props){
+                const {oldProps} = this.state;
+                if(user.props > oldProps){
+                    this.setState({oldProps: user.props});
+                    this.startPropsAnimation("propsUpdate");
+                } 
+            }
         }
+
+        
+
+        //if (props > this.oldProps) this.animateUpdatedProps();
+
+        //this.oldProps = props;
     }
 
     onMouseUp() {
@@ -40,28 +83,25 @@ export default class ImageContainer extends Component {
             height: prev.tempHeight,
             tempHeight: prev.height,
             moving: false,
-            opacityState: "hidden",
-
         }))
         if (!moving && uniqueName && uniqueName !== "Blocked User" && uniqueName !== "Anonymous" && uniqueName !== "Banned user") {
             addPropsToUser(uniqueName)
         }
 
+
+        this.startPropsAnimation("startHiding");
     }
 
     onMouseDown() {
         this.setState(prev => ({
             height: prev.tempHeight,
             tempHeight: prev.height,
-            opacityState: "visible",
         }))
     }
 
-    // onTap(event, info) {
-    //     const { addPropsToUser } = this.props;
-    //     const { uniqueName } = this.state;
-    //     //addPropsToUser(uniqueName);
-    // }
+    startPropsAnimation(newState) {
+        this.setState({ opacityState: "" }, () => this.setState({opacityState: newState}));
+    }
 
     render() {
         // let propsControls = useAnimation();
@@ -74,45 +114,30 @@ export default class ImageContainer extends Component {
         let imgUrl = imgBase64 || AnonymousImage;
 
         let propsCount = user && user.props ? user.props : 0;
-        propsCount += localProps || 0
+        propsCount += localProps || 0;
 
-        const variants = {
-            hidden: { 
-                opacity: [1, 0], 
-                transition:{ 
-                    duration: 1, delay: 2
-                } 
-            },
-            visible: { 
-                opacity: [0, 1],
-                transition:{ 
-                    duration: 0.01
-                }  
-            },
-        }
-        // console.log("opacity: " + opacityState)
-        console.log(globalIntro)
+        
         return (
             <div
                 onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()}
                 onTouchMove={() => this.setState({ moving: true })}
                 //onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} 
                 ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
-                {imgUrl ? 
-                    <motion.div custom={position} initial="hidden" animate="visible" variants={globalIntro}  style={styles.motionContainer}>
-                    <div
-                        style={{
-                            ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`,
-                            border: topThree ? '0px solid #393939' : '3px solid #393939',
-                        }}
-                        ref={(ref) => this.imageCanvas = ref}
-                    >
-                    </div>
-                </motion.div> : 
-                <Spinner animation="border" role="status" />}
+                {imgUrl ?
+                    <motion.div custom={position} initial="hidden" animate="visible" variants={globalIntro} style={styles.motionContainer}>
+                        <div
+                            style={{
+                                ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`,
+                                border: topThree ? '0px solid #393939' : '3px solid #393939',
+                            }}
+                            ref={(ref) => this.imageCanvas = ref}
+                        >
+                        </div>
+                    </motion.div> :
+                    <Spinner animation="border" role="status" />}
 
 
-                {hideProps || <motion.div initial="visible" animate={opacityState} variants={variants}  style={{ ...styles.propsTextBackground }}>
+                {hideProps || <motion.div initial={{ opacity: 0 }} animate={opacityState} variants={variants} style={{ ...styles.propsTextBackground }}>
                     <img style={styles.heartImage} src={HeartImage} />
                     <div style={{ ...styles.propText }}>{propsCount}</div>
                 </motion.div>}

@@ -7,7 +7,7 @@ import CameraIcon from '../res/camera.png';
 import local from '../local';
 import Modal from 'react-modal';
 import StripeCheckout from 'react-stripe-checkout';
-import { Spinner, Image, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Spinner, Image, Popover, OverlayTrigger, Card } from 'react-bootstrap';
 import loadImage from 'blueimp-load-image';
 
 Modal.setAppElement('#root')
@@ -191,7 +191,10 @@ class Checkout extends Component {
         const reg = new RegExp('^[0-9]*$');
         let amount = "" + e.target.value;
         amount = amount.length>1 ? amount.substring(2) : amount;
-        if (reg.test(amount)) this.setState({ amount: parseInt(amount, 10) });
+        if (reg.test(amount)) this.setState(prev => ({ 
+            amount: parseInt(amount, 10),
+            method: parseInt(amount) > 1999 ? 'stripe' : prev.method
+         }));
     }
 
     async fileChangedHandler(e) {
@@ -268,13 +271,13 @@ class Checkout extends Component {
                         }
                         <div style={{...styles.flexOne}}>
                             <div className="info-button"></div>
-                            <input value={name} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? window.innerHeight*0.005+"px solid red": "1px solid lightgrey"}}} maxLength="20" type="text" placeholder={local.name}/>
+                            <input value={name} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength="20" type="text" placeholder={local.name}/>
                         </div>
                         <div style={{...styles.flexOne}}>
-                            <input onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? window.innerHeight*0.005+"px solid red": "1px solid lightgrey"}}} maxLength={35} type="text" placeholder={local.email}/>
+                            <input onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={35} type="text" placeholder={local.email}/>
                         </div>
                         <div style={{...styles.flexOne}}>
-                            <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? window.innerHeight*0.005+"px solid red": "1px solid lightgrey"}}} maxLength={8} type="text" placeholder={local.amount}/>
+                            <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={8} type="text" placeholder={local.amount}/>
                         </div>
                         <div style={{...styles.flexOne}}>
                             <input value={message} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ message: e.target.value })} style={styles.input} maxLength={35} type="text" placeholder={local.message}/>
@@ -297,26 +300,33 @@ class Checkout extends Component {
                             </OverlayTrigger>
                             <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setState({ uniqueKey: e.target.value })} style={styles.input} maxLength={16} type="text" placeholder={local.uniqueKey}/>
                         </div>}
-                        <p style={styles.paymentlabel}>{local.method}</p>
-                        <div style={{...styles.flexOne, ...styles.paymentMethods}}>
-                            <button onClick={(e) => this.selectPaymentMethod(e, "paypal")} style={{...styles.methodButton, ...{marginRight: "0.5%", borderWidth: method==="paypal" ? window.innerHeight*0.0085: 1, borderColor: method==="paypal" ? "#443dff": "lightgrey"}}}>
-                                <img alt="Logo1" src={PAYPAL} style={styles.payImg} />
-                            </button>
-                            <button onClick={(e) => this.selectPaymentMethod(e, "stripe")} style={{...styles.methodButton, ...{marginLeft: "0.5%", borderWidth: method==="stripe" ? window.innerHeight*0.0085 : 1, borderColor: method==="stripe" ? "#443dff": "lightgrey"}}}>
-                                <img alt="Logo2" src={STRIPE} style={styles.payImg} />
-                            </button>
-                        </div>
-                        <div style={styles.checkBoxContainer}>
-                            <p style={styles.bottomText}>{local.tos1 + " "}
-                            <a target="_blank" style={styles.bottomText} href={local.tosTermsLink}>{local.tos2 + " "}</a> 
-                            {" " + local.tos3 + " "}
-                            <a target="_blank" style={styles.bottomText} href={local.tosPrivacyLink}>{local.tos4 + " "}</a> 
-                            {local.tos5}</p> 
-                            <br />
-                            <div onClick={() => this.setState(prev => ({checkBox: !prev.checkBox}))} style={{display: "flex"}}>
-                                <input style={styles.checkBox} onChange={() => {}} checked={checkBox} type="checkbox" />
-                                <p style={styles.bottomText}>{local.withdraw1}
-                                </p> 
+                        
+                        <div style={styles.card}>
+                            <p style={styles.method}><b>{local.method}</b></p>
+                            <div style={{...styles.flexOne, ...styles.paymentMethods}}>
+                                <button onClick={(e) => amount < 2000 && this.selectPaymentMethod(e, "paypal")} style={{...styles.methodButton, ...{marginRight: "0.5%", borderWidth: method==="paypal" ? window.innerHeight*0.0085: 1, borderColor: method==="paypal" ? "#443dff": "grey"}}}>
+                                    <img alt="Logo1" src={PAYPAL} style={styles.payImg} />
+                                    {amount > 1999 && 
+                                        <div style={styles.hidePaypal}>
+                                            <p style={{color: 'red', padding: 5}}>{local.paypalLimit}</p>
+                                        </div>}
+                                </button>
+                                <button onClick={(e) => this.selectPaymentMethod(e, "stripe")} style={{...styles.methodButton, ...{marginLeft: "0.5%", borderWidth: method==="stripe" ? window.innerHeight*0.0085 : 1, borderColor: method==="stripe" ? "#443dff": "grey"}}}>
+                                    <img alt="Logo2" src={STRIPE} style={styles.payImg} />
+                                </button>
+                            </div>
+                            <div style={styles.checkBoxContainer}>
+                                <p style={styles.bottomText}>{local.tos1 + " "}
+                                <a target="_blank" style={styles.bottomText} href={local.tosTermsLink}>{local.tos2 + " "}</a> 
+                                {" " + local.tos3 + " "}
+                                <a target="_blank" style={styles.bottomText} href={local.tosPrivacyLink}>{local.tos4 + " "}</a> 
+                                {local.tos5}</p> 
+                                <br />
+                                <div onClick={() => this.setState(prev => ({checkBox: !prev.checkBox}))} style={{display: "flex"}}>
+                                    <input style={styles.checkBox} onChange={() => {}} checked={checkBox} type="checkbox" />
+                                    <p style={styles.bottomText}>{local.withdraw1}
+                                    </p> 
+                                </div>
                             </div>
                         </div>
 
@@ -349,13 +359,39 @@ class Checkout extends Component {
 }
 
 const styles = {
+    method: {
+        fontSize: window.innerHeight*0.025,
+        padding: '2%',
+    },
+    card: {
+        backgroundColor: 'black',
+        color: 'white',
+        border: '1px solid grey',
+        width: '100%'
+    },
+    hidePaypal: {
+        position: 'absolute',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        cursor: 'not-allowed',
+        width: '50%',
+        fontSize: window.innerHeight*0.02,
+        height: '100%',
+        top: 0,
+        left: 0,
+        textAlign: 'center'
+    },
     paymentlabel: {
         margin: 16,
-        color: "lightgrey"
+        color: "grey"
     },
     checkBox: {
         width: window.innerHeight*0.1,
-        height: window.innerHeight*0.1
+        height: window.innerHeight*0.1,
+        padding: 10,
+        margin: 10
     },
     infoIcon: {
         width: "6%",
@@ -407,7 +443,7 @@ const styles = {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-around",
-        borderTop: "1px solid lightgrey",
+        borderTop: "1px solid grey",
         alignItems: "center",
         backgroundColor: "black",
         paddingTop: 10,
@@ -425,7 +461,7 @@ const styles = {
         height: window.innerHeight*0.2,
         overflow: "hidden",
         width: window.innerHeight*0.2,
-        border: "1px solid lightgrey",
+        border: "1px solid grey",
         borderWidth: window.innerHeight*0.005,
         borderRadius: "50%"
     },
@@ -447,11 +483,11 @@ const styles = {
     paymentMethods: {
         display: "flex",
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
     },
     methodButton: {
         textAlign: "center",
-        width: "49.5%",
+        width: "48.5%",
         height: window.innerHeight*0.1,
         backgroundColor: "black",
         border: "0px solid #443dff",
@@ -476,14 +512,13 @@ const styles = {
         width: "100%",
         backgroundColor: "black",
         color: "white",
-        marginBottom: window.innerHeight*0.02,
-        marginTop: window.innerHeight*0.02,
+        padding: window.innerHeight*0.02,
         fontSize: window.innerHeight*0.025,
     },
     imageButton: {
         backgroundColor:" rgba(0, 0, 0, 0)",
         overflow: "hidden",
-        border: "4px solid lightgrey",
+        border: "4px solid grey",
         borderRadius: "100%",
         padding: 0,
         margin: "10px 0",
@@ -508,12 +543,12 @@ const styles = {
         width: "100%",
         height: window.innerHeight*0.06,
         fontSize: window.innerHeight*0.03,
-        border: "1px solid lightgrey",
+        border: "1px solid grey",
         color: "white",
-        margin: "2% 0%",
+        margin: "1% 0%",
         boxSizing: "border-box",
         backgroundColor: "black",
-        WebkitInputPlaceholder: "lightgrey"
+        WebkitInputPlaceholder: "grey"
     },
     payMore: {
         color: "red"

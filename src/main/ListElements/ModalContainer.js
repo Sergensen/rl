@@ -83,8 +83,8 @@ export default class ModalContainer extends Component {
                         <img alt="logo" src={imgBase64} style={styles.image} />
                     </div>
                     <div style={{ ...styles.textContainer, backgroundImage: `url(${ProfileText})` }}>
-                        <img alt="logo" style={{ ...styles.iconLeft, ...{ width: iconSize, height: iconSize } }} src={require("../../res/images/profiles/ProfilePlaceholder.jpg")} />
-                        <img alt="logo" style={{ ...styles.iconRight, ...{ width: iconSize, height: iconSize } }} src={require("../../res/images/profiles/ProfilePlaceholder.jpg")} />
+                        <img alt="logo" style={{ ...styles.iconLeft, ...{ width: iconSize, height: iconSize, borderRadius: '100%' } }} src={require("../../res/images/profiles/ProfilePlaceholder.jpg")} />
+                        <img alt="logo" style={{ ...styles.iconRight, ...{ width: iconSize, height: iconSize, borderRadius: '100%' } }} src={require("../../res/images/profiles/ProfilePlaceholder.jpg")} />
                         <p style={{ ...styles.name, ...{ fontSize: nameFontSize } }}>{uniqueName}</p>
                         <p style={{ ...styles.amount, ...{ fontSize: amountFontSize } }}>{formatter.format(amount)}</p>
                     </div>

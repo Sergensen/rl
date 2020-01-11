@@ -92,7 +92,7 @@ export default class App extends Component {
                         <Privacy />
                     </Route>
                     <Route path="/">
-                        <MainList data={data} />
+                        {data && <MainList data={data} />}
                     </Route>
                 </Switch>
                 {local && <div style={styles.footer}>

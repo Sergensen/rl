@@ -38,7 +38,6 @@ export default class MainList extends Component {
     }
 
     async sendProps() {
-        console.log("sendProps: " + new Date())
         const { props } = this.state;
         const { data } = this.props;
         let temp = {};
@@ -96,10 +95,12 @@ export default class MainList extends Component {
             visible: {
                 opacity: 1,
                 transition: {
-                    when: "beforeChildren",
+                    // when: false,
                     staggerChildren: delay,
-                    duration: 0.7,
-                    ease: "circIn",
+                    duration: 1,
+                    // ease: "circIn",
+                    // delayChildren: 0
+                    // delay: 0,
                     // delay: 0.3,
                 },
             },
@@ -107,7 +108,7 @@ export default class MainList extends Component {
                 opacity: 0,
             },
         }
-
+        
         return (
             <div style={styles.main}>
                 <div style={styles.container}>
@@ -123,17 +124,17 @@ export default class MainList extends Component {
 
                         <motion.div variants={list} style={styles.fourToSix}>
                             {/* {this.render4to6()} */}
-                            <ListElement position={3} user={data[3]} localProps={localProps[data[3] ? data[3].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
-                            <ListElement position={4} user={data[4]} localProps={localProps[data[4] ? data[4].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
-                            <ListElement position={5} user={data[5]} localProps={localProps[data[5] ? data[5].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                            <ListElement position={4} user={data[3]} localProps={localProps[data[3] ? data[3].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                            <ListElement position={5} user={data[4]} localProps={localProps[data[4] ? data[4].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                            <ListElement position={6} user={data[5]} localProps={localProps[data[5] ? data[5].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                         </motion.div>
 
                         <motion.div variants={list} style={styles.sevenToNine} >
                             {/* {this.render7to10()} */}
-                            <ListElement position={6} user={data[6]} localProps={localProps[data[6] ? data[6].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
-                            <ListElement position={7} user={data[7]} localProps={localProps[data[7] ? data[7].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
-                            <ListElement position={8} user={data[8]} localProps={localProps[data[8] ? data[8].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
-                            <ListElement position={9} user={data[9]} localProps={localProps[data[9] ? data[9].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                            <ListElement position={7} user={data[6]} localProps={localProps[data[6] ? data[6].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                            <ListElement position={8} user={data[7]} localProps={localProps[data[7] ? data[7].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                            <ListElement position={9} user={data[8]} localProps={localProps[data[8] ? data[8].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
+                            <ListElement position={10} user={data[9]} localProps={localProps[data[9] ? data[9].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                         </motion.div>
                     </motion.div>
 
@@ -145,7 +146,7 @@ export default class MainList extends Component {
 
                 </div>
             </div>
-        );
+        )
     }
 }
 

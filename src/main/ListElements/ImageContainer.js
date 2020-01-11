@@ -17,7 +17,7 @@ const variants = {
     initial: {
         opacity: [1, 0],
         transition: {
-            delay: 4, 
+            delay: 10, 
             duration: 1
         }
     },
@@ -59,14 +59,14 @@ export default class ImageContainer extends Component {
                     this.setState({ imgBase64, uniqueName: user.uniqueName });
                 }, { orientation: true });
             }
-
-            if (user.props){
-                const {oldProps} = this.state;
-                if(user.props > oldProps){
-                    this.setState({oldProps: user.props});
-                    this.startPropsAnimation("propsUpdate");
-                } 
-            }
+            //TODO: auskommentieren!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // if (user.props){
+            //     const {oldProps} = this.state;
+            //     if(user.props > oldProps){
+            //         this.setState({oldProps: user.props});
+            //         this.startPropsAnimation("propsUpdate");
+            //     } 
+            // }
         }
 
         
@@ -112,6 +112,11 @@ export default class ImageContainer extends Component {
         let topThreeTransform = topThree ? { transform: "translate(0px, 23%) scale(0.85)" } : {};
 
         let imgUrl = imgBase64 || AnonymousImage;
+        // let imgUrl = AnonymousImage;
+        // if(user){
+        //     imgUrl = user.imgUrl;
+        // }
+        
 
         let propsCount = user && user.props ? user.props : 0;
         propsCount += localProps || 0;
@@ -123,7 +128,7 @@ export default class ImageContainer extends Component {
                 onTouchMove={() => this.setState({ moving: true })}
                 //onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} 
                 ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
-                {imgUrl ?
+                {user ?
                     <motion.div custom={position} initial="hidden" animate="visible" variants={globalIntro} style={styles.motionContainer}>
                         <div
                             style={{
@@ -167,7 +172,7 @@ const styles = {
         position: "relative",
     },
     imageContainer: {
-        backgroundColor: "black",
+        backgroundColor: "rgba(0,0,0,0)",
         overflow: "hidden",
         borderRadius: "100%",
         width: '100%',

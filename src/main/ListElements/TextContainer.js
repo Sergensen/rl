@@ -69,8 +69,7 @@ export default class TextContainer extends Component {
         let topThreeTransform = topThree ? { transform: "translate(0px, 16%)" } : {}
         return (
             <div onMouseDown={() => this.onMouseDown()} onTouchMove={() => this.setState({ moving: true })} onMouseUp={() => this.onMouseUp()} ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform, opacity }}>
-
-                <motion.div custom={position} initial="hidden" animate="visible" variants={globalIntro} style={styles.animationContainer}>
+                {user && <motion.div custom={position} initial="hidden" animate="visible" variants={globalIntro} style={styles.animationContainer}>
                     <div style={styles.textContainer}>
                         <div ref={ref => this.amountText = ref} style={{ ...styles.name, fontSize: nameFontSize }}>{uniqueName}</div>
 
@@ -78,7 +77,7 @@ export default class TextContainer extends Component {
                     <div style={styles.textContainer}>
                         <div style={{ ...styles.currency, fontSize: amountFontSize }}>{amount ? formatter.format(amount) : ""}</div>
                     </div>
-                </motion.div>
+                </motion.div>}
             </div>
 
         );

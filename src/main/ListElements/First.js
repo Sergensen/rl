@@ -11,7 +11,7 @@ const variants = {
     visible: {
         x: 0,
         opacity: 1,
-        transition: { duration: 1, delay: 2.5, type: "spring" }
+        transition: { duration: 1, delay: 0.25, type: "spring" }
     },
     hidden: i => ({
         x: i * 100,
@@ -37,16 +37,13 @@ export default class First extends Component {
         const { user } = this.props;
         const { show } = this.state;
 
-
-
-
         return (
             <div style={styles.container}>
                 <ImageContainer position={1} {...this.props} toggleModal={() => this.toggleModal()} topThree user={user} />
                 {user && <ModalContainer user={user} toggleModal={() => this.toggleModal()} show={show} {...this.props} />}
                 <TextContainer position={1} toggleModal={() => this.toggleModal()} first topThree user={user} />
-                <motion.img custom={-1} initial="hidden" animate="visible" variants={variants} alt="RR" src={RollsNLion} style={styles.rollsNLion} />
-                <motion.img custom={1} initial="hidden" animate="visible" variants={variants} alt="BNZ" src={Mercedes} style={styles.mercedes} />
+                {user && <motion.img custom={-1} initial="hidden" animate="visible" variants={variants} alt="RR" src={RollsNLion} style={styles.rollsNLion} /> }
+                {user && <motion.img custom={1} initial="hidden" animate="visible" variants={variants} alt="BNZ" src={Mercedes} style={styles.mercedes} />}
             </div>
         );
     }

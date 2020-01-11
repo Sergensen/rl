@@ -31,7 +31,7 @@ export default class InfoSection extends Component {
         return FAQ.map((elem, i) => {
             return (
                 <Card style={styles.card}>
-                    <Accordion.Toggle as={Card.Header} eventKey={i}>
+                    <Accordion.Toggle style={{backgroundColor: 'black'}} as={Card.Header} eventKey={i}>
                         <b>{elem.q}</b>
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={i}>
@@ -65,7 +65,7 @@ const styles = {
     card: {
         color: 'white',
         border: '1px solid #424242',
-        backgroundColor: 'rgba(0,0,0,0.6)',
+        backgroundColor: 'rgba(0,0,0,0.0)',
     },
     container: {
         border: '1px solid #424242',

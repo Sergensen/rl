@@ -193,7 +193,7 @@ const styles = {
         justifyContent: 'center',
         paddingTop: '1vh',
         paddingBottom: '1vh',
-        backgroundColor: 'rgba(0,0,0,0.4)',
+        // backgroundColor: 'rgba(0,0,0,0.4)',
     },
     twoAndThree: {
         height: 175,

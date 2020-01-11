@@ -70,7 +70,6 @@ export default class TextContainer extends Component {
                 {user && <motion.div custom={position} initial="hidden" animate="visible" variants={globalIntro} style={styles.animationContainer}>
                     <div style={styles.textContainer}>
                         <div ref={ref => this.amountText = ref} style={{ ...styles.name, fontSize: nameFontSize }}>{uniqueName}</div>
-
                     </div>
                     <div style={styles.textContainer}>
                         <div style={{ ...styles.currency, fontSize: amountFontSize }}>{amount ? formatter.format(amount) : ""}</div>

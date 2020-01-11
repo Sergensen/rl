@@ -7,8 +7,8 @@ export default class InfoSection extends Component {
     renderQuestions() {
         const FAQ = [
             {
-                q: "What is this all about?",
-                a: "Actually you just pay money to get on the list."
+                q: "What is RichList?",
+                a: "RichList is the first platform to show how rich you really are. Our members are proving how much money they can spend for nothing. Without giving a single fuck. The ranking shows the top 10 members sorted by the amount of money they’ve spent."
             },
             {
                 q: "What is a payment key?",

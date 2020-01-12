@@ -7,7 +7,7 @@ import CameraIcon from '../res/camera.png';
 import local from '../local';
 import Modal from 'react-modal';
 import StripeCheckout from 'react-stripe-checkout';
-import { Spinner, Image, Popover, OverlayTrigger, Card } from 'react-bootstrap';
+import { Spinner, Popover, OverlayTrigger, Card, Image as RBImage } from 'react-bootstrap';
 import loadImage from 'blueimp-load-image';
 import {
     isMobile
@@ -209,6 +209,10 @@ class Checkout extends Component {
     }
 
     fixImage(image) {
+
+       
+
+
         return new Promise((resolve, reject) => {
             loadImage.parseMetaData(image, function(data) {
                 let orientation = 0;
@@ -217,9 +221,16 @@ class Checkout extends Component {
                     image,
                     function(canvas) {
                         let base64data = canvas.toDataURL('image/jpeg');
-                        let img_src = base64data.replace(/^data\:image\/\w+\;base64\,/, '');
-                        image.src = base64data;
-                        resolve(image);
+                        fetch(base64data)
+                        .then(res => res.blob())
+                        .then(blob => {
+                            var objectURL = URL.createObjectURL(blob);
+
+                            let img = new Image();
+                            img.src = objectURL;
+
+                            resolve(img);
+                        })
                     }, {
                         canvas: true,
                         orientation: orientation
@@ -305,7 +316,7 @@ class Checkout extends Component {
                         </div>
                         {!paid && <div style={{...styles.flexOne}}>
                             <OverlayTrigger placement="left" overlay={popover}>
-                                <Image style={styles.infoIcon} src={INFOICON} roundedCircle />
+                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
                             </OverlayTrigger>
                             <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setState({ uniqueKey: e.target.value })} style={styles.input} maxLength={16} type="text" placeholder={local.uniqueKey}/>
                         </div>}

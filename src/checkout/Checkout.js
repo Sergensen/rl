@@ -35,8 +35,6 @@ class Checkout extends Component {
         error: [true, true, true, true],
         local: {},
         paid: false,
-        height: 1,
-        width: 1,
     }
 
     componentDidMount(){
@@ -208,19 +206,27 @@ class Checkout extends Component {
         }
     }
 
+    srcToFile(src, fileName, mimeType){
+        return (fetch(src)
+            .then(function(res){return res.arrayBuffer();})
+            .then(function(buf){return new File([buf], fileName, {type:mimeType});})
+        );
+    }
+    
+
     fixImage(image) {
         return new Promise((resolve, reject) => {
-            loadImage.parseMetaData(image, function(data) {
+            loadImage.parseMetaData(image, (data) => {
                 let orientation = 0;
                 if (data.exif) orientation = data.exif.get('Orientation');
                 loadImage(
-                    image,
-                    function(canvas) {
+                    image, (canvas) => {
                         canvas.toBlob(blob => {
                             var objectURL = URL.createObjectURL(blob);
-                            let img = new Image();
-                            img.src = objectURL;
-                            resolve(img);
+                            this.srcToFile(objectURL, 'img.jpg', 'image/jpeg').then(file => {
+                                file.src = objectURL;
+                                resolve(file);
+                            })
                         });
                     }, {
                         canvas: true,
@@ -233,18 +239,9 @@ class Checkout extends Component {
         });
     }
 
-    onLoad() {
-        const { width, height } = this.img;
-        if(width) {
-            this.setState({
-                width: width > height ? height: width,
-                height: width > height ? height: width,
-            })
-        }
-    }
 
     render() {
-        const { height, width, paid, loading, name, amount, mail, message, instagram, twitter, tiktok, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
+        const { paid, loading, name, amount, mail, message, instagram, twitter, tiktok, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
         
         const popover = (
             <Popover id="popover-basic">
@@ -270,9 +267,9 @@ class Checkout extends Component {
             <div ref={ref => this.main = ref} style={styles.payMain}>
                     <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
                         {image && 
-                                <button style={{...styles.imageButton, ...{height, width}}} onClick={() => this.imageInput.click()}>
-                                    <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" style={styles.image} type="file" onChange={(e) => this.fileChangedHandler(e)} />
-                                    <img onLoad={() => this.onLoad()} ref={ref => this.img = ref} id="img" alt="Image0" style={styles.image} src={image.src} />
+                                <button style={{...styles.imageButton}} onClick={() => this.imageInput.click()}>
+                                    <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" type="file" onChange={(e) => this.fileChangedHandler(e)} />
+                                    <div id="img" alt="Image0" style={{...styles.image, ...{backgroundImage: 'url(' + image.src + ')'}}} />
                                 </button>
                         } {!image && 
                             <button onClick={() => this.imageInput.click()} style={styles.imageContainer}>
@@ -448,7 +445,16 @@ const styles = {
     },
     image: {
         maxHeight: window.innerHeight*0.22,
-        margin: 0
+        margin: 0,
+        height: 'inherit',
+        backgroundRepeat: 'no-repeat',
+        borderRadius: "100%",
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
     },
     cropButton: {
         width: "50%",
@@ -550,7 +556,10 @@ const styles = {
         padding: 0,
         margin: "10px 0",
         display: "flex",
-        justifyContent: "center"
+        justifyContent: "center",
+        alignItems: "center",
+        width: '20vh',
+        height: '20vh',
     },
     flexOne: {
         position: "relative",

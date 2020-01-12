@@ -66,8 +66,8 @@ export default class ModalContainer extends Component {
                 style={styles.backgroundCtn}
             >
                 <div style={styles.background}>
-                    <div style={{ ...styles.imageContainer }}>
-                        <img alt="logo" src={imgUrl} style={styles.image} />
+                    <div style={{ ...styles.imageContainer, backgroundImage: `url(${imgUrl})`}}>
+                        {/* <div alt="logo" style={{...styles.image, backgroundImage: `url(${imgUrl})`,}}></div> */}
                     </div>
                     <div style={{ ...styles.textContainer, backgroundImage: `url(${ProfileText})` }}>
                         <img alt="logo" style={{ ...styles.iconLeft, ...{ width: iconSize, height: iconSize, borderRadius: '100%' } }} src={require("../../res/images/profiles/ProfilePlaceholder.jpg")} />
@@ -158,13 +158,18 @@ const styles = {
     },
     imageContainer: {
         overflow: "hidden",
-        borderRadius: 2000,
+        borderRadius: "100%",
         height: '20vh',
         width: '20vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
     },
-    image: {
-        width: '100%'
-    },
+    // image: {
+    //     width: '100%'
+    // },
     unblockBtn: {
         position: "absolute",
         zIndex: 1000,

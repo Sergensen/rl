@@ -49,7 +49,7 @@ export default class ImageContainer extends Component {
     }
 
     componentDidUpdate() {
-        const { uniqueName } = this.state;
+        const { uniqueName, imgBase64 } = this.state;
         let { user } = this.props;
 
         if (user) {            

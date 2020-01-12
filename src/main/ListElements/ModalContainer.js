@@ -22,15 +22,17 @@ export default class ModalContainer extends Component {
         nameFontSize: '2.5vh',
         messageFontSize: '2vh',
         amountFontSize: '3vh',
-        iconSize: '3.5vh'
+        iconSize: '3.5vh',
+        did: false
     }
 
     setFontSize(event) {
-        let user = this.props;
+        let {user} = this.props;
+        const { did } = this.state;
         user = this.state.user ? this.state.user : user;
 
         const { uniqueName, amount, message } = user;
-        if(uniqueName) {
+        if(!did && uniqueName) {
             const width = event.currentTarget.offsetWidth;
             const height = event.currentTarget.offsetHeight * (isMobile ? 0.9 : 0.5);
             const nameFontSize = Math.sqrt(width * height / (uniqueName.length + 10)) * 0.2;
@@ -41,7 +43,8 @@ export default class ModalContainer extends Component {
                 nameFontSize,
                 messageFontSize,
                 amountFontSize,
-                iconSize: height * (isMobile ? 0.05 : 0.065)
+                iconSize: height * (isMobile ? 0.05 : 0.065),
+                did: true
             })
         }
     }

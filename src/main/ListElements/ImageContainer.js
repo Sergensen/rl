@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AnonymousImage from '../../res/images/profiles/ProfilePlaceholder.jpg'
 import HeartImage from '../../res/images/profiles/heart.png'
-import * as loadImage from 'blueimp-load-image';
 import { motion } from "framer-motion"
 import { Spinner } from 'react-bootstrap';
 import { globalIntro } from '../../Globals'
@@ -38,7 +37,6 @@ export default class ImageContainer extends Component {
     state = {
         user: {},
         moving: false,
-        imgBase64: {},
         uniqueName: "",
         opacityState: "initial",
         timer: false,
@@ -54,15 +52,7 @@ export default class ImageContainer extends Component {
         const { uniqueName } = this.state;
         let { user } = this.props;
 
-        if (user) {
-            if (user.imgUrl && uniqueName !== user.uniqueName && !user.uniqueName !== 'Anonymous') {
-                loadImage(user.imgUrl, async (canvas) => {
-                    let imgBase64 = canvas.toDataURL();
-                    // let imgBase64 = user.imgUrl;
-                    this.setState({ imgBase64, uniqueName: user.uniqueName });
-                }, { orientation: true });
-            }
-
+        if (user) {            
             const { oldProps } = this.state;
 
             if (oldProps === -1) {
@@ -111,23 +101,16 @@ export default class ImageContainer extends Component {
     }
 
     render() {
-        // let propsControls = useAnimation();
         let { topThree, user, localProps, position } = this.props;
-        const { height, imgBase64, uniqueName, opacityState } = this.state;
+        const { height, uniqueName, opacityState } = this.state;
 
         const hideProps = uniqueName === "" || uniqueName === "Anonymous" || uniqueName === "Banned user" || uniqueName === "Blocked user"
         let topThreeTransform = topThree ? { transform: "translate(0px, 23%) scale(0.85)" } : {};
 
-        let imgUrl = imgBase64 || AnonymousImage;
-        // let imgUrl = AnonymousImage;
-        // if(user){
-        //     imgUrl = user.imgUrl;
-        // }
-
+        let imgUrl = user ? user.imgUrl : AnonymousImage;
 
         let propsCount = user && user.props ? user.props : 0;
         propsCount += localProps || 0;
-
 
         return (
             <div

@@ -6,7 +6,6 @@ import TwitterBg from '../../res/images/profiles/TwitterBackground.png';
 import SnapchatBG from '../../res/images/profiles/SnapchatBackground.png';
 import TikTokBG from '../../res/images/profiles/TikTokBackground.png';
 import ProfileText from '../../res/images/profiles/ProfileText.png';
-import * as loadImage from 'blueimp-load-image';
 import {
     isMobile
 } from "react-device-detect";
@@ -25,18 +24,6 @@ export default class ModalContainer extends Component {
         amountFontSize: '3vh',
         iconSize: '3.5vh'
     }
-
-    componentDidUpdate() {
-        let { user } = this.props;
-        if(user && user.imgUrl && !user.imgBase64 && !user.uniqueName !== 'Anonymous') {
-            loadImage(user.imgUrl, async (canvas) => {                
-                user.imgBase64 = canvas.toDataURL();
-                // user.imgBase64 = user.imgUrl;
-                this.setState({user, update: true});
-            }, { orientation: true });
-        }
-    }
-
 
     setFontSize(event) {
         let user = this.props;
@@ -61,11 +48,11 @@ export default class ModalContainer extends Component {
 
     render() {
         const { show, toggleModal } = this.props;
-        let { uniqueName, instagram, message, tiktok, snapchat, twitter, imgBase64, amount, props } = this.props.user;
+        let { uniqueName, instagram, message, tiktok, snapchat, twitter, imgUrl, amount, props } = this.props.user;
 
         uniqueName = uniqueName === "" ? "Anonymous" : uniqueName;
         props = !props ? 0 : props;
-        message = !message || message === "undefined" ? null : message;
+        message = !message || message === "undefined" ? null : message;        
 
         const { nameFontSize, messageFontSize, amountFontSize, iconSize } = this.state;
         return (
@@ -80,7 +67,7 @@ export default class ModalContainer extends Component {
             >
                 <div style={styles.background}>
                     <div style={{ ...styles.imageContainer }}>
-                        <img alt="logo" src={imgBase64} style={styles.image} />
+                        <img alt="logo" src={imgUrl} style={styles.image} />
                     </div>
                     <div style={{ ...styles.textContainer, backgroundImage: `url(${ProfileText})` }}>
                         <img alt="logo" style={{ ...styles.iconLeft, ...{ width: iconSize, height: iconSize, borderRadius: '100%' } }} src={require("../../res/images/profiles/ProfilePlaceholder.jpg")} />

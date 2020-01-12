@@ -220,17 +220,12 @@ class Checkout extends Component {
                 loadImage(
                     image,
                     function(canvas) {
-                        let base64data = canvas.toDataURL('image/jpeg');
-                        fetch(base64data)
-                        .then(res => res.blob())
-                        .then(blob => {
+                        canvas.toBlob(blob => {
                             var objectURL = URL.createObjectURL(blob);
-
                             let img = new Image();
                             img.src = objectURL;
-
                             resolve(img);
-                        })
+                        });
                     }, {
                         canvas: true,
                         orientation: orientation

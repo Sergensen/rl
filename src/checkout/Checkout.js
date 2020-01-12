@@ -209,10 +209,6 @@ class Checkout extends Component {
     }
 
     fixImage(image) {
-
-       
-
-
         return new Promise((resolve, reject) => {
             loadImage.parseMetaData(image, function(data) {
                 let orientation = 0;
@@ -228,7 +224,9 @@ class Checkout extends Component {
                         });
                     }, {
                         canvas: true,
-                        orientation: orientation
+                        orientation: orientation,
+                        maxWidth: 600,
+                        maxHeight: 600
                     }
                 );
             });

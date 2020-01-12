@@ -51,15 +51,17 @@ export default class ImageContainer extends Component {
     }
 
     componentDidUpdate() {
-        const { uniqueName } = this.state;
+        const { uniqueName, imgBase64 } = this.state;
         let { user } = this.props;
 
         if (user) {
-            if (user.imgUrl && uniqueName !== user.uniqueName && !user.uniqueName !== 'Anonymous') {
+            if (!typeof imgBase64 !== 'string' && user.imgUrl && uniqueName !== user.uniqueName && !user.uniqueName !== 'Anonymous') {
                 loadImage(user.imgUrl, async (canvas) => {
-                    let imgBase64 = canvas.toDataURL();
+                    canvas.toBlob(blob => {
+                        let imgBase64 = URL.createObjectURL(blob);
+                        this.setState({ imgBase64, uniqueName: user.uniqueName });
+                    });
                     //let imgBase64 = user.imgUrl;
-                    this.setState({ imgBase64, uniqueName: user.uniqueName });
                 }, { orientation: true });
             }
 

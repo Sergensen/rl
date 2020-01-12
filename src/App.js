@@ -92,7 +92,7 @@ export default class App extends Component {
                         <Privacy />
                     </Route>
                     <Route path="/">
-                        {data && <MainList data={data} />}
+                        <MainList data={data} />
                     </Route>
                 </Switch>
             

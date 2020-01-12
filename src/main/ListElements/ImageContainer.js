@@ -44,16 +44,18 @@ export default class ImageContainer extends Component {
     }
 
     componentDidMount() {
+        let { user } = this.props;
+
         const height = this.imageContainer.clientHeight * 0.95;
-        this.setState({ height, tempHeight: height * 0.95 });
+        this.setState({ height, tempHeight: height * 0.95, uniqueName: user.uniqueName });
     }
 
     componentDidUpdate() {
-        const { uniqueName, imgBase64 } = this.state;
         let { user } = this.props;
 
-        if (user) {            
+        if (user) {
             const { oldProps } = this.state;
+
 
             if (oldProps === -1) {
                 this.setState({ oldProps: user.props });
@@ -66,11 +68,6 @@ export default class ImageContainer extends Component {
             }
         }
 
-
-
-        //if (props > this.oldProps) this.animateUpdatedProps();
-
-        //this.oldProps = props;
     }
 
     onMouseUp() {
@@ -84,7 +81,6 @@ export default class ImageContainer extends Component {
         if (!moving && uniqueName && uniqueName !== "Blocked User" && uniqueName !== "Anonymous" && uniqueName !== "Banned user") {
             addPropsToUser(uniqueName)
         }
-
 
         this.startPropsAnimation("startHiding");
     }
@@ -132,7 +128,7 @@ export default class ImageContainer extends Component {
                     <Spinner animation="border" role="status" />}
 
 
-                {hideProps || <motion.div custom={position} initial={{ opacity: 0 }} animate={opacityState} variants={variants} style={{ ...styles.propsTextBackground, fontSize: height * 0.2}}>
+                {hideProps || <motion.div custom={position} initial={{ opacity: 0 }} animate={opacityState} variants={variants} style={{ ...styles.propsTextBackground, fontSize: height * 0.2 }}>
                     <img style={styles.heartImage} src={HeartImage} />
                     <div style={{ ...styles.propText }}>{propsCount}</div>
                 </motion.div>}

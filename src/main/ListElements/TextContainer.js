@@ -14,7 +14,8 @@ export default class TextContainer extends Component {
         nameFontSize: 1,
         amountFontSize: 1,
         opacity: 1,
-        moving: false
+        moving: false,
+        opacity: 1,
     }
 
 
@@ -39,18 +40,19 @@ export default class TextContainer extends Component {
         this.setState({ nameFontSize, amountFontSize })
     }
 
-    onMouseUp() {
-        const { moving } = this.state;
-        this.setState({
-            opacity: 1,
-            moving: false
-        })
-        if (!moving) this.props.toggleModal();
+    onTap() {
+        this.props.toggleModal();
+        this.setState({opacity: 1});
     }
 
-    onMouseDown() {
-        this.setState({ opacity: 0.65 })
+    onTapStart(){
+        this.setState({opacity: 0.6});
     }
+
+    onTapCancel(){
+        this.setState({opacity: 1});
+    }
+
 
     render() {
         const { topThree, user, position } = this.props;
@@ -66,8 +68,10 @@ export default class TextContainer extends Component {
 
         let topThreeTransform = topThree ? { transform: "translate(0px, 16%)" } : {}
         return (
-            <div onMouseDown={() => this.onMouseDown()} onTouchMove={() => this.setState({ moving: true })} onMouseUp={() => this.onMouseUp()} ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform, opacity }}>
-                {user && <motion.div custom={position} initial="hidden" animate="visible" variants={globalIntro} style={styles.animationContainer}>
+            <div 
+            // onMouseDown={() => this.onMouseDown()} onTouchMove={() => this.setState({ moving: true })} onMouseUp={() => this.onMouseUp()} 
+            ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform, opacity }}>
+                {user && <motion.div onTapStart={this.onTapStart.bind(this)} onTapCancel={this.onTapCancel.bind(this)} onTap={this.onTap.bind(this)} custom={position} initial="hidden" animate="visible" variants={globalIntro} style={{...styles.animationContainer}}>
                     <div style={styles.textContainer}>
                         <div ref={ref => this.amountText = ref} style={{ ...styles.name, fontSize: nameFontSize }}>{uniqueName}</div>
                     </div>

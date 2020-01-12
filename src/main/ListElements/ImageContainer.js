@@ -38,9 +38,11 @@ export default class ImageContainer extends Component {
         user: {},
         moving: false,
         uniqueName: "",
-        opacityState: "initial",
+        opacityStateProps: "initial",
+        opacityStateImage: "visible",
         timer: false,
         oldProps: -1,
+        imageScale: 1,
     }
 
     componentDidMount() {
@@ -70,35 +72,51 @@ export default class ImageContainer extends Component {
 
     }
 
-    onMouseUp() {
+    onTap() {
         const { addPropsToUser } = this.props;
-        const { moving, uniqueName } = this.state;
-        this.setState(prev => ({
-            height: prev.tempHeight,
-            tempHeight: prev.height,
-            moving: false,
-        }))
-        if (!moving && uniqueName && uniqueName !== "Blocked User" && uniqueName !== "Anonymous" && uniqueName !== "Banned user") {
+        const { uniqueName } = this.state;
+        // this.setState(prev => ({
+        //     height: prev.tempHeight,
+        //     tempHeight: prev.height,
+        //     moving: false,
+        // }))
+        if (uniqueName && uniqueName !== "Blocked User" && uniqueName !== "Anonymous" && uniqueName !== "Banned user") {
             addPropsToUser(uniqueName)
         }
 
         this.startPropsAnimation("startHiding");
+        this.setState({imageScale: 1});
+
     }
 
-    onMouseDown() {
-        this.setState(prev => ({
-            height: prev.tempHeight,
-            tempHeight: prev.height,
-        }))
+    onTapStart(){
+        this.setState({imageScale: 0.95});
     }
+
+    onTapCancel(){
+        this.setState({imageScale: 1});
+    }
+
+    // onMouseDown() {
+    //     alert("ging")
+
+    //     this.setState(prev => ({
+    //         height: prev.tempHeight,
+    //         tempHeight: prev.height,
+    //     }))
+    // }
 
     startPropsAnimation(newState) {
-        this.setState({ opacityState: "" }, () => this.setState({ opacityState: newState }));
+        this.setState({ opacityStateProps: "" }, () => this.setState({ opacityStateProps: newState }));
+    }
+
+    startImageAnimation(newState) {
+        this.setState({ opacityStateImage: "" }, () => this.setState({ opacityStateImage: newState }));
     }
 
     render() {
         let { topThree, user, localProps, position } = this.props;
-        const { height, uniqueName, opacityState } = this.state;
+        const { height, uniqueName, opacityStateProps, opacityStateImage, imageScale } = this.state;
 
         const hideProps = uniqueName === "" || uniqueName === "Anonymous" || uniqueName === "Banned user" || uniqueName === "Blocked user"
         let topThreeTransform = topThree ? { transform: "translate(0px, 23%) scale(0.85)" } : {};
@@ -109,16 +127,13 @@ export default class ImageContainer extends Component {
         propsCount += localProps || 0;
 
         return (
-            <div
-                onMouseDown={() => this.onMouseDown()} onMouseUp={() => this.onMouseUp()}
-                onTouchMove={() => this.setState({ moving: true })}
-                //onTouchStart={() => this.onMouseDown()} onTouchEnd={() => this.onMouseUp()} 
+            <div                
                 ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
                 {user ?
-                    <motion.div custom={position} initial="hidden" animate="visible" variants={globalIntro} style={styles.motionContainer}>
+                    <motion.div onTapStart={this.onTapStart.bind(this)} onTapCancel={this.onTapCancel.bind(this)} onTap={this.onTap.bind(this)} custom={position} initial="hidden" animate={opacityStateImage} variants={globalIntro} style={styles.motionContainer}>
                         <div
                             style={{
-                                ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`,
+                                ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`, transform: "scale("+imageScale+")",
                                 border: topThree ? '0px solid #393939' : '3px solid #393939',
                             }}
                             ref={(ref) => this.imageCanvas = ref}
@@ -128,7 +143,7 @@ export default class ImageContainer extends Component {
                     <Spinner animation="border" role="status" />}
 
 
-                {hideProps || <motion.div custom={position} initial={{ opacity: 0 }} animate={opacityState} variants={variants} style={{ ...styles.propsTextBackground, fontSize: height * 0.2 }}>
+                {hideProps || <motion.div custom={position} initial={{ opacity: 0 }} animate={opacityStateProps} variants={variants} style={{ ...styles.propsTextBackground, fontSize: height * 0.2 }}>
                     <img style={styles.heartImage} src={HeartImage} />
                     <div style={{ ...styles.propText }}>{propsCount}</div>
                 </motion.div>}

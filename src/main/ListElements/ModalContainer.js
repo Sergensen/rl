@@ -148,10 +148,11 @@ export default class ModalContainer extends Component {
 
 const styles = {
     backgroundCtn: {
-        marinTop: '2vh'
+        marinTop: '2vh',
     },
     background: {
         alignItems: "center",
+        backgroundColor: 'black',
         backgroundImage: `url(${Background})`,
         backgroundSize: 100,
         backgroundRepeat: "repeat",

@@ -70,7 +70,7 @@ export default class TextContainer extends Component {
         return (
             <div
             ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform, opacity }}>
-                {user && <motion.div onPointerDown={this.onTapStart.bind(this)} onPointerLeave={this.onTapCancel.bind(this)} onTap={this.onTap.bind(this)} custom={position} initial="hidden" animate="visible" variants={globalIntro} style={{...styles.animationContainer}}>
+                {user && <motion.div onPointerDown={this.onTapStart.bind(this)} onPointerCancel={this.onTapCancel.bind(this)} onTap={this.onTap.bind(this)} custom={position} initial="hidden" animate="visible" variants={globalIntro} style={{...styles.animationContainer}}>
                     <div style={styles.textContainer}>
                         <div ref={ref => this.amountText = ref} style={{ ...styles.name, fontSize: nameFontSize }}>{uniqueName}</div>
                     </div>

@@ -39,7 +39,7 @@ export default class First extends Component {
 
         return (
             <div style={styles.container}>
-                <ImageContainer position={1} {...this.props} toggleModal={() => this.toggleModal()} topThree user={user} />
+                <ImageContainer position={1} {...this.props} toggleModal={() => this.toggleModal()} topThree user={{...user}} />
                 {user && <ModalContainer user={user} toggleModal={() => this.toggleModal()} show={show} {...this.props} />}
                 <TextContainer position={1} toggleModal={() => this.toggleModal()} first topThree user={user} />
                 {user && <motion.img custom={-1} initial="hidden" animate="visible" variants={variants} alt="RR" src={RollsNLion} style={styles.rollsNLion} /> }

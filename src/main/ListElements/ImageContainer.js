@@ -45,6 +45,14 @@ export default class ImageContainer extends Component {
         imageScale: 1,
     }
 
+    shouldComponentUpdate(nextProps, nextState){
+        if(JSON.stringify(this.props) === JSON.stringify(nextProps) && JSON.stringify(this.state) === JSON.stringify(nextState)){
+            return false;
+        }
+
+        return true;
+    }
+
 
     componentDidMount() {
         let { user } = this.props;
@@ -83,8 +91,6 @@ export default class ImageContainer extends Component {
         }
 
         this.startPropsAnimation("startHiding");
-        this.setState({imageScale: 1});
-
     }
 
     onTapStart(){
@@ -96,7 +102,7 @@ export default class ImageContainer extends Component {
     }
 
     startPropsAnimation(newState) {
-        this.setState({ opacityStateProps: "" }, () => this.setState({ opacityStateProps: newState }));
+        this.setState({ opacityStateProps: "", imageScale: 1 }, () => this.setState({ opacityStateProps: newState }));
     }
 
     startImageAnimation(newState) {
@@ -119,7 +125,7 @@ export default class ImageContainer extends Component {
             <div                
                 ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
                 {user ?
-                    <motion.div onTapStart={this.onTapStart.bind(this)} onTapCancel={this.onTapCancel.bind(this)} onTap={this.onTap.bind(this)} custom={position} initial="hidden" animate={opacityStateImage} variants={globalIntro} style={styles.motionContainer}>
+                    <motion.div onPointerDown={this.onTapStart.bind(this)} onPointerCancel={this.onTapCancel.bind(this)} onTap={this.onTap.bind(this)} custom={position} initial="hidden" animate={opacityStateImage} variants={globalIntro} style={styles.motionContainer}>
                         <div
                             style={{
                                 ...styles.imageContainer, width: height, height: height, backgroundImage: `url(${imgUrl})`, transform: "scale("+imageScale+")",

@@ -22,7 +22,7 @@ export default class Second extends Component {
 
         return (
             <div style={styles.container}>
-                <ImageContainer position={2} {...this.props} toggleModal={() => this.toggleModal()} topThree user={user} />
+                <ImageContainer position={2} {...this.props} toggleModal={() => this.toggleModal()} topThree user={{...user}} />
                 {user && <ModalContainer user={user} toggleModal={() => this.toggleModal()} show={show} {...this.props} />}
                 <TextContainer position={2} toggleModal={() => this.toggleModal()} topThree user={user} />
                 <img alt="AK" src={AksCrossed} style={styles.aksCrossed} />

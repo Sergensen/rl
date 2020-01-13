@@ -45,10 +45,12 @@ export default class ImageContainer extends Component {
         imageScale: 1,
     }
 
+
     componentDidMount() {
         let { user } = this.props;
 
         const height = this.imageContainer.clientHeight * 0.95;
+
         this.setState({ height, tempHeight: height * 0.95, uniqueName: user.uniqueName });
     }
 
@@ -75,11 +77,7 @@ export default class ImageContainer extends Component {
     onTap() {
         const { addPropsToUser } = this.props;
         const { uniqueName } = this.state;
-        // this.setState(prev => ({
-        //     height: prev.tempHeight,
-        //     tempHeight: prev.height,
-        //     moving: false,
-        // }))
+
         if (uniqueName && uniqueName !== "Blocked User" && uniqueName !== "Anonymous" && uniqueName !== "Banned user") {
             addPropsToUser(uniqueName)
         }
@@ -96,15 +94,6 @@ export default class ImageContainer extends Component {
     onTapCancel(){
         this.setState({imageScale: 1});
     }
-
-    // onMouseDown() {
-    //     alert("ging")
-
-    //     this.setState(prev => ({
-    //         height: prev.tempHeight,
-    //         tempHeight: prev.height,
-    //     }))
-    // }
 
     startPropsAnimation(newState) {
         this.setState({ opacityStateProps: "" }, () => this.setState({ opacityStateProps: newState }));
@@ -143,8 +132,10 @@ export default class ImageContainer extends Component {
                     <Spinner animation="border" role="status" />}
 
 
-                {hideProps || <motion.div custom={position} initial={{ opacity: 0 }} animate={opacityStateProps} variants={variants} style={{ ...styles.propsTextBackground, fontSize: height * 0.2 }}>
-                    <img style={styles.heartImage} src={HeartImage} />
+                {hideProps || <motion.div custom={position} 
+                // initial={{ opacity: 0 }} animate={opacityStateProps} variants={variants} 
+                style={{ ...styles.propsTextBackground, fontSize: height * 0.2 }}>
+                    <img style={{...styles.heartImage, width: height * 0.2, height: height * 0.2}} src={HeartImage} />
                     <div style={{ ...styles.propText }}>{propsCount}</div>
                 </motion.div>}
             </div>
@@ -195,9 +186,8 @@ const styles = {
         backgroundColor: "#EB4956",
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
         borderRadius: "25px",
-
     },
     propText: {
         textAlign: "center",
@@ -205,17 +195,17 @@ const styles = {
         fontFamily: "Calisto MT",
         color: "white",
         letterSpacing: 1,
-        marginRight: 10,
+        marginRight: 7,
         fontWeight: "bold",
         // fontSize: "10%"
     },
     heartImage: {
         // position: "relative",
-        height: "70%",
-        width: "auto",
+        // height: "70%",
+        // width: "auto",
         // objectFit: "contain",
         // maxWidth: "10%",
-        marginLeft: 10,
+        marginLeft: 7,
         marginRight: 5,
     }
 

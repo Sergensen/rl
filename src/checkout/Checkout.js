@@ -521,7 +521,7 @@ const styles = {
     methodButton: {
         textAlign: "center",
         width: "48.5%",
-        height: window.innerHeight*0.1,
+        height: isMobile ?  window.innerHeight*0.125 : window.innerHeight*0.1,
         backgroundColor: "black",
         border: "0px solid #443dff",
         boxSizing: "border-box",

@@ -12,7 +12,7 @@ export default class InfoSection extends Component {
             },
             {
                 q: "What is a payment key?",
-                a: "After your first payment you will receive your personal payment key in a confirmation email. If you want to make additional payments to increase your rank, you have to provide your payment key at the checkout form."
+                a: "After your first payment you will receive your personal payment key in a confirmation email. If you want to make additional payments to increase your rank, you have to provide your payment key at the checkout form. Check your email spam folder."
             },
             {
                q: "Is this real money?",
@@ -20,11 +20,11 @@ export default class InfoSection extends Component {
             },
             {
                q: "Will the money I spend be added together?",
-               a: "Yes. If you’ve spent $1000 and spent another $500, you will have a total of $1,500 spent on RichList."
+               a: "Yes. If you’ve spent $1000 and spent another $500, you will have a total of $1,500 spent on RichList. More at 'What is a payment key?'"
             },
             {
                q: "I want to change my profile information.",
-               a: "You have to make another payment and only fill out the fields you want to change. E.g. if you want to change your displayed Instagram name, only fill out the Instagram field. This also applies to the profile picture."
+               a: "You have to make another payment and only fill out the fields you want to change. E.g. if you want to change your displayed Instagram name, only fill out the Instagram field. This also applies to the profile picture. Don't forget to provide your payment key which you've received in a confirmation email after your first payment. If you don't find this email check your spam folder."
             },
         ];
 

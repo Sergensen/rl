@@ -24,7 +24,6 @@ export default class MainList extends Component {
     componentDidMount() {
         const { interval } = this.state;
         if (!interval) {
-            //TODO: längeren Intervall machen
             this.setState({
                 interval: setInterval(this.sendProps.bind(this), 2500)
             })

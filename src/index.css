@@ -18,6 +18,9 @@ body {
   padding: 0;
   background-color: black !important;
   font-size: 2.5vh;
+  -ms-user-select: None;
+  -moz-user-select: None;
+  -webkit-user-select: None;
 }
 
 .specialbody {

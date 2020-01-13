@@ -69,7 +69,6 @@ export default class TextContainer extends Component {
         let topThreeTransform = topThree ? { transform: "translate(0px, 16%)" } : {}
         return (
             <div 
-            // onMouseDown={() => this.onMouseDown()} onTouchMove={() => this.setState({ moving: true })} onMouseUp={() => this.onMouseUp()} 
             ref={ref => this.textContainer = ref} style={{ ...styles.container, ...topThreeTransform, opacity }}>
                 {user && <motion.div onTapStart={this.onTapStart.bind(this)} onTapCancel={this.onTapCancel.bind(this)} onTap={this.onTap.bind(this)} custom={position} initial="hidden" animate="visible" variants={globalIntro} style={{...styles.animationContainer}}>
                     <div style={styles.textContainer}>

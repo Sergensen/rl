@@ -4,17 +4,17 @@ import { motion } from "framer-motion"
 
 export default class PropsListElement extends Component {
     state = {
-        nameFontSize: 15,
         height: 50,
     }
 
     componentDidMount() {
-        const height = this.propsList.clientHeight ;
-        this.setState({ height});
+        const height = this.propsList.clientHeight;
+        this.setState({ height });
     }
 
     render() {
-        const { nameFontSize, height } = this.state;
+        const { position } = this.props;
+        const { height } = this.state;
         let { uniqueName, props, imgUrl } = this.props.user;
 
         return (
@@ -30,11 +30,11 @@ export default class PropsListElement extends Component {
                     >
                     </div>
                 </div>
-                <div style={{ ...styles.name, fontSize: nameFontSize }}>{uniqueName}</div>
-                <motion.div 
-                // custom={position} initial={{ opacity: 0 }} animate={opacityStateProps} variants={variants} 
-                style={{ ...styles.propsTextBackground, fontSize: height * 0.2 }}>
-                    <img style={{...styles.heartImage, width: height * 0.2, height: height * 0.2}} src={HeartImage} />
+                <div style={{ ...styles.name, fontSize: height * 0.15, left: height * 0.75 }}>{position + 1}. {uniqueName}</div>
+                <motion.div
+                    // custom={position} initial={{ opacity: 0 }} animate={opacityStateProps} variants={variants} 
+                    style={{ ...styles.propsTextBackground, fontSize: height * 0.15, left: height * 0.75 }}>
+                    <img style={{ ...styles.heartImage, width: height * 0.15, height: height * 0.15 }} src={HeartImage} />
                     <div style={{ ...styles.propText }}>{props}</div>
                 </motion.div>
                 {/* <TextContainer {...this.props} toggleModal={() => this.toggleModal()} user={user} /> */}
@@ -48,18 +48,26 @@ const styles = {
     container: {
         width: "100%",
         height: "100%",
-        position: "relative"
-        //justifyContent: "center",
+        position: "relative",
+        // marginBottom: 200
+        // display: "flex",
+        // justifyContent: "center",
     },
     name: {
         position: 'absolute',
         bottom: 0,
-        right: 0,
+        // right: 0,
         color: "white",
         fontFamily: "Calisto MT",
         textShadow: "1px 1px 3px #000000",
         fontWeight: 'bold',
         textAlign: "center",
+        backgroundColor: "black",
+        borderRadius: "25px",
+        paddingLeft: 5,
+        paddingRight: 5,
+        whiteSpace: "nowrap"
+        // alignSelf: "center"
     },
     motionContainer: {
         // touchAction: "pan-y",
@@ -68,8 +76,7 @@ const styles = {
         left: 0,
         justifyContent: "center",
         alignItems: "center",
-        cursor: "pointer",
-        position: "relative",
+        position: "absolute",
     },
     imageContainer: {
         backgroundColor: "rgba(0,0,0,0)",
@@ -86,10 +93,10 @@ const styles = {
     propsTextBackground: {
         position: 'absolute',
         top: 0,
-        right: 0,
+        // right: 0,
         pointerEvents: 'none',
-        height: "30%",
-        width: "auto",
+        // height: "20%",
+        // width: "auto",
         display: "flex",
         backgroundColor: "#EB4956",
         flexDirection: 'row',

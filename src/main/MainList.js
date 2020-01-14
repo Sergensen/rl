@@ -18,7 +18,7 @@ import PropsListElement from './ListElements/PropsListElement';
 
 
 const heightRatio = {
-    propsRow: isMobile ? 0.15 : 0.150,
+    propsRow: isMobile ? 0.15 : 0.175,
     firstRow: isMobile ? 0.55 : 0.5,
     secondRow: isMobile ? 0.475 : 0.4,
     thirdRow: isMobile ? 0.35 : 0.3,
@@ -150,7 +150,7 @@ export default class MainList extends Component {
 
         for (let i = 0; i < 3; i++) {
             list.push(
-                <PropsListElement user={topThreeProps[i]} style={{ ...styles.propElement, backgroundColor: "red" }}> </PropsListElement>
+                <PropsListElement position={i} user={topThreeProps[i]} style={{ ...styles.propElement, backgroundColor: "red" }}> </PropsListElement>
             );
         }
 

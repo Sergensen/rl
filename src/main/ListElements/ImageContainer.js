@@ -58,7 +58,6 @@ export default class ImageContainer extends Component {
         let { user } = this.props;
 
         const height = this.imageContainer.clientHeight * 0.95;
-
         this.setState({ height, tempHeight: height * 0.95, uniqueName: user.uniqueName });
     }
 
@@ -161,7 +160,7 @@ const styles = {
 
     },
     motionContainer: {
-        touchAction: "pan-y",
+        // touchAction: "pan-y",
         display: "flex",
         flex: 1,
         justifyContent: "center",

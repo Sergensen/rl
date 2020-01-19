@@ -148,7 +148,7 @@ export default class ModalContainer extends Component {
 
 const styles = {
     backgroundCtn: {
-        marinTop: '2vh',
+        // marginTop: '2vh',
     },
     background: {
         alignItems: "center",
@@ -158,7 +158,9 @@ const styles = {
         backgroundRepeat: "repeat",
         backgroundPosition: "center",
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        paddingTop: 10,
+        paddingBottom: 10,
     },
     imageContainer: {
         overflow: "hidden",

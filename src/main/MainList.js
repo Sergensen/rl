@@ -6,7 +6,7 @@ import ListElement from './ListElements/ListElement';
 import InfoSection from './InfoSection';
 import placeFourToSixBg from '../res/images/profiles/Platz4-6_Border.png'
 import placeSevenToNineBg from '../res/images/profiles/Platz7-9_Border.png'
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import API from '../api';
 import { motion } from "framer-motion"
 import { delay } from '../Globals'
@@ -15,7 +15,7 @@ import {
     isMobile
 } from "react-device-detect";
 import PropsListElement from './ListElements/PropsListElement';
-
+import InstagramEmbed from 'react-instagram-embed';
 
 const heightRatio = {
     propsRow: isMobile ? 0.15 : 0.175,
@@ -75,14 +75,14 @@ export default class MainList extends Component {
         };
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         const { data } = this.props;
         const { topThreeProps } = this.state;
 
         //damit er sich am Afang die top 3 holt und nicht 2.5 Sek auf den ersten Durchlauf von sendProps warten muss
-        if(data.length > 0 && topThreeProps.length === 0){
+        if (data.length > 0 && topThreeProps.length === 0) {
             const topThreeProps = this.getTopThreeProps(data);
-            this.setState({topThreeProps})
+            this.setState({ topThreeProps })
         }
     }
 
@@ -136,10 +136,10 @@ export default class MainList extends Component {
         }
     }
 
-    getTopThreeProps(data){
-        console.log("topThree!!!!");       
+    getTopThreeProps(data) {
+        console.log("topThree!!!!");
         var topThree = [...data]
-        topThree = topThree.sort((a,b) => b.props-a.props).slice(0,3);  
+        topThree = topThree.sort((a, b) => b.props - a.props).slice(0, 3);
 
         return topThree;
     }
@@ -158,15 +158,15 @@ export default class MainList extends Component {
     }
 
     render() {
-        const { localProps, width, topThreeProps} = this.state;
+        const { localProps, width, topThreeProps } = this.state;
         let { data } = this.props;
 
-        data = data || {};        
+        data = data || {};
 
         return (
             <div style={styles.main}>
                 <div ref={ref => this.imageContainer = ref} style={styles.container}>
-                    {data.length > 0 && topThreeProps.length > 0?
+                    {data.length > 0 && topThreeProps.length > 0 ?
                         <motion.div initial="hidden" animate="visible" variants={list} style={styles.listContainer}>
                             <motion.div style={{ ...styles.propsTopList, height: width * heightRatio.propsRow }}>
                                 {this.getPropsListElements()}
@@ -208,12 +208,22 @@ export default class MainList extends Component {
                         </Button>
                     </motion.div>
 
+                    <hr style={styles.dividingLine} />
+
                     <div style={styles.InfoSection}>
                         <InfoSection />
                     </div>
 
-                </div>
+                    <hr style={styles.dividingLine} />
 
+                    <InstagramEmbed
+                        url='https://www.instagram.com/p/B6qloZ5oDxJ/'
+                        maxWidth={"100%"}
+                        hideCaption={true}
+                        containerTagName='div'
+                    />
+
+                </div>
             </div>
         );
     }
@@ -265,8 +275,8 @@ const styles = {
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
-        paddingTop: '1vh',
-        paddingBottom: '1vh',
+        // paddingTop: '1vh',
+        // paddingBottom: '1vh',
         // backgroundColor: 'rgba(0,0,0,0.4)',
     },
     twoAndThree: {
@@ -328,5 +338,28 @@ const styles = {
         flexDirection: "center",
 
     },
+    card: {
+        // minWidth: 300,
+        // width: "96%", 
+        margin: "2%",
+        backgroundColor: "black",
+        borderColor: "darkgrey",
+        color: "white"
+    },
+    stretchedLink: {
+        // position: "absolute",
+        // top: 0,
+        // left: 0,
+        height: "100%",
+        width: "100%",
+        color: "white",
+    },
+    dividingLine: {
+        // color: "red",
+        // backgroundColor: "rgb(66,66,66)",
+        background: "linear-gradient(to right, rgba(150, 150, 150, 0), rgba(150, 150, 150, 1), rgba(150, 150, 150, 0))",
+        height: 1,
+        width: "95%"
+    }
 
 }

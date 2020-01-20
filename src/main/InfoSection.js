@@ -56,8 +56,8 @@ export default class InfoSection extends Component {
 
 const styles = {
     faq: {
-        border: '1px solid #424242',
-        borderWidth: '2px 0 0 0',
+        // border: '1px solid #424242',
+        // borderWidth: '2px 0 0 0',
         textAlign: 'center',
         color: 'white',
         fontSize: isMobile ?  window.innerHeight*0.04 : window.innerHeight*0.03

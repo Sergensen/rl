@@ -19,7 +19,7 @@ const styles = {
     container: {
         display: "flex",
         justifyContent: "center",
-        height: "90vh",
+        height: "80vh",
     },
     fail: {
         height: "100vh",

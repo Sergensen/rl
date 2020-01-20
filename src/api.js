@@ -45,13 +45,6 @@ export default {
                 });
         });
     },
-    validatePayment(uniqueKey, amount, mail, message, tokenId, type) {
-        return new Promise((resolve, reject) => {
-            axios.post(API_URL + 'pay', { tokenId, type, mail, message, uniqueKey, amount, method: "stripe" })
-                .then(res => resolve(res))
-                .catch(err => reject(err));
-        });
-    },
     payStripe(uniqueKey, amount, uniqueName, mail, message) {
         return new Promise((resolve, reject) => {
             axios.post(API_URL + 'paystripe', { uniqueKey, amount, uniqueName, mail, message })

@@ -16,14 +16,18 @@ import {
 } from "react-device-detect";
 import PropsListElement from './ListElements/PropsListElement';
 import InstagramEmbed from 'react-instagram-embed';
+import HeartImageRed from '../res/images/profiles/heart_red.png'
+
 
 const heightRatio = {
-    propsRow: isMobile ? 0.15 : 0.175,
+    propsRow: isMobile ? 0.275 : 0.3,
     firstRow: isMobile ? 0.55 : 0.5,
     secondRow: isMobile ? 0.475 : 0.4,
     thirdRow: isMobile ? 0.35 : 0.3,
     fourthRow: isMobile ? 0.3 : 0.25,
 }
+
+const propsListHeartAndTextsize = isMobile ? window.innerHeight * 0.035 : window.innerHeight * 0.025;
 
 const list = {
     visible: {
@@ -150,7 +154,7 @@ export default class MainList extends Component {
 
         for (let i = 0; i < 3; i++) {
             list.push(
-                <PropsListElement position={i} user={topThreeProps[i]} style={{ ...styles.propElement, backgroundColor: "red" }}> </PropsListElement>
+                <PropsListElement position={i} user={topThreeProps[i]} style={{ ...styles.propElement }}> </PropsListElement>
             );
         }
 
@@ -168,9 +172,6 @@ export default class MainList extends Component {
                 <div ref={ref => this.imageContainer = ref} style={styles.container}>
                     {data.length > 0 && topThreeProps.length > 0 ?
                         <motion.div initial="hidden" animate="visible" variants={list} style={styles.listContainer}>
-                            <motion.div style={{ ...styles.propsTopList, height: width * heightRatio.propsRow }}>
-                                {this.getPropsListElements()}
-                            </motion.div>
 
                             <motion.div variants={list} style={{ ...styles.first, height: width * heightRatio.firstRow }}>
                                 <First user={data[0]} localProps={localProps[data[0] ? data[0].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
@@ -210,6 +211,27 @@ export default class MainList extends Component {
 
                     <hr style={styles.dividingLine} />
 
+                    {data.length > 0 && topThreeProps.length > 0 ?
+                        <motion.div style={{ ...styles.propsTopListContainer }}>
+                            <div style={styles.propsListHeader}>
+                                <img style={{ ...styles.heartImage, width: propsListHeartAndTextsize, height: propsListHeartAndTextsize }} src={HeartImageRed} />
+                                Most liked members
+                                <img style={{ ...styles.heartImage, width: propsListHeartAndTextsize, height: propsListHeartAndTextsize }} src={HeartImageRed} />
+                            </div>
+                            <div style={{ ...styles.propsTopList, height: width * heightRatio.propsRow }}>
+                                {this.getPropsListElements()}
+                            </div>
+                        </motion.div>
+                        :
+                        <div style={styles.placeHolderPropsList}>
+                            <Spinner animation="border" role="status" variant="light" style={styles.spinnerPropsList} />
+                            {/* <Spinner animation="border" role="status" variant="light" style={styles.spinnerPropsList} /> */}
+                            {/* <Spinner animation="border" role="status" variant="light" style={styles.spinnerPropsList} /> */}
+                        </div>
+                    }
+
+                    <hr style={styles.dividingLine} />
+
                     <div style={styles.InfoSection}>
                         <InfoSection />
                     </div>
@@ -218,7 +240,7 @@ export default class MainList extends Component {
 
                     <InstagramEmbed
                         url='https://www.instagram.com/p/B6qloZ5oDxJ/'
-                        maxWidth={"100%"}
+                        maxWidth={320}
                         hideCaption={true}
                         containerTagName='div'
                     />
@@ -323,20 +345,41 @@ const styles = {
         display: "flex",
         justifyContent: "center",
     },
-    propsTopList: {
+    propsTopListContainer: {
         width: "100%",
-        display: "flex",
+        // height: "100%",
+        // display: "flex",
         // alignItems: "center",
         // flexDirection: "center",        
     },
-    propElement: {
+    propsTopList: {
+        width: "100%",
         display: "flex",
-        // height: "100%",
-        flex: 1,
+        alignItems: "flex-end",
+        // flexDirection: "flex-end",        
+    },
+    propsListHeader: {
+        // display: "flex",
+        color: 'white',
+        fontSize: propsListHeartAndTextsize,
+        // padding: '1%',
+        // maxWidth: 900,
+        // width: '100%',
+        // margin: '1%',
+        textAlign: 'center',
+        fontWeight: "bold",
+        //border: '1px solid grey',
+        //borderWidth: '1px 0 1px 0',
+        //backgroundColor: 'black'
+        marginBottom: "3%",
+    },
+    propElement: {
+        // display: "flex",
+        height: "100%",
+        // flex: 1,
         flexDirection: "row",
         alignItems: "left",
         flexDirection: "center",
-
     },
     card: {
         // minWidth: 300,
@@ -347,19 +390,32 @@ const styles = {
         color: "white"
     },
     stretchedLink: {
-        // position: "absolute",
-        // top: 0,
-        // left: 0,
         height: "100%",
         width: "100%",
         color: "white",
     },
     dividingLine: {
-        // color: "red",
-        // backgroundColor: "rgb(66,66,66)",
         background: "linear-gradient(to right, rgba(150, 150, 150, 0), rgba(150, 150, 150, 1), rgba(150, 150, 150, 0))",
         height: 1,
         width: "95%"
+    },
+    placeHolderPropsList: {
+        width: "100%",
+        height: 100,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    spinnerPropsList: {
+        width: 50,
+        height: 50,
+    },
+    heartImage:{
+        marginLeft: "2%",
+        marginRight: "2%",
+        marginBottom: "1%"
     }
+
+
 
 }

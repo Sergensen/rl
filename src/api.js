@@ -4,7 +4,7 @@ import AnonymousImage from './res/images/profiles/ProfilePlaceholder.jpg'
 import AnonymousImageVerification from './res/images/profiles/ProfilePlaceholder_inVerification.jpg'
 
 
-const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
+const API_URL = "https://api.richlist.net/app/";
 
 //const API_URL = "http://localhost:5001/";
 

@@ -20,7 +20,7 @@ import HeartImageRed from '../res/images/profiles/heart_red.png'
 
 
 const heightRatio = {
-    propsRow: isMobile ? 0.275 : 0.3,
+    propsRow: isMobile ? 0.375 : 0.3,
     firstRow: isMobile ? 0.55 : 0.5,
     secondRow: isMobile ? 0.475 : 0.4,
     thirdRow: isMobile ? 0.35 : 0.3,
@@ -245,6 +245,8 @@ export default class MainList extends Component {
                     </div>
 
                     <hr style={styles.dividingLine} />
+
+                    <div style={{ ...styles.headerText, fontSize: propsListHeartAndTextsize, fontWeight: "bold", marginBottom: 10 }}>Instagram</div>
 
                     <InstagramEmbed
                         url='https://www.instagram.com/p/B6qloZ5oDxJ/'

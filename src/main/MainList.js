@@ -6,12 +6,46 @@ import ListElement from './ListElements/ListElement';
 import InfoSection from './InfoSection';
 import placeFourToSixBg from '../res/images/profiles/Platz4-6_Border.png'
 import placeSevenToNineBg from '../res/images/profiles/Platz7-9_Border.png'
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import API from '../api';
 import { motion } from "framer-motion"
 import { delay } from '../Globals'
 import { Spinner } from 'react-bootstrap';
+import {
+    isMobile
+} from "react-device-detect";
+import PropsListElement from './ListElements/PropsListElement';
+import InstagramEmbed from 'react-instagram-embed';
+import HeartImageRed from '../res/images/profiles/heart_red.png'
 
+
+const heightRatio = {
+    propsRow: isMobile ? 0.275 : 0.3,
+    firstRow: isMobile ? 0.55 : 0.5,
+    secondRow: isMobile ? 0.475 : 0.4,
+    thirdRow: isMobile ? 0.35 : 0.3,
+    fourthRow: isMobile ? 0.3 : 0.25,
+}
+
+const propsListHeartAndTextsize = isMobile ? window.innerHeight * 0.035 : window.innerHeight * 0.025;
+
+const list = {
+    visible: {
+        opacity: 1,
+        transition: {
+            // when: false,
+            staggerChildren: delay,
+            duration: 1,
+            // ease: "circIn",
+            // delayChildren: 0
+            // delay: 0,
+            // delay: 0.3,
+        },
+    },
+    hidden: {
+        opacity: 0,
+    },
+}
 
 export default class MainList extends Component {
 
@@ -19,10 +53,16 @@ export default class MainList extends Component {
         props: {},
         interval: null,
         localProps: {},
+        width: 500,
+        topThreeProps: [],
     }
 
     componentDidMount() {
         const { interval } = this.state;
+
+        const width = this.imageContainer.clientWidth;
+        this.setState({ width });
+
         if (!interval) {
             this.setState({
                 interval: setInterval(this.sendProps.bind(this), 2500)
@@ -37,6 +77,17 @@ export default class MainList extends Component {
 
 
         };
+    }
+
+    componentDidUpdate() {
+        const { data } = this.props;
+        const { topThreeProps } = this.state;
+
+        //damit er sich am Afang die top 3 holt und nicht 2.5 Sek auf den ersten Durchlauf von sendProps warten muss
+        if (data.length > 0 && topThreeProps.length === 0) {
+            const topThreeProps = this.getTopThreeProps(data);
+            this.setState({ topThreeProps })
+        }
     }
 
     async sendProps() {
@@ -68,7 +119,9 @@ export default class MainList extends Component {
             }
         }
 
-        this.setState({ localProps: { ...props } });
+        const topThreeProps = this.getTopThreeProps(data);
+
+        this.setState({ localProps: { ...props }, topThreeProps });
     }
 
     addPropsToUser(uniqueName) {
@@ -87,52 +140,56 @@ export default class MainList extends Component {
         }
     }
 
+    getTopThreeProps(data) {
+        console.log("topThree!!!!");
+        var topThree = [...data]
+        topThree = topThree.sort((a, b) => b.props - a.props).slice(0, 3);
+
+        return topThree;
+    }
+
+    getPropsListElements() {
+        const { topThreeProps } = this.state;
+        let list = [];
+
+        for (let i = 0; i < 3; i++) {
+            list.push(
+                <PropsListElement position={i} user={topThreeProps[i]} style={{ ...styles.propElement }}> </PropsListElement>
+            );
+        }
+
+        return list;
+    }
+
     render() {
-        const { localProps } = this.state;
+        const { localProps, width, topThreeProps } = this.state;
         let { data } = this.props;
 
         data = data || {};
 
-        const list = {
-            visible: {
-                opacity: 1,
-                transition: {
-                    // when: false,
-                    staggerChildren: delay,
-                    duration: 1,
-                    // ease: "circIn",
-                    // delayChildren: 0
-                    // delay: 0,
-                    // delay: 0.3,
-                },
-            },
-            hidden: {
-                opacity: 0,
-            },
-        }
-
         return (
             <div style={styles.main}>
-                <div style={styles.container}>
-                    {data.length > 0 ?
+                <div ref={ref => this.imageContainer = ref} style={styles.container}>
+                    {data.length > 0 && topThreeProps.length > 0 ?
                         <motion.div initial="hidden" animate="visible" variants={list} style={styles.listContainer}>
-                            <motion.div variants={list} style={styles.first}>
+
+                            <motion.div variants={list} style={{ ...styles.first, height: width * heightRatio.firstRow }}>
                                 <First user={data[0]} localProps={localProps[data[0] ? data[0].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                             </motion.div>
 
-                            <motion.div variants={list} style={styles.twoAndThree}>
+                            <motion.div variants={list} style={{ ...styles.twoAndThree, height: width * heightRatio.secondRow }}>
                                 <Second user={data[1]} localProps={localProps[data[1] ? data[1].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                                 <Third user={data[2]} localProps={localProps[data[2] ? data[2].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                             </motion.div>
 
-                            <motion.div variants={list} style={styles.fourToSix}>
+                            <motion.div variants={list} style={{ ...styles.fourToSix, height: width * heightRatio.thirdRow }}>
                                 {/* {this.render4to6()} */}
                                 <ListElement position={4} user={data[3]} localProps={localProps[data[3] ? data[3].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                                 <ListElement position={5} user={data[4]} localProps={localProps[data[4] ? data[4].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                                 <ListElement position={6} user={data[5]} localProps={localProps[data[5] ? data[5].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                             </motion.div>
 
-                            <motion.div variants={list} style={styles.sevenToNine} >
+                            <motion.div variants={list} style={{ ...styles.sevenToNine, height: width * heightRatio.fourthRow }} >
                                 {/* {this.render7to10()} */}
                                 <ListElement position={7} user={data[6]} localProps={localProps[data[6] ? data[6].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                                 <ListElement position={8} user={data[7]} localProps={localProps[data[7] ? data[7].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
@@ -152,12 +209,39 @@ export default class MainList extends Component {
                         </Button>
                     </motion.div>
 
+                    <hr style={styles.dividingLine} />
+
+                    {data.length > 0 && topThreeProps.length > 0 ?
+                        <motion.div style={{ ...styles.propsTopListContainer }}>
+                            <div style={styles.propsListHeader}>
+                                <img style={{ ...styles.heartImage, width: propsListHeartAndTextsize, height: propsListHeartAndTextsize }} src={HeartImageRed} />
+                                Most liked members
+                                <img style={{ ...styles.heartImage, width: propsListHeartAndTextsize, height: propsListHeartAndTextsize }} src={HeartImageRed} />
+                            </div>
+                            <div style={{ ...styles.propsTopList, height: width * heightRatio.propsRow }}>
+                                {this.getPropsListElements()}
+                            </div>
+                        </motion.div>
+                        :
+                        <div> </div>
+                    }
+
+                    <hr style={styles.dividingLine} />
+
                     <div style={styles.InfoSection}>
                         <InfoSection />
                     </div>
 
-                </div>
+                    <hr style={styles.dividingLine} />
 
+                    <InstagramEmbed
+                        url='https://www.instagram.com/p/B6qloZ5oDxJ/'
+                        maxWidth={320}
+                        hideCaption={true}
+                        containerTagName='div'
+                    />
+
+                </div>
             </div>
         );
     }
@@ -190,7 +274,7 @@ const styles = {
         justifyContent: "center",
         alignItems: "center",
     },
-    spinner:{
+    spinner: {
         width: 150,
         height: 150,
     },
@@ -209,12 +293,12 @@ const styles = {
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
-        paddingTop: '1vh',
-        paddingBottom: '1vh',
+        // paddingTop: '1vh',
+        // paddingBottom: '1vh',
         // backgroundColor: 'rgba(0,0,0,0.4)',
     },
     twoAndThree: {
-        height: 175,
+        // height: 175,
         width: "100%",
         display: "flex",
         flexDirection: "row"
@@ -227,7 +311,7 @@ const styles = {
         bottom: 0,
     },
     fourToSix: {
-        height: 125,
+        // height: 125,
         width: "100%",
         display: "flex",
         flexDirection: "row",
@@ -238,7 +322,7 @@ const styles = {
 
     },
     sevenToNine: {
-        height: 100,
+        // height: 100,
         display: "flex",
         flexDirection: "row",
         backgroundImage: `url(${placeSevenToNineBg})`,
@@ -256,5 +340,78 @@ const styles = {
         width: "100%",
         display: "flex",
         justifyContent: "center",
+    },
+    propsTopListContainer: {
+        width: "100%",
+        // height: "100%",
+        // display: "flex",
+        // alignItems: "center",
+        // flexDirection: "center",        
+    },
+    propsTopList: {
+        width: "100%",
+        display: "flex",
+        alignItems: "flex-end",
+        // flexDirection: "flex-end",        
+    },
+    propsListHeader: {
+        // display: "flex",
+        color: 'white',
+        fontSize: propsListHeartAndTextsize,
+        // padding: '1%',
+        // maxWidth: 900,
+        // width: '100%',
+        // margin: '1%',
+        textAlign: 'center',
+        fontWeight: "bold",
+        //border: '1px solid grey',
+        //borderWidth: '1px 0 1px 0',
+        //backgroundColor: 'black'
+        marginBottom: "3%",
+    },
+    propElement: {
+        // display: "flex",
+        height: "100%",
+        // flex: 1,
+        flexDirection: "row",
+        alignItems: "left",
+        flexDirection: "center",
+    },
+    card: {
+        // minWidth: 300,
+        // width: "96%", 
+        margin: "2%",
+        backgroundColor: "black",
+        borderColor: "darkgrey",
+        color: "white"
+    },
+    stretchedLink: {
+        height: "100%",
+        width: "100%",
+        color: "white",
+    },
+    dividingLine: {
+        background: "linear-gradient(to right, rgba(150, 150, 150, 0), rgba(150, 150, 150, 1), rgba(150, 150, 150, 0))",
+        height: 1,
+        width: "95%"
+    },
+    placeHolderPropsList: {
+        width: "100%",
+        height: 100,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    spinnerPropsList: {
+        width: 50,
+        height: 50,
+    },
+    heartImage:{
+        marginLeft: "2%",
+        marginRight: "2%",
+        marginBottom: "1%"
     }
+
+
+
 }

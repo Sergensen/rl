@@ -6,10 +6,18 @@ import * as serviceWorker from './serviceWorker';
 import './res/fonts/Calisto MT.ttf'
 import './res/fonts/Cash Currency.ttf'
 import ReactGA from 'react-ga';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+
 ReactGA.initialize('UA-155751725-1');
 ReactGA.pageview(window.location.pathname + window.location.search);
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <GoogleReCaptchaProvider
+        reCaptchaKey="6LeMg9EUAAAAAGJ1bC-pmEC666ivfDHSnv6BrBd7"
+    >
+        <App />
+    </GoogleReCaptchaProvider>
+    , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -289,3 +289,7 @@ input{
 .link{
   text-decoration: underline;
 }
+
+.grecaptcha-badge { 
+  visibility: hidden;
+}

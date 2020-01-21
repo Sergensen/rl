@@ -45,7 +45,7 @@ export default class App extends Component {
         clearInterval(this.state.interval);
     }
 
-    fetchData(){
+    fetchData() {
         API.getTop10().then(users => {
             API.getProps(users).then(data => {
                 this.setState({ data });
@@ -99,7 +99,7 @@ export default class App extends Component {
                         <MainList data={data} />
                     </Route>
                 </Switch>
-            
+
                 {local && <div style={styles.footer}>
                     <MDBFooter color="blue" className="font-small pt-4 mt-4">
                         <MDBContainer fluid className="text-center text-md-left">
@@ -107,6 +107,7 @@ export default class App extends Component {
                                 <MDBCol md="5">
                                     <h5 className="title">Support</h5>
                                     <p>{local.support}</p>
+                                    
                                 </MDBCol>
                                 <MDBCol md="4">
                                     <h5 className="title">Links</h5>
@@ -121,6 +122,10 @@ export default class App extends Component {
                                             <a style={styles.link} href={local.toPrivacy}>{local.tos4}</a>
                                         </li>
                                     </ul>
+                                    <p style={{color: "rgb(150, 150, 150)"}}>This site is protected by reCAPTCHA and the Google
+                                    <a href="https://policies.google.com/privacy"> Privacy Policy</a> and
+                                    <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
+                                    </p>
                                 </MDBCol>
                                 <MDBCol md="3">
                                     <img alt="prnt" style={styles.parental} src={parental} />

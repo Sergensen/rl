@@ -10,8 +10,8 @@ import HEAD from './res/logo_header.png';
 import parental from './res/images/parentalAdvisoryLogo.png';
 import MainList from './main/MainList';
 import Fail from './main/Fail';
+import Progress from './main/Progress';
 import Success from './main/Success';
-import Validation from './main/Validation';
 import CookieConsent from "react-cookie-consent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
@@ -33,12 +33,16 @@ export default class App extends Component {
 
     async componentDidMount() {
         const userLang = navigator.language || navigator.userLanguage;
-        //TODO: erstmal ohne await testen
         this.fetchData();
 
         this.setState({
+            interval: setInterval(this.fetchData.bind(this), 10000),
             local: userLang === "de-DE" ? local.de : local.en,
-        });
+        })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.interval);
     }
 
     fetchData(){
@@ -70,9 +74,6 @@ export default class App extends Component {
                     <Route path="/impressum">
                         <Impressum />
                     </Route>
-                    <Route path="/validation">
-                        <Validation />
-                    </Route>
                     <Route path="/fail">
                         <Fail />
                     </Route>
@@ -81,6 +82,9 @@ export default class App extends Component {
                     </Route>
                     <Route path="/terms">
                         <Terms />
+                    </Route>
+                    <Route path="/progress">
+                        <Progress />
                     </Route>
                     <Route path="/agb">
                         <AGB />

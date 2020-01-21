@@ -112,12 +112,6 @@ class Checkout extends Component {
         });
     }
 
-    async onToken(token) {
-        const result = await this.validateTransaction(token.id, "stripe");
-        this.setState({loading: false});
-        window.location = result.data.result.success ? "https://richlist.net/success" : "https://richlist.net/fail"; 
-    }
-    
 
     checkout() {
         return new Promise((resolve, reject) => {
@@ -172,15 +166,6 @@ class Checkout extends Component {
     validateEmail(mail) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(mail).toLowerCase());
-    }
-
-    validateTransaction(tokenId, type) {
-        return new Promise((resolve, reject) => {
-            const { amount, mail, message, uniqueKey } = this.state;
-            API.validatePayment(uniqueKey, amount, mail, message, tokenId, type)
-            .then(res => resolve(res))
-            .catch(err => reject(err));
-        });
     }
 
     removeEmojis(string) {
@@ -345,21 +330,6 @@ class Checkout extends Component {
                             <button onClick={() => this.pay()} style={{...styles.submit, ...{backgroundColor: name && amount && mail && checkBox ? "blue":"grey"}}} maxLength={30}>{local.pay}</button>
                         </div> 
                         <script src="https://js.stripe.com/v3/"></script>
-
-                        <div style={{display: "none"}}>
-                            <StripeCheckout
-                                token={this.onToken.bind(this)}
-                                closed={() => this.setState({loading: false})}
-                                name="RichList"
-                                description="RichList secure payment"
-                                stripeKey="pk_test_281Xn05bEub9ENuPn0Y8EQaZ00cV8WCyfJ"
-                                amount={amount*100}
-                                currency="USD"
-                                allowRememberMe={false}
-                                email={mail}>
-                                <button ref={ref => this.stripeCheckout = ref} style={{...styles.submit, ...{backgroundColor: name && amount && mail && checkBox ? "blue":"grey"}}} maxLength={30}>{local.pay}</button>
-                            </StripeCheckout>
-                        </div>
                     </div>
             </div>
             

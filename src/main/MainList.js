@@ -223,11 +223,7 @@ export default class MainList extends Component {
                             </div>
                         </motion.div>
                         :
-                        <div style={styles.placeHolderPropsList}>
-                            <Spinner animation="border" role="status" variant="light" style={styles.spinnerPropsList} />
-                            {/* <Spinner animation="border" role="status" variant="light" style={styles.spinnerPropsList} /> */}
-                            {/* <Spinner animation="border" role="status" variant="light" style={styles.spinnerPropsList} /> */}
-                        </div>
+                        <div> </div>
                     }
 
                     <hr style={styles.dividingLine} />

@@ -3,11 +3,11 @@ import HeartImage from '../../res/images/profiles/heart.png'
 import { motion } from "framer-motion"
 import textBackground from "../../res/images/profiles/ProfileText.png"
 
-const borderColors = [
-    "linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C)",
-    "linear-gradient(45deg, #f5f6f6 0%,#9e9e9e 11%,#dbdce2 21%,#d6d6d6 38%,#b8bac6 49%,#7a7a7a 63%,#dddfe3 80%,#f5f6f6 100%)",
-    "linear-gradient(135deg, rgba(176,140,87,1) 0%, rgba(128,75,0,1) 19%, rgba(156,122,60,1) 40%, rgba(128,75,0,1) 65%, rgba(176,140,87,1) 67%, rgba(137,94,26,1) 74%, rgba(176,140,87,1) 100%)"
-]
+// const borderColors = [
+//     "linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C)",
+//     "linear-gradient(45deg, #f5f6f6 0%,#9e9e9e 11%,#dbdce2 21%,#d6d6d6 38%,#b8bac6 49%,#7a7a7a 63%,#dddfe3 80%,#f5f6f6 100%)",
+//     "linear-gradient(135deg, rgba(176,140,87,1) 0%, rgba(128,75,0,1) 19%, rgba(156,122,60,1) 40%, rgba(128,75,0,1) 65%, rgba(176,140,87,1) 67%, rgba(137,94,26,1) 74%, rgba(176,140,87,1) 100%)"
+// ]
 
 export default class PropsListElement extends Component {
     state = {
@@ -28,7 +28,7 @@ export default class PropsListElement extends Component {
         return (
             <div ref={ref => this.propsList = ref} style={{
                 ...styles.container,
-                transform: "scale(" + (1 - 0.15 * position) + " )"
+                // transform: "scale(" + (1 - 0.15 * position) + " )"
                 // flex: (3 - position), 
                 // height: ((100 - position * 10) + "%")
             }}>
@@ -38,7 +38,7 @@ export default class PropsListElement extends Component {
                         style={{
                             ...styles.imageContainer,
                             width: height * 0.7, height: height * 0.7,
-                            background: borderColors[position],
+                            // background: borderColors[position],
 
                             // backgroundImage: `url(${imgUrl})`,
                             // border: '3px solid red',
@@ -48,9 +48,9 @@ export default class PropsListElement extends Component {
                         <div
                             style={{
                                 ...styles.imageContainer,
-                                width: "92%", height: "92%",
+                                // width: "92%", height: "92%",
                                 backgroundImage: `url(${imgUrl})`,
-                                // border: '3px solid #393939',
+                                border: '3px solid #393939',
                             }}
                         >
 
@@ -126,12 +126,14 @@ const styles = {
         justifyContent: 'center',
         backgroundSize: "cover",
         backgroundPosition: "center",
+        width: "90%",
+        height: "90%",
     },
     propsTextBackground: {
-        backgroundImage: `url(${textBackground})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundColor: 'red',
+        // backgroundImage: `url(${textBackground})`,
+        // backgroundSize: "cover",
+        // backgroundPosition: "center",
+        // backgroundColor: 'red',
         // position: 'absolute',
         // top: 0,
         // right: 0,
@@ -140,7 +142,7 @@ const styles = {
         // width: "auto",
         display: "flex",
         // flex: 1,
-        // backgroundColor: "#EB4956",
+        backgroundColor: "#EB4956",
         flexDirection: 'row',
         width: "95%",
         justifyContent: "center",

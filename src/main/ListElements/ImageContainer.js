@@ -109,7 +109,7 @@ export default class ImageContainer extends Component {
     }
 
     render() {
-        let { topThree, user, localProps, position, isPropsList } = this.props;
+        let { topThree, user, localProps, position } = this.props;
         const { height, uniqueName, opacityStateProps, opacityStateImage, imageScale } = this.state;
 
         const hideProps = uniqueName === "" || uniqueName === "Anonymous" || uniqueName === "Banned user" || uniqueName === "Blocked user"
@@ -122,7 +122,7 @@ export default class ImageContainer extends Component {
 
         return (
             <div                
-                ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform, transform: "scale(" + (isPropsList ? 0.8 : 1) + ")" }}>
+                ref={ref => this.imageContainer = ref} style={{ ...styles.container, ...topThreeTransform }}>
                 {user ?
                     <motion.div onPointerDown={this.onTapStart.bind(this)} onPointerCancel={this.onTapCancel.bind(this)} onTap={this.onTap.bind(this)} custom={position} initial="hidden" animate={opacityStateImage} variants={globalIntro} style={styles.motionContainer}>
                         <div
@@ -139,7 +139,7 @@ export default class ImageContainer extends Component {
 
                 {hideProps || <motion.div custom={position} 
                 initial={{ opacity: 0 }} animate={opacityStateProps} variants={variants} 
-                style={{ ...styles.propsTextBackground, fontSize: height * 0.2, transform: "scale(" + (isPropsList ? 0.8 : 1) + ")" }}>
+                style={{ ...styles.propsTextBackground, fontSize: height * 0.2 }}>
                     <img style={{...styles.heartImage, width: height * 0.2, height: height * 0.2}} src={HeartImage} />
                     <div style={{ ...styles.propText }}>{propsCount}</div>
                 </motion.div>}

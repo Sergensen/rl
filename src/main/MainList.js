@@ -55,6 +55,7 @@ export default class MainList extends Component {
         localProps: {},
         width: 500,
         topThreeProps: [],
+        onlineUserCount: 0,
     }
 
     componentDidMount() {
@@ -101,13 +102,14 @@ export default class MainList extends Component {
         for (let key in temp) propsArr.push({ [key]: temp[key] });
 
         this.setState({ props: {} });
+        const onlineUserCount = await API.getOnline();
         API.updateProps(propsArr).then(res => {
-            this.mapPropsToUsers(res.props);
+            this.mapPropsToUsers(res.props, onlineUserCount);
             // this.props.setToasts(res.toasts);
         });
     }
 
-    mapPropsToUsers(newProps) {
+    mapPropsToUsers(newProps, onlineUserCount) {
         const { props } = this.state;
         const { data } = this.props;
         let out = {};
@@ -121,7 +123,7 @@ export default class MainList extends Component {
 
         const topThreeProps = this.getTopThreeProps(data);
 
-        this.setState({ localProps: { ...props }, topThreeProps });
+        this.setState({ localProps: { ...props }, topThreeProps, onlineUserCount });
     }
 
     addPropsToUser(uniqueName) {
@@ -141,7 +143,6 @@ export default class MainList extends Component {
     }
 
     getTopThreeProps(data) {
-        console.log("topThree!!!!");
         var topThree = [...data]
         topThree = topThree.sort((a, b) => b.props - a.props).slice(0, 3);
 
@@ -162,7 +163,7 @@ export default class MainList extends Component {
     }
 
     render() {
-        const { localProps, width, topThreeProps } = this.state;
+        const { localProps, width, topThreeProps, onlineUserCount } = this.state;
         let { data } = this.props;
 
         data = data || {};
@@ -170,9 +171,20 @@ export default class MainList extends Component {
         return (
             <div style={styles.main}>
                 <div ref={ref => this.imageContainer = ref} style={styles.container}>
+                    <div style={styles.headerContainer}>
+                        <div style={{ ...styles.headerlineContainer, transform: "rotate(180deg)" }}>
+                            <hr style={styles.headerDividingLine} />
+                        </div>
+                        <div style={{ ...styles.headerText, fontSize: propsListHeartAndTextsize * 0.9, fontWeight: "bold" }}>
+                            Pay money to get on the list
+                                </div>
+                        <div style={styles.headerlineContainer}>
+                            <hr style={styles.headerDividingLine} />
+                        </div>
+                    </div>
                     {data.length > 0 && topThreeProps.length > 0 ?
                         <motion.div initial="hidden" animate="visible" variants={list} style={styles.listContainer}>
-
+                            {/* <div style={{...styles.headerText, fontSize: propsListHeartAndTextsize * 0.9 }}>{onlineUserCount} users online </div> */}
                             <motion.div variants={list} style={{ ...styles.first, height: width * heightRatio.firstRow }}>
                                 <First user={data[0]} localProps={localProps[data[0] ? data[0].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                             </motion.div>
@@ -263,7 +275,7 @@ const styles = {
         maxWidth: 500,
         display: "flex",
         flexDirection: "column",
-        margin: '1rem 0',
+        // margin: '1rem 0',
         //justifyContent: "center",
         //alignItems: "center",
     },
@@ -283,6 +295,32 @@ const styles = {
         alignItems: 'center',
         display: "flex",
         flexDirection: "column",
+    },
+    headerContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 10,
+        width: "100%"
+    },
+    headerText: {
+        color: 'white',
+        textAlign: 'center',
+        display: "flex",
+        whiteSpace: "nowrap",
+        flex: 1,
+        marginLeft: 3,
+        marginRight: 3,
+    },
+    headerlineContainer: {
+        display: "flex",
+        flex: 1,
+    },
+    headerDividingLine: {
+        background: "linear-gradient(to right, rgba(150, 150, 150, 1), rgba(150, 150, 150, 1), rgba(150, 150, 150, 0))",
+        height: 1,
+        width: "95%"
     },
     first: {
         width: "100%",
@@ -406,7 +444,7 @@ const styles = {
         width: 50,
         height: 50,
     },
-    heartImage:{
+    heartImage: {
         marginLeft: "2%",
         marginRight: "2%",
         marginBottom: "1%"

@@ -60,7 +60,8 @@ const styles = {
         // borderWidth: '2px 0 0 0',
         textAlign: 'center',
         color: 'white',
-        fontSize: isMobile ?  window.innerHeight*0.04 : window.innerHeight*0.03
+        fontSize: isMobile ?  window.innerHeight * 0.035 : window.innerHeight*0.025,
+        marginBottom: 5
     },
     card: {
         color: 'white',

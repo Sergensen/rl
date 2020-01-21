@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
-    "blueimp-load-image": "^2.24.0",
+    "blueimp-load-image": "^2.26.0",
     "bootstrap": "^4.4.0",
     "browser-image-compression": "^1.0.6",
     "exif-js": "^2.3.0",
+    "firebase": "^7.6.1",
+    "framer-motion": "^1.7.0",
     "mdbreact": "^4.23.0",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.16",
@@ -15,6 +17,7 @@
     "react-device-detect": "^1.11.14",
     "react-dom": "^16.10.2",
     "react-easy-crop": "^1.16.1",
+    "react-ga": "^2.7.0",
     "react-image-crop": "^8.4.0",
     "react-image-file-resizer": "^0.2.1",
     "react-modal": "^3.10.1",
@@ -24,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

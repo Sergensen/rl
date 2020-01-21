@@ -7,14 +7,15 @@ import Datenschutz from './main/Datenschutz';
 import AGB from './main/AGB';
 import Impressum from './main/Impressum';
 import HEAD from './res/logo_header.png';
+import parental from './res/images/parentalAdvisoryLogo.png';
 import MainList from './main/MainList';
-import MainPage from './main/MainPage';
 import Fail from './main/Fail';
+import Progress from './main/Progress';
 import Success from './main/Success';
-import Validation from './main/Validation';
 import CookieConsent from "react-cookie-consent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import API from './api';
 
 import local from './local';
 
@@ -22,22 +23,40 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-  } from "react-router-dom";
+} from "react-router-dom";
 
 export default class App extends Component {
     state = {
         local: null,
+        data: []
     }
 
-    componentDidMount(){
-        const userLang = navigator.language || navigator.userLanguage; 
+    async componentDidMount() {
+        const userLang = navigator.language || navigator.userLanguage;
+        this.fetchData();
+
         this.setState({
-            local: userLang==="de-DE" ? local.de : local.en,
+            interval: setInterval(this.fetchData.bind(this), 10000),
+            local: userLang === "de-DE" ? local.de : local.en,
+        })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.interval);
+    }
+
+    fetchData(){
+        API.getTop10().then(users => {
+            API.getProps(users).then(data => {
+                this.setState({ data });
+                // API.getTop10().then(data => this.setState({ data }));
+            });
         });
+
     }
 
     render() {
-        const { local } = this.state;
+        const { local, data } = this.state;
         return (
             <Router>
                 <div style={styles.headerContainer}>
@@ -55,9 +74,6 @@ export default class App extends Component {
                     <Route path="/impressum">
                         <Impressum />
                     </Route>
-                    <Route path="/validation">
-                        <Validation />
-                    </Route>
                     <Route path="/fail">
                         <Fail />
                     </Route>
@@ -67,8 +83,11 @@ export default class App extends Component {
                     <Route path="/terms">
                         <Terms />
                     </Route>
+                    <Route path="/progress">
+                        <Progress />
+                    </Route>
                     <Route path="/agb">
-                        <AGB /> 
+                        <AGB />
                     </Route>
                     <Route path="/datenschutz">
                         <Datenschutz />
@@ -77,31 +96,35 @@ export default class App extends Component {
                         <Privacy />
                     </Route>
                     <Route path="/">
-                        <MainPage />
+                        <MainList data={data} />
                     </Route>
                 </Switch>
+            
                 {local && <div style={styles.footer}>
                     <MDBFooter color="blue" className="font-small pt-4 mt-4">
                         <MDBContainer fluid className="text-center text-md-left">
                             <MDBRow>
-                            <MDBCol md="6">
-                                <h5 className="title">Support</h5>
-                                <p>{local.support}</p>
-                            </MDBCol>
-                            <MDBCol md="6">
-                                <h5 className="title">Links</h5>
-                                <ul style={styles.listcontainer}>
-                                <li>
-                                    <a style={styles.link} href={local.toLegal}>{local.tos6}</a>
-                                </li>
-                                <li>
-                                    <a style={styles.link} href={local.toTerms}>{local.tos7}</a>
-                                </li>
-                                <li>
-                                    <a style={styles.link} href={local.toPrivacy}>{local.tos4}</a>
-                                </li>
-                                </ul>
-                            </MDBCol>
+                                <MDBCol md="5">
+                                    <h5 className="title">Support</h5>
+                                    <p>{local.support}</p>
+                                </MDBCol>
+                                <MDBCol md="4">
+                                    <h5 className="title">Links</h5>
+                                    <ul style={styles.listcontainer}>
+                                        <li>
+                                            <a style={styles.link} href={local.toLegal}>{local.tos6}</a>
+                                        </li>
+                                        <li>
+                                            <a style={styles.link} href={local.toTerms}>{local.tos7}</a>
+                                        </li>
+                                        <li>
+                                            <a style={styles.link} href={local.toPrivacy}>{local.tos4}</a>
+                                        </li>
+                                    </ul>
+                                </MDBCol>
+                                <MDBCol md="3">
+                                    <img alt="prnt" style={styles.parental} src={parental} />
+                                </MDBCol>
                             </MDBRow>
                         </MDBContainer>
                         <div className="footer-copyright text-center py-3">
@@ -112,16 +135,16 @@ export default class App extends Component {
                     </MDBFooter>
                 </div>}
 
-                {local && <CookieConsent 
-                    onAccept={() => {}}
-                    onDecline={() => {}}
+                {local && <CookieConsent
+                    onAccept={() => { }}
+                    onDecline={() => { }}
                     buttonText={local.buttonText}
                     declineButtonText={local.declineButtonText}
                     enableDeclineButton
-                    style={{ fontSize: "2vh"}}> 
-                        {local.cookies1}
-                        <a style={{color: "white"}} href={local.toPrivacy}>{local.tos4}</a> 
-                        {local.cookies2}
+                    style={{ fontSize: "2vh" }}>
+                    {local.cookies1}
+                    <a style={{ color: "white" }} href={local.toPrivacy}>{local.tos4}</a>
+                    {local.cookies2}
                 </CookieConsent>}
             </Router>
         );
@@ -144,7 +167,7 @@ const styles = {
         fontFamily: "sans-serif",
     },
     headerImg: {
-        maxWidth: "900px",
+        maxWidth: "500px",
         width: "100%",
         height: "100%",
         flex: 1
@@ -153,11 +176,9 @@ const styles = {
         flex: 1,
         width: "100%",
         display: "flex",
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
         justifyContent: "center",
-        borderBottom: "1px solid rgba(99,99,99,0.5)",
-        boxShadow: "0 5px 10px -1px grey",
-        paddingBottom: 5
+        paddingBottom: 5,
     },
     headerLink: {
         marginTop: "1vh",
@@ -165,5 +186,9 @@ const styles = {
     },
     listcontainer: {
         textAlign: "left"
+    },
+    parental: {
+        width: "50%",
+        height: "auto"
     }
 };

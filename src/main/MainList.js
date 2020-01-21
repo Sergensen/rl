@@ -155,7 +155,7 @@ export default class MainList extends Component {
 
         for (let i = 0; i < 3; i++) {
             list.push(
-                <PropsListElement position={i} user={topThreeProps[i]} style={{ ...styles.propElement }}> </PropsListElement>
+                <PropsListElement key={i} position={i} user={topThreeProps[i]} style={{ ...styles.propElement }}> </PropsListElement>
             );
         }
 

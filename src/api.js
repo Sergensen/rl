@@ -117,7 +117,7 @@ export default {
         return new Promise((resolve, reject) => {
             let params = [];
             data.forEach(user => params.push({ [user.uniqueName]: 0 }));
-            axios.post(API_URL + 'webprops', { data: publicKey.encrypt({...params}) }, { timeout: 10000 }).then(res => {
+            axios.post(API_URL + 'webprops', { data: publicKey.encrypt({uniqueNamesArray: params}) }, { timeout: 10000 }).then(res => {
                 let props = {};
                 res.data.props.forEach(user => props[Object.keys(user)[0]] = user[Object.keys(user)[0]]);
                 for (let user of data) user.props = props[user.uniqueName];
@@ -146,7 +146,7 @@ export default {
             
             let captchaToken = propsGiven ? await this.getToken("props") : "";
 
-            axios.post(API_URL + 'webprops', { data: publicKey.encrypt({...props, captchaToken}) }, { timeout: 10000 }).then(result => {
+            axios.post(API_URL + 'webprops', { data: publicKey.encrypt({uniqueNamesArray: props, captchaToken}) }, { timeout: 10000 }).then(result => {
                 resolve(result.data);
             }).catch(err => reject(err));
         });

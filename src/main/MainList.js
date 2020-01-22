@@ -66,7 +66,7 @@ export default class MainList extends Component {
 
         if (!interval) {
             this.setState({
-                interval: setInterval(this.sendProps.bind(this), 2500)
+                interval: setInterval(this.sendProps.bind(this), 3000)
             })
 
             setTimeout(() => {

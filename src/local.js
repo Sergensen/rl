@@ -42,6 +42,9 @@ module.exports = {
     paypalLimit: "PayPal is only avaiable for payments below $2000",
     makeAPayment1: "Checkout area",
     makeAPayment2: "Make your first payment!",
+    makeAPayment3: "Is it you first or an aditional payment?",
+    firstTime: "First payment",
+    nextTime: "Additional payment"
   },
   de: {
     tos1: "Mit der Benutzung des bezahlen Buttons bestätigen Sie, dass Sie die",
@@ -86,5 +89,8 @@ module.exports = {
     paypalLimit: "PayPal ist nur bei Zahlungen von unter 2.000$ verfügbar",
     makeAPayment1: "Checkout Bereich",
     makeAPayment2: "Mache deine erste Zahlung!",
+    makeAPayment3: "Ist es deine erste oder eine erneute Zahlung?",
+    firstTime: "Erste Zahlung",
+    nextTime: "Erneut bezahlen"
   }
 };

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Checkout from './checkout/Checkout';
+import SecondPayment from './checkout/SecondPayment';
+import FirstPayment from './checkout/FirstPayment';
 import Legal from './main/Legal';
 import Terms from './main/Terms';
 import Privacy from './main/Privacy';
@@ -65,9 +67,15 @@ export default class App extends Component {
                     </a>
                 </div>
                 <Switch>
-                    <Route path="/pay">
+                    <Route path="/pay" exact>
                         <Checkout />
                     </Route>
+                    <Route path="/pay/migos">
+                            <FirstPayment />
+                        </Route>
+                        <Route path="/pay/billgates">
+                            <SecondPayment />
+                        </Route>
                     <Route path="/legal">
                         <Legal />
                     </Route>

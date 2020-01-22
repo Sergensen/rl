@@ -16,7 +16,6 @@ export default class PropsListElement extends Component {
 
     componentDidMount() {
         const height = this.propsList.clientHeight;
-        console.log("height: " + height);
         this.setState({ height });
     }
 

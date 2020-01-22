@@ -17,9 +17,6 @@ import {
 import PropsListElement from './ListElements/PropsListElement';
 import InstagramEmbed from 'react-instagram-embed';
 import HeartImageRed from '../res/images/profiles/heart_red.png'
-import {
-    GoogleReCaptcha
-  } from 'react-google-recaptcha-v3';
 
 const heightRatio = {
     propsRow: isMobile ? 0.375 : 0.3,
@@ -62,6 +59,7 @@ export default class MainList extends Component {
 
     componentDidMount() {
         const { interval } = this.state;
+        console.log("lawllawl123");
 
         const width = this.imageContainer.clientWidth;
         this.setState({ width });
@@ -105,6 +103,13 @@ export default class MainList extends Component {
 
         this.setState({ props: {} });
         const onlineUserCount = await API.getOnline();
+
+        // console.log("start");
+        // console.log(MyReCaptchaComponent);
+        // const token = await MyReCaptchaComponent.getToken();
+        // console.log(token)
+        // console.log("ende");
+        
         API.updateProps(propsArr).then(res => {
             this.mapPropsToUsers(res.props, onlineUserCount);
             // this.props.setToasts(res.toasts);
@@ -172,8 +177,6 @@ export default class MainList extends Component {
 
         return (
             <div style={styles.main}>
-                 <GoogleReCaptcha onVerify={token => console.log(token)} />
-
                 <div ref={ref => this.imageContainer = ref} style={styles.container}>
                     <div style={styles.headerContainer}>
                         <div style={{ ...styles.headerlineContainer, transform: "rotate(180deg)" }}>

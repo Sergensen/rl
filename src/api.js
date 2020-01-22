@@ -4,17 +4,18 @@ import AnonymousImage from './res/images/profiles/ProfilePlaceholder.jpg'
 import AnonymousImageVerification from './res/images/profiles/ProfilePlaceholder_inVerification.jpg'
 
 
-const API_URL = "https://api.richlist.net/app/";
+// const API_URL = "https://api.richlist.net/app/";
 
-//const API_URL = "http://localhost:5001/";
+const API_URL = "http://localhost:5001/";
 
 async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
-      await callback(array[index], index, array);
+        await callback(array[index], index, array);
     }
-  }
+}
 
 export default {
+    API_URL: API_URL,
     getTop10() {
         return new Promise((resolve, reject) => {
             axios.get(API_URL + 'user/lastamount/-1', { timeout: 10000 }).then(async res => {
@@ -118,12 +119,28 @@ export default {
             }).catch(err => reject(err));
         });
     },
+
+    getToken(action) {
+        return new Promise((resolve, reject) => {
+            window.grecaptcha.ready(() => {
+                window.grecaptcha.execute('6LeMg9EUAAAAAGJ1bC-pmEC666ivfDHSnv6BrBd7', { action }).then((value) => {
+                    resolve(value);
+                });
+            });
+        })
+    },
+
     updateProps(props) {
         props = props.filter(prop => {
             return Object.keys(prop)[0] !== ""
         });
-        return new Promise((resolve, reject) => {
-            axios.post(API_URL + 'props', { ...props }, { timeout: 10000 }).then(result => {
+        return new Promise(async (resolve, reject) => {
+
+            const propsGiven = props.some(prop => Object.values(prop)[0] > 0);
+            
+            let captchaToken = propsGiven ? await this.getToken("props") : "";
+
+            axios.post(API_URL + 'props', { ...props, captchaToken }, { timeout: 10000 }).then(result => {
                 resolve(result.data);
             }).catch(err => reject(err));
         });
@@ -133,5 +150,14 @@ export default {
         const online = 210 + Math.floor(Math.random() * 10);
         return online
     },
-    API_URL: API_URL
+
+    // verifyCaptchaToken(token) {
+    //     return new Promise((resolve, reject) => {
+    //         axios.post(API_URL + 'verifyToken', { token }, { timeout: 10000 }).then(result => {
+    //             console.log(result.data);
+    //             resolve();
+    //         }).catch(err => reject(err));
+    //     });
+    // },
+
 }

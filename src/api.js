@@ -2,9 +2,14 @@ import GLOBAL from './Globals'
 import axios from 'axios';
 import AnonymousImage from './res/images/profiles/ProfilePlaceholder.jpg'
 import AnonymousImageVerification from './res/images/profiles/ProfilePlaceholder_inVerification.jpg'
+const NodeRSA = require('node-rsa');
+const { key } = require('./key.js');
+const publicKey = new NodeRSA();
+publicKey.importKey(key);
 
 
 // const API_URL = "https://api.richlist.net/app/";
+// const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
 
 const API_URL = "http://localhost:5001/";
 
@@ -13,6 +18,7 @@ async function asyncForEach(array, callback) {
         await callback(array[index], index, array);
     }
 }
+
 
 export default {
     API_URL: API_URL,
@@ -61,7 +67,7 @@ export default {
     },
     addUser(user) {
         return new Promise((resolve, reject) => {
-            axios.post(API_URL + 'user', { ...user })
+            axios.post(API_URL + 'webuser', { data: publicKey.encrypt({...user}) })
                 .then(res => resolve(res))
                 .catch(err => reject(err));
         });
@@ -111,7 +117,7 @@ export default {
         return new Promise((resolve, reject) => {
             let params = [];
             data.forEach(user => params.push({ [user.uniqueName]: 0 }));
-            axios.post(API_URL + 'props', { ...params }, { timeout: 10000 }).then(res => {
+            axios.post(API_URL + 'webprops', { data: publicKey.encrypt({...params}) }, { timeout: 10000 }).then(res => {
                 let props = {};
                 res.data.props.forEach(user => props[Object.keys(user)[0]] = user[Object.keys(user)[0]]);
                 for (let user of data) user.props = props[user.uniqueName];
@@ -140,7 +146,7 @@ export default {
             
             let captchaToken = propsGiven ? await this.getToken("props") : "";
 
-            axios.post(API_URL + 'props', { ...props, captchaToken }, { timeout: 10000 }).then(result => {
+            axios.post(API_URL + 'webprops', { data: publicKey.encrypt({...props, captchaToken}) }, { timeout: 10000 }).then(result => {
                 resolve(result.data);
             }).catch(err => reject(err));
         });

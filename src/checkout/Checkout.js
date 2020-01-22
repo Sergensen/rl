@@ -54,11 +54,11 @@ class Checkout extends Component {
             }
             if (!res.exists) {
                 const result = await this.checkout();
-                if (result) {
-                    this.setState({paid: true});
-                        const redirLink = await API.paypal(uniqueKey, amount, mail, name, message);
+                if (result.data.result.success) {
+                    this.setState({paid: true, loading: true});
+                    const redirLink = await API.paypal(uniqueKey, amount, mail, name, message);
                     if((typeof redirLink === "object" || typeof redirLink === 'function') && (redirLink !== null)) {
-                        this.setState({loading: true, paid: false, uniqueKey: ""});
+                        this.setState({loading: false, paid: false, uniqueKey: ""});
                         alert("Something went wrong. Please try again.");
                     } else {
                         window.location.href = redirLink;

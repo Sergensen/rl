@@ -141,11 +141,8 @@ export default class App extends Component {
                 </div>}
 
                 {local && <CookieConsent
-                    onAccept={() => { }}
-                    onDecline={() => { }}
+                    // onAccept={() => { }}
                     buttonText={local.buttonText}
-                    declineButtonText={local.declineButtonText}
-                    enableDeclineButton
                     style={{ fontSize: "2vh" }}>
                     {local.cookies1}
                     <a style={{ color: "white" }} href={local.toPrivacy}>{local.tos4}</a>

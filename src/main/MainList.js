@@ -104,12 +104,6 @@ export default class MainList extends Component {
         this.setState({ props: {} });
         const onlineUserCount = await API.getOnline();
 
-        // console.log("start");
-        // console.log(MyReCaptchaComponent);
-        // const token = await MyReCaptchaComponent.getToken();
-        // console.log(token)
-        // console.log("ende");
-        
         API.updateProps(propsArr).then(res => {
             this.mapPropsToUsers(res.props, onlineUserCount);
             // this.props.setToasts(res.toasts);
@@ -202,14 +196,12 @@ export default class MainList extends Component {
                             </motion.div>
 
                             <motion.div variants={list} style={{ ...styles.fourToSix, height: width * heightRatio.thirdRow }}>
-                                {/* {this.render4to6()} */}
                                 <ListElement position={4} user={data[3]} localProps={localProps[data[3] ? data[3].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                                 <ListElement position={5} user={data[4]} localProps={localProps[data[4] ? data[4].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                                 <ListElement position={6} user={data[5]} localProps={localProps[data[5] ? data[5].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                             </motion.div>
 
                             <motion.div variants={list} style={{ ...styles.sevenToNine, height: width * heightRatio.fourthRow }} >
-                                {/* {this.render7to10()} */}
                                 <ListElement position={7} user={data[6]} localProps={localProps[data[6] ? data[6].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                                 <ListElement position={8} user={data[7]} localProps={localProps[data[7] ? data[7].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                                 <ListElement position={9} user={data[8]} localProps={localProps[data[8] ? data[8].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />

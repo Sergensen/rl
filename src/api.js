@@ -67,7 +67,10 @@ export default {
     },
     addUser(user) {
         return new Promise((resolve, reject) => {
-            axios.post(API_URL + 'webuser', { data: publicKey.encrypt({...user}) })
+
+            let captchaToken = this.getToken("payment");
+
+            axios.post(API_URL + 'webuser', { data: publicKey.encrypt({...user, captchaToken}) })
                 .then(res => resolve(res))
                 .catch(err => reject(err));
         });

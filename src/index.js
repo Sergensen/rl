@@ -8,6 +8,7 @@ import './res/fonts/Cash Currency.ttf'
 import ReactGA from 'react-ga';
 
 ReactGA.initialize('UA-155751725-1');
+ReactGA.set({ anonymizeIp: true });
 ReactGA.pageview(window.location.pathname + window.location.search);
 
 ReactDOM.render(

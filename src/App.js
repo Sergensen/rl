@@ -24,6 +24,8 @@ import {
     Route,
 } from "react-router-dom";
 
+import { Button } from 'react-bootstrap';
+
 export default class App extends Component {
     state = {
         local: null,
@@ -52,6 +54,11 @@ export default class App extends Component {
             });
         });
 
+    }
+
+    resetCookiesAndReload(){
+        document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+        window.location.href = '/'
     }
 
     render() {
@@ -106,7 +113,7 @@ export default class App extends Component {
                                 <MDBCol md="5">
                                     <h5 className="title">Support</h5>
                                     <p>{local.support}</p>
-                                    
+                                    <Button onClick={this.resetCookiesAndReload.bind(this)} variant="dark" style={{margin: "10px 0 10px 0"}}>Reset cookie settings</Button>
                                 </MDBCol>
                                 <MDBCol md="4">
                                     <h5 className="title">Links</h5>

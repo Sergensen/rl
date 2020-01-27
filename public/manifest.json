@@ -1,5 +1,5 @@
 {
-  "short_name": "RichList App",
+  "short_name": "RichList",
   "name": "RichList",
   "icons": [
     {
@@ -8,13 +8,13 @@
       "type": "image/x-icon"
     },
     {
-      "src": "richlist1.png",
-      "type": "image/png",
+      "src": "richlist1.jpg",
+      "type": "image/jpg",
       "sizes": "192x192"
     },
     {
-      "src": "richlist2.png",
-      "type": "image/png",
+      "src": "richlist2.jpg",
+      "type": "image/jpg",
       "sizes": "512x512"
     }
   ],

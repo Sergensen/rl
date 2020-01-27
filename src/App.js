@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Checkout from './checkout/Checkout';
+import SecondPayment from './checkout/SecondPayment';
+import FirstPayment from './checkout/FirstPayment';
 import Legal from './main/Legal';
 import Terms from './main/Terms';
 import Privacy from './main/Privacy';
@@ -11,7 +13,7 @@ import parental from './res/images/parentalAdvisoryLogo.png';
 import MainList from './main/MainList';
 import Fail from './main/Fail';
 import Progress from './main/Progress';
-import Success from './main/Success';
+import CookieConsent from "react-cookie-consent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import API from './api';
@@ -34,7 +36,7 @@ export default class App extends Component {
 
     async componentDidMount() {
         const userLang = navigator.language || navigator.userLanguage;
-        this.fetchData();
+        this.fetchData(true);
 
         this.setState({
             interval: setInterval(this.fetchData.bind(this), 10000),
@@ -46,14 +48,14 @@ export default class App extends Component {
         clearInterval(this.state.interval);
     }
 
-    fetchData() {
+    fetchData(withProps = false){
         API.getTop10().then(users => {
-            API.getProps(users).then(data => {
-                this.setState({ data });
+            if(withProps) API.getProps(users.output).then(data => {
+                this.setState({ data, online: users.online });
                 // API.getTop10().then(data => this.setState({ data }));
             });
+            if(!withProps) this.setState({ data: users.output, online: users.online });
         });
-
     }
 
     resetCookiesAndReload(){
@@ -62,7 +64,10 @@ export default class App extends Component {
     }
 
     render() {
-        const { local, data } = this.state;
+        const { local, data, online } = this.state;
+
+        console.log(online);
+        
         return (
             <Router>
                 <div style={styles.headerContainer}>
@@ -71,8 +76,14 @@ export default class App extends Component {
                     </a>
                 </div>
                 <Switch>
-                    <Route path="/pay">
+                    <Route path="/pay" exact>
                         <Checkout />
+                    </Route>
+                    <Route path="/pay/first">
+                        <FirstPayment />
+                    </Route>
+                    <Route path="/pay/next">
+                        <SecondPayment />
                     </Route>
                     <Route path="/legal">
                         <Legal />
@@ -82,9 +93,6 @@ export default class App extends Component {
                     </Route>
                     <Route path="/fail">
                         <Fail />
-                    </Route>
-                    <Route path="/success">
-                        <Success />
                     </Route>
                     <Route path="/terms">
                         <Terms />

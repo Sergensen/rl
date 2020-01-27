@@ -42,9 +42,10 @@ body {
 }
 
 #paytext {
-  color: #169BD7;
-  text-align: center;
+  color: white;
+  text-align: justify;
   font-size: 18px;
+  max-width: 600px;
   font-family: Arial, Helvetica, sans-serif;
 }
 

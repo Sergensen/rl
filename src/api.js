@@ -25,7 +25,7 @@ export default {
     getTop10() {
         return new Promise((resolve, reject) => {
             axios.get(API_URL + 'user/lastamount/-1', { timeout: 10000 }).then(async res => {
-                await asyncForEach(res.data, async (user, i, users) => {
+                await asyncForEach(res.data.output, async (user, i, users) => {
                     if (users[i].imgUrl === "" || !users[i].imgUrl) {
                         users[i].imgUrl = AnonymousImage
                     }
@@ -46,10 +46,9 @@ export default {
                     }
                 });
                 resolve(res.data);
-            })
-                .catch(err => {
-                    reject(err)
-                });
+            }).catch(err => {
+                reject(err)
+            });
         });
     },
     payStripe(uniqueKey, amount, uniqueName, mail, message) {
@@ -109,7 +108,7 @@ export default {
     },
     paypal(uniqueKey, amount, mail, uniqueName, message) {
         return new Promise(async (resolve, reject) => {
-            axios.get(API_URL + 'webpaypal?uniqueKey=' + uniqueKey + '&amount=' + amount + "&mail=" + mail + "&uniqueName=" + encodeURI(uniqueName) + "&message=" + message).then(res => {
+            axios.post(API_URL + 'webpaypal', {uniqueKey, amount, mail, uniqueName: encodeURI(uniqueName), message}).then(res => {
                 resolve(res.data)
             }).catch(err => {
                 reject(err);
@@ -154,7 +153,13 @@ export default {
             }).catch(err => reject(err));
         });
     },
-
+    fetchData(uniqueKey) {
+        return new Promise((resolve, reject) => {
+            axios.get(API_URL + 'user/' + uniqueKey, { timeout: 10000 }).then(result => {
+                resolve(result.data);
+            }).catch(err => reject(err));
+        });
+    },
     async getOnline() {
         const online = 210 + Math.floor(Math.random() * 10);
         return online

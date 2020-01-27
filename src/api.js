@@ -7,7 +7,7 @@ const { key } = require('./key.js');
 const publicKey = new NodeRSA();
 publicKey.importKey(key);
 
-const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
+const API_URL = "https://api.richlist.net/app/";
 //const API_URL = "http://localhost:5001/";
 
 async function asyncForEach(array, callback) {

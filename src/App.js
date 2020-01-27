@@ -35,7 +35,7 @@ export default class App extends Component {
 
     async componentDidMount() {
         const userLang = navigator.language || navigator.userLanguage;
-        this.fetchData();
+        this.fetchData(true);
 
         this.setState({
             interval: setInterval(this.fetchData.bind(this), 10000),
@@ -47,12 +47,13 @@ export default class App extends Component {
         clearInterval(this.state.interval);
     }
 
-    fetchData(){
+    fetchData(withProps = false){
         API.getTop10().then(users => {
-            API.getProps(users).then(data => {
+            if(withProps) API.getProps(users).then(data => {
                 this.setState({ data });
                 // API.getTop10().then(data => this.setState({ data }));
             });
+            if(!withProps) this.setState({ users });
         });
     }
 

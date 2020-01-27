@@ -160,18 +160,5 @@ export default {
             }).catch(err => reject(err));
         });
     },
-    async getOnline() {
-        const online = 210 + Math.floor(Math.random() * 10);
-        return online
-    },
-
-    // verifyCaptchaToken(token) {
-    //     return new Promise((resolve, reject) => {
-    //         axios.post(API_URL + 'verifyToken', { token }, { timeout: 10000 }).then(result => {
-    //             console.log(result.data);
-    //             resolve();
-    //         }).catch(err => reject(err));
-    //     });
-    // },
 
 }

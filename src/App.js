@@ -48,16 +48,19 @@ export default class App extends Component {
 
     fetchData(withProps = false){
         API.getTop10().then(users => {
-            if(withProps) API.getProps(users).then(data => {
-                this.setState({ data });
+            if(withProps) API.getProps(users.output).then(data => {
+                this.setState({ data, online: users.online });
                 // API.getTop10().then(data => this.setState({ data }));
             });
-            if(!withProps) this.setState({ users });
+            if(!withProps) this.setState({ data: users.output, online: users.online });
         });
     }
 
     render() {
-        const { local, data } = this.state;
+        const { local, data, online } = this.state;
+
+        console.log(online);
+        
         return (
             <Router>
                 <div style={styles.headerContainer}>

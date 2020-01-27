@@ -7,8 +7,8 @@ const { key } = require('./key.js');
 const publicKey = new NodeRSA();
 publicKey.importKey(key);
 
-const API_URL = "https://api.richlist.net/app/";
-//const API_URL = "http://localhost:5001/";
+//const API_URL = "https://api.richlist.net/app/";
+const API_URL = "http://localhost:5001/";
 
 async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
@@ -21,7 +21,7 @@ export default {
     getTop10() {
         return new Promise((resolve, reject) => {
             axios.get(API_URL + 'user/lastamount/-1', { timeout: 10000 }).then(async res => {
-                await asyncForEach(res.data, async (user, i, users) => {
+                await asyncForEach(res.data.output, async (user, i, users) => {
                     if (users[i].imgUrl === "" || !users[i].imgUrl) {
                         users[i].imgUrl = AnonymousImage
                     }
@@ -42,10 +42,9 @@ export default {
                     }
                 });
                 resolve(res.data);
-            })
-                .catch(err => {
-                    reject(err)
-                });
+            }).catch(err => {
+                reject(err)
+            });
         });
     },
     payStripe(uniqueKey, amount, uniqueName, mail, message) {

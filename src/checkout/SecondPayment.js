@@ -35,7 +35,8 @@ class SecondPayment extends Component {
         link: "https://www.richlist.net/terms",
         error: [true, true, true, true],
         local: {},
-        fetched: false
+        fetched: false,
+        fetchingError: false
     }
 
     componentDidMount(){
@@ -82,7 +83,7 @@ class SecondPayment extends Component {
             const res = await API.nameExists(uniqueKey, name.trim());
             if (!res.exists) {
                 const result = await this.checkout();
-                if (result) {
+                if (result.data.result.success) {
                     this.setState({loading: true,});
                     API.payStripe(uniqueKey, amount, name, mail, message);
                 } else {
@@ -225,39 +226,56 @@ class SecondPayment extends Component {
 
         if(uniqueKey.length === 16) {
             const user = await API.fetchData(uniqueKey);
-            const { uniqueName, amount, imgUrl, instagram, twitter, snapchat, mail, message, tiktok } = user;
-            const image = new Image();
-            image.src = imgUrl;
-            this.setState({
-                name: uniqueName, 
-                oldAmount: amount, 
-                instagram, 
-                twitter, 
-                snapchat, 
-                mail, 
-                image,
-                message, 
-                tiktok,
-                fetched: true,
-                fetching: false
-            });
+            if(user.uniqueName) {
+                const { uniqueName, amount, imgUrl, instagram, twitter, snapchat, mail, message, tiktok } = user;
+                const image = new Image();
+                image.src = imgUrl;
+                this.setState({
+                    name: uniqueName, 
+                    oldAmount: amount, 
+                    instagram, 
+                    twitter, 
+                    snapchat, 
+                    mail, 
+                    image,
+                    message, 
+                    tiktok,
+                    fetched: true,
+                    fetching: false,
+                    fetchingError: false
+                });
+            } else {
+                this.setState({
+                    fetched: false,
+                    fetching: false,
+                    fetchingError: true
+                });
+            }
         }
     }
 
 
-    render() {
-        const { fetched, oldAmount, fetching, loading, name, amount, mail, message, instagram, twitter, tiktok, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
-        
-        const popover = (
-            <Popover id="popover-basic">
-              <Popover.Title as="h3">{local.paymentKey}</Popover.Title>
-              <Popover.Content>
-                {local.paymentInfo}
-              </Popover.Content>
-            </Popover>
-          );
+    getPopovers() {
+        let popovers = {};
+        const { local } = this.state;
+        const fields = ['uniqueKey', 'uniqueName', 'amount', 'mail', 'message', 'instagram', 'twitter', 'snapchat', 'tiktok',]
+        fields.forEach(field => {
+            popovers[field] = (
+                <Popover id="popover-basic">
+                    <Popover.Title as="h3">{local[field+"Short"]}</Popover.Title>
+                    <Popover.Content>
+                        {local[field+"Long"]}
+                    </Popover.Content>
+                </Popover>
+            );
+        })
+        return popovers;
+    }
 
-          
+    render() {
+        const { fetched, fetchingError, oldAmount, fetching, loading, name, amount, mail, message, instagram, twitter, tiktok, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
+        const popovers = this.getPopovers();
+
         return (
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
             <div style={styles.header}>
@@ -270,18 +288,19 @@ class SecondPayment extends Component {
                 <Spinner style={styles.spinner} animation="border" />
             </div>}
 
-            {fetching && <div style={styles.fetchingSpinner}>
+            {fetching && <div style={{marginBottom: "40vh"}}>
                 <Spinner animation="border" role="status" variant="light" style={styles.spinner} />
             </div>}
 
             <div ref={ref => this.main = ref} style={styles.payMain}>
                 <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
 
-                    {!fetching && !fetched && <div style={{...styles.flexOne, ...{marginTop: "2%", marginBottom: isMobile ? 0 : "40vh"}}}>
-                        <OverlayTrigger placement="left" overlay={popover}>
+                    {!fetching && !fetched && <div style={{...styles.flexOne, ...styles.paymentKey, marginBottom: isMobile ? 0 : "40vh"}}>
+                        <OverlayTrigger placement="left" overlay={popovers.uniqueKey}>
                             <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
                         </OverlayTrigger>
-                        <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setUniqueKey(e.target.value)} style={styles.input} maxLength={16} type="text" placeholder={local.paymentKey}/>
+                        <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setUniqueKey(e.target.value)} style={styles.input} maxLength={16} type="text" placeholder={local.uniqueKeyShort}/>
+                        {fetchingError && <div style={styles.notExisting}>{local.notExisting}</div>}
                     </div>}
 
                     {fetched && <div style={styles.overlayContainer}>
@@ -298,10 +317,15 @@ class SecondPayment extends Component {
                         }
 
                         <div style={{...styles.flexOne}}>
-                            <div className="info-button"></div>
+                            <OverlayTrigger placement="left" overlay={popovers.uniqueName}>
+                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                            </OverlayTrigger>
                             <input value={name} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength="20" type="text" placeholder={local.name}/>
                         </div>
                         <div style={{...styles.flexOne}}>
+                            <OverlayTrigger placement="left" overlay={popovers.mail}>
+                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                            </OverlayTrigger>
                             <input onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={35} type="text" placeholder={local.email}/>
                         </div>
                         <div style={styles.alreadyPaid}>
@@ -310,21 +334,39 @@ class SecondPayment extends Component {
                         </div>
 
                         <div style={{...styles.flexOne, marginBottom: "2vh"}}>
+                            <OverlayTrigger placement="left" overlay={popovers.amount}>
+                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                            </OverlayTrigger>
                             <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={8} type="text" placeholder={local.amount}/>
                         </div>
                         <div style={{...styles.flexOne}}>
+                            <OverlayTrigger placement="left" overlay={popovers.message}>
+                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                            </OverlayTrigger>
                             <input value={message} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ message: e.target.value })} style={styles.input} maxLength={35} type="text" placeholder={local.message}/>
                         </div>
                         <div style={{...styles.flexOne}}>
+                            <OverlayTrigger placement="left" overlay={popovers.instagram}>
+                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                            </OverlayTrigger>
                             <input value={instagram} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ instagram: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.instagram}/>
                         </div>
                         <div style={{...styles.flexOne}}>
+                            <OverlayTrigger placement="left" overlay={popovers.tiktok}>
+                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                            </OverlayTrigger>
                             <input value={tiktok} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ tiktok: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.tiktok}/>
                         </div>
                         <div style={{...styles.flexOne}}>
+                            <OverlayTrigger placement="left" overlay={popovers.snapchat}>
+                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                            </OverlayTrigger>
                             <input value={snapchat} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ snapchat: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.snapchat}/>
                         </div>
                         <div style={{...styles.flexOne}}>
+                            <OverlayTrigger placement="left" overlay={popovers.twitter}>
+                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                            </OverlayTrigger>
                             <input value={twitter} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value)  && this.setState({ twitter: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.twitter}/>
                         </div>
 
@@ -370,6 +412,11 @@ class SecondPayment extends Component {
 }
 
 const styles = {
+    paymentKey: {
+        marginTop: "2%", 
+        display: "flex",
+        flexDirection: "column"
+    },
     overlayContainer: {
         display: "flex",
         flexDirection: "column",
@@ -403,6 +450,9 @@ const styles = {
         marginTop: "2vh",
         color: "white",
         display: "flex"
+    },
+    notExisting: {
+        color: "red"
     },
     method: {
         fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,
@@ -613,7 +663,7 @@ const styles = {
         margin: "1% 0%",
         boxSizing: "border-box",
         backgroundColor: "black",
-        WebkitInputPlaceholder: "grey"
+        WebkitInputPlaceholder: "grey",
     },
     payMore: {
         color: "red"

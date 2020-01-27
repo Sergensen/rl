@@ -102,7 +102,7 @@ export default {
     },
     paypal(uniqueKey, amount, mail, uniqueName, message) {
         return new Promise(async (resolve, reject) => {
-            axios.get(API_URL + 'webpaypal?uniqueKey=' + uniqueKey + '&amount=' + amount + "&mail=" + mail + "&uniqueName=" + encodeURI(uniqueName) + "&message=" + message).then(res => {
+            axios.post(API_URL + 'webpaypal', {uniqueKey, amount, mail, uniqueName: encodeURI(uniqueName), message}).then(res => {
                 resolve(res.data)
             }).catch(err => {
                 reject(err);

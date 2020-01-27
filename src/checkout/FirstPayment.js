@@ -87,7 +87,7 @@ class FirstPayment extends Component {
             }
             if (!res.exists) {
                 const result = await this.checkout();
-                if (result) {
+                if (result.data.result.success) {
                     this.setState({loading: true,});
                     API.payStripe(uniqueKey, amount, name, mail, message);
                 } else {
@@ -118,10 +118,13 @@ class FirstPayment extends Component {
             this.setState({ loading: !loading });
                 API.addUser({ uniqueKey , mail, uniqueName: name.trim(), amount, instagram, twitter, snapchat, tiktok, method, message: encodeURI(message.trim()), timestamp: Date.now() })
                     .then(async res => {
-                        if(image && image.size <15000000) {
-                            const resp = await API.putImage(image, res.data.result.uploadUrl);
-                        } else if(image && image.size >=15000000) {
-                            reject("The picture is too big!");
+                        console.log(res);
+                        if(res.data.result.success) {
+                            if(image && image.size <15000000) {
+                                const resp = await API.putImage(image, res.data.result.uploadUrl);
+                            } else if(image && image.size >=15000000) {
+                                reject("The picture is too big!");
+                            }
                         }
                         resolve(res);
                     })
@@ -223,9 +226,27 @@ class FirstPayment extends Component {
         });
     }
 
+    getPopovers() {
+        let popovers = {};
+        const { local } = this.state;
+        const fields = ['uniqueName', 'amount', 'mail', 'message', 'instagram', 'twitter', 'snapchat', 'tiktok',]
+        fields.forEach(field => {
+            popovers[field] = (
+                <Popover id="popover-basic">
+                    <Popover.Title as="h3">{local[field+"Short"]}</Popover.Title>
+                    <Popover.Content>
+                        {local[field+"Long"]}
+                    </Popover.Content>
+                </Popover>
+            );
+        })
+        return popovers;
+    }
+
 
     render() {
         const { loading, name, amount, mail, message, instagram, twitter, tiktok, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
+        const popovers = this.getPopovers();
         
         return (
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
@@ -252,28 +273,51 @@ class FirstPayment extends Component {
                     }
 
                     <div style={{...styles.flexOne}}>
-                        <div className="info-button"></div>
+                        <OverlayTrigger placement="left" overlay={popovers.uniqueName}>
+                            <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                        </OverlayTrigger>
                         <input value={name} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength="20" type="text" placeholder={local.name}/>
                     </div>
                     <div style={{...styles.flexOne}}>
+                        <OverlayTrigger placement="left" overlay={popovers.mail}>
+                            <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                        </OverlayTrigger>
                         <input onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={35} type="text" placeholder={local.email}/>
                     </div>
                     <div style={{...styles.flexOne}}>
+                        <OverlayTrigger placement="left" overlay={popovers.amount}>
+                            <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                        </OverlayTrigger>
                         <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={8} type="text" placeholder={local.amount}/>
                     </div>
                     <div style={{...styles.flexOne}}>
+                        <OverlayTrigger placement="left" overlay={popovers.message}>
+                            <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                        </OverlayTrigger>
                         <input value={message} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ message: e.target.value })} style={styles.input} maxLength={35} type="text" placeholder={local.message}/>
                     </div>
                     <div style={{...styles.flexOne}}>
+                        <OverlayTrigger placement="left" overlay={popovers.instagram}>
+                            <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                        </OverlayTrigger>
                         <input value={instagram} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ instagram: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.instagram}/>
                     </div>
                     <div style={{...styles.flexOne}}>
+                        <OverlayTrigger placement="left" overlay={popovers.tiktok}>
+                            <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                        </OverlayTrigger>
                         <input value={tiktok} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ tiktok: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.tiktok}/>
                     </div>
                     <div style={{...styles.flexOne}}>
+                        <OverlayTrigger placement="left" overlay={popovers.snapchat}>
+                            <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                        </OverlayTrigger>
                         <input value={snapchat} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ snapchat: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.snapchat}/>
                     </div>
                     <div style={{...styles.flexOne}}>
+                        <OverlayTrigger placement="left" overlay={popovers.twitter}>
+                            <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                        </OverlayTrigger>
                         <input value={twitter} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value)  && this.setState({ twitter: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.twitter}/>
                     </div>
 

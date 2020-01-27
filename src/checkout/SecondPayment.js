@@ -8,7 +8,6 @@ import CameraIcon from '../res/camera.png';
 import local from '../local';
 import Modal from 'react-modal';
 import { Spinner, Popover, OverlayTrigger, Image as RBImage } from 'react-bootstrap';
-import Checkout3 from '../res/images/Checkout3Blur.png';
 import loadImage from 'blueimp-load-image';
 import {
     isMobile
@@ -278,14 +277,13 @@ class SecondPayment extends Component {
             <div ref={ref => this.main = ref} style={styles.payMain}>
                 <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
 
-                    {!fetching && !fetched && <div style={{...styles.flexOne, ...{marginTop: "2%"}}}>
+                    {!fetching && !fetched && <div style={{...styles.flexOne, ...{marginTop: "2%", marginBottom: isMobile ? 0 : "40vh"}}}>
                         <OverlayTrigger placement="left" overlay={popover}>
                             <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
                         </OverlayTrigger>
                         <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setUniqueKey(e.target.value)} style={styles.input} maxLength={16} type="text" placeholder={local.paymentKey}/>
                     </div>}
 
-                    {!fetched && <img style={styles.imageOverlay} src={Checkout3} /> }
                     {fetched && <div style={styles.overlayContainer}>
                         {image && 
                                 <button style={{...styles.imageButton}} onClick={() => this.imageInput.click()}>

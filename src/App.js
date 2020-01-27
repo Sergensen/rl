@@ -13,7 +13,6 @@ import parental from './res/images/parentalAdvisoryLogo.png';
 import MainList from './main/MainList';
 import Fail from './main/Fail';
 import Progress from './main/Progress';
-import Success from './main/Success';
 import CookieConsent from "react-cookie-consent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
@@ -84,9 +83,6 @@ export default class App extends Component {
                     </Route>
                     <Route path="/fail">
                         <Fail />
-                    </Route>
-                    <Route path="/success">
-                        <Success />
                     </Route>
                     <Route path="/terms">
                         <Terms />

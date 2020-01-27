@@ -52,31 +52,26 @@ class SecondPayment extends Component {
         let { uniqueKey, name, mail, message, amount } = this.state;
         try {
             const res = await API.nameExists(uniqueKey, name.trim());
-            if(!uniqueKey) {
-                this.setState({uniqueKey: res.uniqueKey});
-                uniqueKey = res.uniqueKey;
-            }
             if (!res.exists) {
                 const result = await this.checkout();
                 if (result.data.result.success) {
                     this.setState({loading: true});
                     const redirLink = await API.paypal(uniqueKey, amount, mail, name, message);
                     if((typeof redirLink === "object" || typeof redirLink === 'function') && (redirLink !== null)) {
-                        this.setState({loading: false, uniqueKey: ""});
+                        this.setState({loading: false});
                         alert("Something went wrong. Please try again.");
                     } else {
                         window.location.href = redirLink;
                     }
                 } else {
-                    this.setState({uniqueKey: ""});
                     alert("Something went wrong. Please try again.");
                 }
             } else {
-                this.setState({ error: [name, amount, mail, false], uniqueKey: "" });
+                this.setState({ error: [name, amount, mail, false] });
                 alert("Name is already in use. Please choose another name.");
             }
         } catch (error) {
-            this.setState({uniqueKey: "", loading: false}, () => {
+            this.setState({loading: false}, () => {
                 alert(error);
             });
         }
@@ -86,25 +81,20 @@ class SecondPayment extends Component {
         let { uniqueKey, name, mail, amount, message } = this.state;
         try {
             const res = await API.nameExists(uniqueKey, name.trim());
-            if(!uniqueKey) {
-                this.setState({uniqueKey: res.uniqueKey},);
-                uniqueKey = res.uniqueKey;
-            }
             if (!res.exists) {
                 const result = await this.checkout();
                 if (result) {
                     this.setState({loading: true,});
                     API.payStripe(uniqueKey, amount, name, mail, message);
                 } else {
-                    this.setState({uniqueKey: ""});
                     alert("Something went wrong. Please try again.");
                 }
             } else {
-                this.setState({ error: [name, amount, mail, false], uniqueKey: "" });
+                this.setState({ error: [name, amount, mail, false]});
                 alert("Name is already in use. Please choose another name.");
             }
         } catch (error) {
-            this.setState({uniqueKey: "", loading: false}, () => {
+            this.setState({loading: false}, () => {
                 alert(error);
             });
         }
@@ -257,7 +247,7 @@ class SecondPayment extends Component {
 
 
     render() {
-        const { fetched, fetching, loading, name, amount, mail, message, instagram, twitter, tiktok, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
+        const { fetched, oldAmount, fetching, loading, name, amount, mail, message, instagram, twitter, tiktok, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
         
         const popover = (
             <Popover id="popover-basic">
@@ -273,7 +263,7 @@ class SecondPayment extends Component {
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
             <div style={styles.header}>
                 <b>{local.makeAPayment1}</b>
-                <div style={{fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.03}}>{local.makeAPayment3}</div>
+                <div>{local.makeAPayment3}</div>
             </div>
 
             {loading && <div>
@@ -316,10 +306,12 @@ class SecondPayment extends Component {
                         <div style={{...styles.flexOne}}>
                             <input onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={35} type="text" placeholder={local.email}/>
                         </div>
-                        <div style={{...styles.flexOne}}>
-                            <div style={styles.input}>{oldAmount ? "Aleady paid: $ " + oldAmount : ""}</div>
+                        <div style={styles.alreadyPaid}>
+                            <div>{local.alreadyPaid}</div>
+                            <b>{oldAmount ? " $" + oldAmount.toFixed(2) : ""}</b>
                         </div>
-                        <div style={{...styles.flexOne}}>
+
+                        <div style={{...styles.flexOne, marginBottom: "2vh"}}>
                             <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={8} type="text" placeholder={local.amount}/>
                         </div>
                         <div style={{...styles.flexOne}}>
@@ -399,7 +391,7 @@ const styles = {
     },
     header: {
         color: 'white',
-        fontSize: isMobile ? window.innerHeight*0.045 : window.innerHeight*0.035,
+        fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.03,
         padding: '1%',
         maxWidth: 900,
         width: '100%',
@@ -408,6 +400,11 @@ const styles = {
         //border: '1px solid grey',
         //borderWidth: '1px 0 1px 0',
         //backgroundColor: 'black'
+    },
+    alreadyPaid: {
+        marginTop: "2vh",
+        color: "white",
+        display: "flex"
     },
     method: {
         fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,

@@ -231,7 +231,7 @@ class FirstPayment extends Component {
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
             <div style={styles.header}>
                 <b>{local.makeAPayment1}</b>
-                <div style={{fontSize: isMobile ? window.innerHeight*0.04 : window.innerHeight*0.03}}>{local.makeAPayment2}</div>
+                <div>{local.makeAPayment2}</div>
             </div>
             {loading && <div>
                 <div style={styles.loading} />
@@ -325,7 +325,7 @@ const styles = {
     },
     header: {
         color: 'white',
-        fontSize: isMobile ? window.innerHeight*0.045 : window.innerHeight*0.035,
+        fontSize: isMobile ? window.innerHeight*0.035 : window.innerHeight*0.03,
         padding: '1%',
         maxWidth: 900,
         width: '100%',
@@ -336,7 +336,7 @@ const styles = {
         //backgroundColor: 'black'
     },
     method: {
-        fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,
+        fontSize: isMobile ? window.innerHeight*0.025 : window.innerHeight*0.025,
         padding: '2%',
     },
     card: {
@@ -355,7 +355,7 @@ const styles = {
         backgroundColor: 'rgba(0,0,0,0.8)',
         cursor: 'not-allowed',
         width: '50%',
-        fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,
+        fontSize: isMobile ? window.innerHeight*0.025 : window.innerHeight*0.025,
         height: '100%',
         top: 0,
         left: 0,
@@ -500,7 +500,7 @@ const styles = {
         backgroundColor: "black",
         color: "white",
         padding: window.innerHeight*0.02,
-        fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,
+        fontSize: window.innerHeight*0.025
     },
     imageButton: {
         backgroundColor:" rgba(0, 0, 0, 0)",
@@ -532,7 +532,7 @@ const styles = {
         textAlign: "center",
         width: "100%",
         height: isMobile ? window.innerHeight*0.09 : window.innerHeight*0.06,
-        fontSize: isMobile ? window.innerHeight*0.035 : window.innerHeight*0.03,
+        fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,
         border: "1px solid grey",
         borderWidth: "1px 0 1px 0",
         color: "white",

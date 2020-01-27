@@ -69,10 +69,10 @@ export default class App extends Component {
                     <Route path="/pay" exact>
                         <Checkout />
                     </Route>
-                    <Route path="/pay/migos">
+                    <Route path="/pay/first">
                         <FirstPayment />
                     </Route>
-                    <Route path="/pay/billgates">
+                    <Route path="/pay/next">
                         <SecondPayment />
                     </Route>
                     <Route path="/legal">

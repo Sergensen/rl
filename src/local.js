@@ -44,7 +44,8 @@ module.exports = {
     makeAPayment2: "Make your first payment!",
     makeAPayment3: "Enter your payment key!",
     firstTime: "First payment",
-    nextTime: "Additional payment"
+    nextTime: "Additional payment",
+    alreadyPaid: "Total paid amount: "
   },
   de: {
     tos1: "Mit der Benutzung des bezahlen Buttons bestätigen Sie, dass Sie die",
@@ -91,6 +92,7 @@ module.exports = {
     makeAPayment2: "Mache deine erste Zahlung!",
     makeAPayment3: "Gebe deinen Zahlungsschlüssel ein!",
     firstTime: "Erste Zahlung",
-    nextTime: "Erneut bezahlen"
+    nextTime: "Erneut bezahlen",
+    alreadyPaid: "Bisher eingezahlt: "
   }
 };

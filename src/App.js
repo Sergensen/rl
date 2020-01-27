@@ -12,7 +12,6 @@ import MainList from './main/MainList';
 import Fail from './main/Fail';
 import Progress from './main/Progress';
 import Success from './main/Success';
-import CookieConsent from "react-cookie-consent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import API from './api';
@@ -140,14 +139,6 @@ export default class App extends Component {
                     </MDBFooter>
                 </div>}
 
-                {local && <CookieConsent
-                    // onAccept={() => { }}
-                    buttonText={local.buttonText}
-                    style={{ fontSize: "2vh" }}>
-                    {local.cookies1}
-                    <a style={{ color: "white" }} href={local.toPrivacy}>{local.tos4}</a>
-                    {local.cookies2}
-                </CookieConsent>}
             </Router>
         );
     }

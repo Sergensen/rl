@@ -245,7 +245,7 @@ export default class MainList extends Component {
 
                     <hr style={styles.dividingLine} />
 
-                    <div style={{ ...styles.headerText, fontSize: propsListHeartAndTextsize, fontWeight: "bold", marginBottom: 10 }}>Instagram</div>
+                    <div style={{ ...styles.headerText, fontSize: propsListHeartAndTextsize, fontWeight: "bold", marginBottom: 10 }}><a href="https://www.instagram.com/richlist2020/" style={{color: "white", default: "default", textDecoration: "none"}}> Instagram</a></div>
 
                     <InstagramEmbed
                         url='https://www.instagram.com/p/B6qloZ5oDxJ/'

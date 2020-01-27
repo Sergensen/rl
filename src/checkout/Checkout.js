@@ -120,7 +120,7 @@ class Checkout extends Component {
                 API.addUser({ uniqueKey , mail, uniqueName: name.trim(), amount, instagram, twitter, snapchat, tiktok, method, message: encodeURI(message.trim()), timestamp: Date.now() })
                     .then(async res => {
                         if(image && image.size <15000000) {
-                            const resp = await API.putImage(image, res.data.result.uploadUrl);
+                            await API.putImage(image, res.data.result.uploadUrl);
                         } else if(image && image.size >=15000000) {
                             reject("The picture is too big!");
                         }

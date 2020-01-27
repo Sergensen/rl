@@ -14,7 +14,6 @@
     "node-rsa": "^1.0.7",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.16",
-    "react-cookie-consent": "^2.5.0",
     "react-device-detect": "^1.11.14",
     "react-dom": "^16.10.2",
     "react-easy-crop": "^1.16.1",

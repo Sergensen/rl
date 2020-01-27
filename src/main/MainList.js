@@ -169,6 +169,8 @@ export default class MainList extends Component {
 
         data = data || {};
 
+        const dataIsLoaded = data.length > 0 && topThreeProps.length > 0;
+
         return (
             <div style={styles.main}>
                 <div ref={ref => this.imageContainer = ref} style={styles.container}>
@@ -183,7 +185,7 @@ export default class MainList extends Component {
                             <hr style={styles.headerDividingLine} />
                         </div>
                     </div>
-                    {data.length > 0 && topThreeProps.length > 0 ?
+                    {dataIsLoaded ?
                         <motion.div initial="hidden" animate="visible" variants={list} style={styles.listContainer}>
                             {/* <div style={{...styles.headerText, fontSize: propsListHeartAndTextsize * 0.9 }}>{onlineUserCount} users online </div> */}
                             <motion.div variants={list} style={{ ...styles.first, height: width * heightRatio.firstRow }}>
@@ -214,15 +216,20 @@ export default class MainList extends Component {
                         </div>
                     }
 
+                    <hr style={styles.dividingLine} />
+
                     <motion.div initial={false} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95, x: "-5px", y: "5px" }} style={styles.buttonContainer}>
                         <Button onClick={() => window.location.href = '/pay'} variant="primary" size="lg" block style={styles.payButton}>
                             💸 Get on the list 💸
                         </Button>
                     </motion.div>
 
-                    <hr style={styles.dividingLine} />
+                    {dataIsLoaded && <div style={{ ...styles.headerText, fontSize: propsListHeartAndTextsize *0.8 }}><div style={{ fontWeight: "bold" }}> {onlineUserCount}</div>&nbsp;users online will see your payment!</div>}
 
-                    {data.length > 0 && topThreeProps.length > 0 ?
+
+                    {dataIsLoaded && <hr style={styles.dividingLine} />}
+
+                    {dataIsLoaded ?
                         <motion.div style={{ ...styles.propsTopListContainer }}>
                             <div style={styles.propsListHeader}>
                                 <img style={{ ...styles.heartImage, width: propsListHeartAndTextsize, height: propsListHeartAndTextsize }} src={HeartImageRed} />
@@ -245,7 +252,7 @@ export default class MainList extends Component {
 
                     <hr style={styles.dividingLine} />
 
-                    <div style={{ ...styles.headerText, fontSize: propsListHeartAndTextsize, fontWeight: "bold", marginBottom: 10 }}><a href="https://www.instagram.com/richlist2020/" style={{color: "white", default: "default", textDecoration: "none"}}> Instagram</a></div>
+                    <div style={{ ...styles.headerText, fontSize: propsListHeartAndTextsize, fontWeight: "bold", marginBottom: 10 }}><a href="https://www.instagram.com/richlist2020/" style={{ color: "white", default: "default", textDecoration: "none" }}> Instagram</a></div>
 
                     <InstagramEmbed
                         url='https://www.instagram.com/p/B6qloZ5oDxJ/'
@@ -372,7 +379,7 @@ const styles = {
     },
     payButton: {
         width: '90%',
-        marginTop: 30,
+        marginTop: 10,
         marginBottom: 10,
     },
     buttonContainer: {

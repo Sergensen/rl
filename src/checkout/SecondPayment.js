@@ -8,6 +8,7 @@ import CameraIcon from '../res/camera.png';
 import local from '../local';
 import Modal from 'react-modal';
 import { Spinner, Popover, OverlayTrigger, Image as RBImage } from 'react-bootstrap';
+import Checkout3 from '../res/images/Checkout3Blur.png';
 import loadImage from 'blueimp-load-image';
 import {
     isMobile
@@ -24,6 +25,7 @@ class SecondPayment extends Component {
         message: "",
         instagram: "",
         cropped: false,
+        fetching: false,
         twitter: "",
         tiktok: "",
         snapchat: "",
@@ -34,6 +36,7 @@ class SecondPayment extends Component {
         link: "https://www.richlist.net/terms",
         error: [true, true, true, true],
         local: {},
+        fetched: false
     }
 
     componentDidMount(){
@@ -41,6 +44,8 @@ class SecondPayment extends Component {
         this.setState({
             local: userLang==="de-DE" ? local.de : local.en,
         });
+
+        this.setUniqueKey = this.setUniqueKey.bind(this);
     }
 
     async paymentRequestWithPaypal() {
@@ -223,9 +228,36 @@ class SecondPayment extends Component {
         });
     }
 
+    async setUniqueKey(uniqueKey) {
+        this.setState({
+            uniqueKey, 
+            fetching: uniqueKey.length === 16
+        });
+
+        if(uniqueKey.length === 16) {
+            const user = await API.fetchData(uniqueKey);
+            const { uniqueName, amount, imgUrl, instagram, twitter, snapchat, mail, message, tiktok } = user;
+            const image = new Image();
+            image.src = imgUrl;
+            this.setState({
+                name: uniqueName, 
+                oldAmount: amount, 
+                instagram, 
+                twitter, 
+                snapchat, 
+                mail, 
+                image,
+                message, 
+                tiktok,
+                fetched: true,
+                fetching: false
+            });
+        }
+    }
+
 
     render() {
-        const { loading, name, amount, mail, message, instagram, twitter, tiktok, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
+        const { fetched, fetching, loading, name, amount, mail, message, instagram, twitter, tiktok, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
         
         const popover = (
             <Popover id="popover-basic">
@@ -241,91 +273,104 @@ class SecondPayment extends Component {
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
             <div style={styles.header}>
                 <b>{local.makeAPayment1}</b>
-                <div style={{fontSize: isMobile ? window.innerHeight*0.04 : window.innerHeight*0.03}}>{local.makeAPayment2}</div>
+                <div style={{fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.03}}>{local.makeAPayment3}</div>
             </div>
+
             {loading && <div>
                 <div style={styles.loading} />
                 <Spinner style={styles.spinner} animation="border" />
             </div>}
+
+            {fetching && <div style={styles.fetchingSpinner}>
+                <Spinner animation="border" role="status" variant="light" style={styles.spinner} />
+            </div>}
+
             <div ref={ref => this.main = ref} style={styles.payMain}>
                 <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
-                    {image && 
-                            <button style={{...styles.imageButton}} onClick={() => this.imageInput.click()}>
-                                <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" type="file" onChange={(e) => this.fileChangedHandler(e)} />
-                                <div id="img" alt="Image0" style={{...styles.image, ...{backgroundImage: 'url(' + image.src + ')'}}} />
-                            </button>
-                    } {!image && 
-                        <button onClick={() => this.imageInput.click()} style={styles.imageContainer}>
-                            <img style={styles.iconStyle} src={CameraIcon} alt="Icon" />
-                            <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" style={styles.image} type="file" onChange={(e) => this.fileChangedHandler(e)} />
-                        </button>
-                    }
 
-
-                    <div style={{...styles.flexOne}}>
+                    {!fetching && !fetched && <div style={{...styles.flexOne, ...{marginTop: "2%"}}}>
                         <OverlayTrigger placement="left" overlay={popover}>
                             <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
                         </OverlayTrigger>
-                        <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setState({ uniqueKey: e.target.value })} style={styles.input} maxLength={16} type="text" placeholder={local.paymentKey}/>
-                    </div>
-                    <div style={{...styles.flexOne}}>
-                        <div className="info-button"></div>
-                        <input value={name} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength="20" type="text" placeholder={local.name}/>
-                    </div>
-                    <div style={{...styles.flexOne}}>
-                        <input onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={35} type="text" placeholder={local.email}/>
-                    </div>
-                    <div style={{...styles.flexOne}}>
-                        <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={8} type="text" placeholder={local.amount}/>
-                    </div>
-                    <div style={{...styles.flexOne}}>
-                        <input value={message} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ message: e.target.value })} style={styles.input} maxLength={35} type="text" placeholder={local.message}/>
-                    </div>
-                    <div style={{...styles.flexOne}}>
-                        <input value={instagram} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ instagram: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.instagram}/>
-                    </div>
-                    <div style={{...styles.flexOne}}>
-                        <input value={tiktok} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ tiktok: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.tiktok}/>
-                    </div>
-                    <div style={{...styles.flexOne}}>
-                        <input value={snapchat} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ snapchat: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.snapchat}/>
-                    </div>
-                    <div style={{...styles.flexOne}}>
-                        <input value={twitter} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value)  && this.setState({ twitter: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.twitter}/>
-                    </div>
+                        <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setUniqueKey(e.target.value)} style={styles.input} maxLength={16} type="text" placeholder={local.paymentKey}/>
+                    </div>}
 
-                    <div style={styles.card}>
-                        <p style={styles.method}><b>{local.method}</b></p>
-                        <div style={{...styles.flexOne, ...styles.paymentMethods}}>
-                            <button onClick={(e) => amount < 2000 && this.selectPaymentMethod(e, "paypal")} style={{...styles.methodButton, ...{marginRight: "0.5%", borderWidth: method==="paypal" ? window.innerHeight*0.0085: 1, borderColor: method==="paypal" ? "#443dff": "grey"}}}>
-                                <img alt="Logo1" src={PAYPAL} style={styles.payImg} />
-                                {amount > 1999 && 
-                                    <div style={styles.hidePaypal}>
-                                        <p style={{color: 'red', padding: 5}}>{local.paypalLimit}</p>
-                                    </div>}
+                    {!fetched && <img style={styles.imageOverlay} src={Checkout3} /> }
+                    {fetched && <div style={styles.overlayContainer}>
+                        {image && 
+                                <button style={{...styles.imageButton}} onClick={() => this.imageInput.click()}>
+                                    <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" type="file" onChange={(e) => this.fileChangedHandler(e)} />
+                                    <div id="img" alt="Image0" style={{...styles.image, ...{backgroundImage: 'url(' + image.src + ')'}}} />
+                                </button>
+                        } {!image && 
+                            <button onClick={() => this.imageInput.click()} style={styles.imageContainer}>
+                                <img style={styles.iconStyle} src={CameraIcon} alt="Icon" />
+                                <input ref={ref => this.imageInput = ref} hidden accept="image/x-png,image/jpeg" style={styles.image} type="file" onChange={(e) => this.fileChangedHandler(e)} />
                             </button>
-                            <button onClick={(e) => this.selectPaymentMethod(e, "stripe")} style={{...styles.methodButton, ...{marginLeft: "0.5%", borderWidth: method==="stripe" ? window.innerHeight*0.0085 : 1, borderColor: method==="stripe" ? "#443dff": "grey"}}}>
-                                <img alt="Logo2" src={STRIPE} style={styles.payImg} />
-                            </button>
+                        }
+
+                        <div style={{...styles.flexOne}}>
+                            <div className="info-button"></div>
+                            <input value={name} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength="20" type="text" placeholder={local.name}/>
                         </div>
-                        <div style={styles.checkBoxContainer}>
-                            <p style={styles.bottomText}>{local.tos1 + " "}
-                            <a target="_blank" style={styles.bottomText} href={local.tosTermsLink}>{local.tos2 + " "}</a> 
-                            {" " + local.tos3 + " "}
-                            <a target="_blank" style={styles.bottomText} href={local.tosPrivacyLink}>{local.tos4 + " "}</a> 
-                            {local.tos5}</p> 
-                            <br />
-                            <div onClick={() => this.setState(prev => ({checkBox: !prev.checkBox}))} style={{display: "flex"}}>
-                                <input style={styles.checkBox} onChange={() => {}} checked={checkBox} type="checkbox" />
-                                <p style={styles.bottomText}>{local.withdraw1}
-                                </p> 
+                        <div style={{...styles.flexOne}}>
+                            <input onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={35} type="text" placeholder={local.email}/>
+                        </div>
+                        <div style={{...styles.flexOne}}>
+                            <div style={styles.input}>{oldAmount ? "Aleady paid: $ " + oldAmount : ""}</div>
+                        </div>
+                        <div style={{...styles.flexOne}}>
+                            <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={8} type="text" placeholder={local.amount}/>
+                        </div>
+                        <div style={{...styles.flexOne}}>
+                            <input value={message} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ message: e.target.value })} style={styles.input} maxLength={35} type="text" placeholder={local.message}/>
+                        </div>
+                        <div style={{...styles.flexOne}}>
+                            <input value={instagram} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ instagram: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.instagram}/>
+                        </div>
+                        <div style={{...styles.flexOne}}>
+                            <input value={tiktok} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ tiktok: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.tiktok}/>
+                        </div>
+                        <div style={{...styles.flexOne}}>
+                            <input value={snapchat} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ snapchat: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.snapchat}/>
+                        </div>
+                        <div style={{...styles.flexOne}}>
+                            <input value={twitter} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value)  && this.setState({ twitter: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.twitter}/>
+                        </div>
+
+                        <div style={styles.card}>
+                            <p style={styles.method}><b>{local.method}</b></p>
+                            <div style={{...styles.flexOne, ...styles.paymentMethods}}>
+                                <button onClick={(e) => amount < 2000 && this.selectPaymentMethod(e, "paypal")} style={{...styles.methodButton, ...{marginRight: "0.5%", borderWidth: method==="paypal" ? window.innerHeight*0.0085: 1, borderColor: method==="paypal" ? "#443dff": "grey"}}}>
+                                    <img alt="Logo1" src={PAYPAL} style={styles.payImg} />
+                                    {amount > 1999 && 
+                                        <div style={styles.hidePaypal}>
+                                            <p style={{color: 'red', padding: 5}}>{local.paypalLimit}</p>
+                                        </div>}
+                                </button>
+                                <button onClick={(e) => this.selectPaymentMethod(e, "stripe")} style={{...styles.methodButton, ...{marginLeft: "0.5%", borderWidth: method==="stripe" ? window.innerHeight*0.0085 : 1, borderColor: method==="stripe" ? "#443dff": "grey"}}}>
+                                    <img alt="Logo2" src={STRIPE} style={styles.payImg} />
+                                </button>
+                            </div>
+                            <div style={styles.checkBoxContainer}>
+                                <p style={styles.bottomText}>{local.tos1 + " "}
+                                <a target="_blank" style={styles.bottomText} href={local.tosTermsLink}>{local.tos2 + " "}</a> 
+                                {" " + local.tos3 + " "}
+                                <a target="_blank" style={styles.bottomText} href={local.tosPrivacyLink}>{local.tos4 + " "}</a> 
+                                {local.tos5}</p> 
+                                <br />
+                                <div onClick={() => this.setState(prev => ({checkBox: !prev.checkBox}))} style={{display: "flex"}}>
+                                    <input style={styles.checkBox} onChange={() => {}} checked={checkBox} type="checkbox" />
+                                    <p style={styles.bottomText}>{local.withdraw1}
+                                    </p> 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div style={styles.flexOne}>
-                        <button onClick={() => this.pay()} style={{...styles.submit, ...{backgroundColor: name && amount && mail && checkBox ? "blue":"grey"}}} maxLength={30}>{local.pay}</button>
-                    </div> 
-                    <script src="https://js.stripe.com/v3/"></script>
+                        <div style={styles.flexOne}>
+                            <button onClick={() => this.pay()} style={{...styles.submit, ...{backgroundColor: name && amount && mail && checkBox ? "blue":"grey"}}} maxLength={30}>{local.pay}</button>
+                        </div> 
+                        <script src="https://js.stripe.com/v3/"></script>
+                    </div>}
                 </div>
             </div>
             
@@ -335,10 +380,22 @@ class SecondPayment extends Component {
 }
 
 const styles = {
+    overlayContainer: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
     firstPayment: {
         display: "flex",
         flexDirection: "column",
         alignItems: "center"
+    },
+    placeHolder: {
+        width: "100%",
+        height: 200,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     },
     header: {
         color: 'white',
@@ -413,6 +470,11 @@ const styles = {
         width: "100%",
         height: "100%",
         backgroundColor: "rgba(0,0,0,0.75)"
+    },
+    imageOverlay: {
+        maxWidth: isMobile ? 0 : 900,
+        filter: "blur(5px)",
+        overflow: "hidden"
     },
     image: {
         maxHeight: window.innerHeight*0.22,

@@ -227,16 +227,6 @@ class FirstPayment extends Component {
     render() {
         const { loading, name, amount, mail, message, instagram, twitter, tiktok, snapchat, method, checkBox, image, local, error, uniqueKey } = this.state;
         
-        const popover = (
-            <Popover id="popover-basic">
-              <Popover.Title as="h3">{local.paymentKey}</Popover.Title>
-              <Popover.Content>
-                {local.paymentInfo}
-              </Popover.Content>
-            </Popover>
-          );
-
-          
         return (
         <div style={{...styles.flexContainerCol, ...styles.payContainer}}>
             <div style={styles.header}>

@@ -38,11 +38,11 @@ module.exports = {
     support: "If you have any questions about you payment, other payment methods or a collaboration, feel free to contact us via Email info(at)richlist.net.",
     method: "Payment method",
     paymentkey: "Payment key",
-    paymentInfo: "After your first payment you will receive an unique payment key which you can provide in your next payment to accumulate your payments.",
+    paymentInfo: "After your first payment you will receive an unique payment key in you confirmation email which you can provide in your next payment to accumulate your payments.",
     paypalLimit: "PayPal is only avaiable for payments below $2000",
     makeAPayment1: "Checkout area",
     makeAPayment2: "Make your first payment!",
-    makeAPayment3: "Is it you first or an aditional payment?",
+    makeAPayment3: "Enter your payment key!",
     firstTime: "First payment",
     nextTime: "Additional payment"
   },
@@ -85,11 +85,11 @@ module.exports = {
     support: "Falls Sie Fragen zu Ihrer Zahlung, weiteren Zahlungsmethoden oder einer Kollaboration haben, schreiben Sie uns gerne eine Email an info(at)richlist.net.",
     method: "Zahlungsmethode",
     paymentKey: "Zahlungsschlüssel",
-    paymentInfo: "Nach Ihrer ersten Zahlung erhalten Sie einen individuellen Zahlungsschlüssel, den Sie bei Ihrer nächsten Zahlung angeben können, um Ihre Zahlungen zu summieren.",
+    paymentInfo: "Nach Ihrer ersten Zahlung erhalten Sie einen individuellen Zahlungsschlüssel per E-Mail, den Sie bei Ihrer nächsten Zahlung angeben können, um Ihre Zahlungen zu summieren.",
     paypalLimit: "PayPal ist nur bei Zahlungen von unter 2.000$ verfügbar",
     makeAPayment1: "Checkout Bereich",
     makeAPayment2: "Mache deine erste Zahlung!",
-    makeAPayment3: "Ist es deine erste oder eine erneute Zahlung?",
+    makeAPayment3: "Gebe deinen Zahlungsschlüssel ein!",
     firstTime: "Erste Zahlung",
     nextTime: "Erneut bezahlen"
   }

@@ -54,7 +54,6 @@ export default class App extends Component {
                 // API.getTop10().then(data => this.setState({ data }));
             });
         });
-
     }
 
     render() {
@@ -71,11 +70,11 @@ export default class App extends Component {
                         <Checkout />
                     </Route>
                     <Route path="/pay/migos">
-                            <FirstPayment />
-                        </Route>
-                        <Route path="/pay/billgates">
-                            <SecondPayment />
-                        </Route>
+                        <FirstPayment />
+                    </Route>
+                    <Route path="/pay/billgates">
+                        <SecondPayment />
+                    </Route>
                     <Route path="/legal">
                         <Legal />
                     </Route>

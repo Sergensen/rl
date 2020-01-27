@@ -35,7 +35,6 @@ class Checkout extends Component {
             <div style={styles.container}>
                 <div style={styles.header}>
                     <b>{local.makeAPayment1}</b>
-                    <div style={{fontSize: isMobile ? window.innerHeight*0.025 : window.innerHeight*0.025}}>{local.makeAPayment3}</div>
                 </div>
                 <div style={styles.cardContainer}>
                     <div style={styles.card} onClick={() => window.location.href = "/pay/migos"}>

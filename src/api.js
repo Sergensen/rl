@@ -131,7 +131,13 @@ export default {
             }).catch(err => reject(err));
         });
     },
-
+    fetchData(uniqueKey) {
+        return new Promise((resolve, reject) => {
+            axios.get(API_URL + 'user/' + uniqueKey, { timeout: 10000 }).then(result => {
+                resolve(result.data);
+            }).catch(err => reject(err));
+        });
+    },
     async getOnline() {
         const online = 210 + Math.floor(Math.random() * 10);
         return online

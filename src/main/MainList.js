@@ -54,12 +54,10 @@ export default class MainList extends Component {
         localProps: {},
         width: 500,
         topThreeProps: [],
-        onlineUserCount: 0,
     }
 
     componentDidMount() {
         const { interval } = this.state;
-        console.log("lawllawl123");
 
         const width = this.imageContainer.clientWidth;
         this.setState({ width });
@@ -102,15 +100,14 @@ export default class MainList extends Component {
         for (let key in temp) propsArr.push({ [key]: temp[key] });
 
         this.setState({ props: {} });
-        const onlineUserCount = await API.getOnline();
 
         API.updateProps(propsArr).then(res => {
-            this.mapPropsToUsers(res.props, onlineUserCount);
+            this.mapPropsToUsers(res.props);
             // this.props.setToasts(res.toasts);
         });
     }
 
-    mapPropsToUsers(newProps, onlineUserCount) {
+    mapPropsToUsers(newProps) {
         const { props } = this.state;
         const { data } = this.props;
         let out = {};
@@ -124,7 +121,7 @@ export default class MainList extends Component {
 
         const topThreeProps = this.getTopThreeProps(data);
 
-        this.setState({ localProps: { ...props }, topThreeProps, onlineUserCount });
+        this.setState({ localProps: { ...props }, topThreeProps });
     }
 
     addPropsToUser(uniqueName) {
@@ -164,8 +161,8 @@ export default class MainList extends Component {
     }
 
     render() {
-        const { localProps, width, topThreeProps, onlineUserCount } = this.state;
-        let { data } = this.props;
+        const { localProps, width, topThreeProps } = this.state;
+        let { data, online } = this.props;
 
         data = data || {};
 
@@ -187,7 +184,6 @@ export default class MainList extends Component {
                     </div>
                     {dataIsLoaded ?
                         <motion.div initial="hidden" animate="visible" variants={list} style={styles.listContainer}>
-                            {/* <div style={{...styles.headerText, fontSize: propsListHeartAndTextsize * 0.9 }}>{onlineUserCount} users online </div> */}
                             <motion.div variants={list} style={{ ...styles.first, height: width * heightRatio.firstRow }}>
                                 <First user={data[0]} localProps={localProps[data[0] ? data[0].uniqueName : null]} addPropsToUser={this.addPropsToUser.bind(this)} />
                             </motion.div>
@@ -224,7 +220,7 @@ export default class MainList extends Component {
                         </Button>
                     </motion.div>
 
-                    {dataIsLoaded && <div style={{ ...styles.headerText, fontSize: propsListHeartAndTextsize *0.8 }}><div style={{ fontWeight: "bold" }}> {onlineUserCount}</div>&nbsp;users online will see your payment!</div>}
+                    {dataIsLoaded && <div style={{ ...styles.headerText, fontSize: propsListHeartAndTextsize *0.8 }}><div style={{ fontWeight: "bold" }}> {online}</div>&nbsp;users online will see your payment!</div>}
 
 
                     {dataIsLoaded && <hr style={styles.dividingLine} />}

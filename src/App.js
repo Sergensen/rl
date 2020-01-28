@@ -31,7 +31,8 @@ import { Button } from 'react-bootstrap';
 export default class App extends Component {
     state = {
         local: null,
-        data: []
+        data: [],
+        online: 0
     }
 
     async componentDidMount() {
@@ -68,8 +69,6 @@ export default class App extends Component {
     render() {
         const { local, data, online } = this.state;
 
-        console.log(online);
-        
         return (
             <Router>
                 <div style={styles.headerContainer}>
@@ -112,7 +111,7 @@ export default class App extends Component {
                         <Privacy />
                     </Route>
                     <Route path="/">
-                        <MainList data={data} />
+                        <MainList data={data} online={online} />
                     </Route>
                 </Switch>
 

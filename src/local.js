@@ -107,7 +107,7 @@ module.exports = {
     paypalLimit: "PayPal ist nur bei Zahlungen von unter 2.000$ verfügbar",
     makeAPayment1: "Checkout Bereich",
     makeAPayment2: "Mache deine erste Zahlung!",
-    makeAPayment3: "Gebe deinen Zahlungsschlüssel ein!",
+    makeAPayment3: "Gib deinen Zahlungsschlüssel ein!",
     firstTime: "Erste Zahlung",
     nextTime: "Erneut bezahlen",
     alreadyPaid: "Bisher eingezahlt: ",

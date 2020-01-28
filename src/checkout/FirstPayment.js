@@ -118,7 +118,6 @@ class FirstPayment extends Component {
             this.setState({ loading: !loading });
                 API.addUser({ uniqueKey , mail, uniqueName: name.trim(), amount, instagram, twitter, snapchat, tiktok, method, message: encodeURI(message.trim()), timestamp: Date.now() })
                     .then(async res => {
-                        console.log(res);
                         if(res.data.result.success) {
                             if(image && image.size <15000000) {
                                 const resp = await API.putImage(image, res.data.result.uploadUrl);

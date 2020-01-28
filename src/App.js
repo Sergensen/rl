@@ -12,6 +12,8 @@ import HEAD from './res/logo_header.png';
 import parental from './res/images/parentalAdvisoryLogo.png';
 import MainList from './main/MainList';
 import Fail from './main/Fail';
+import CookieEN from './main/CookieEN';
+import CookieDE from './main/CookieDE';
 import Progress from './main/Progress';
 import CookieConsent from "react-cookie-consent";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -95,6 +97,12 @@ export default class App extends Component {
                     <Route path="/fail">
                         <Fail />
                     </Route>
+                    <Route path="/cookies/de">
+                        <CookieDE />
+                    </Route>
+                    <Route path="/cookies/en">
+                        <CookieEN />
+                    </Route>
                     <Route path="/terms">
                         <Terms />
                     </Route>
@@ -135,6 +143,9 @@ export default class App extends Component {
                                         </li>
                                         <li>
                                             <a style={styles.link} href={local.toPrivacy}>{local.tos4}</a>
+                                        </li>
+                                        <li>
+                                            <a style={styles.link} href={local.toCookie}>{local.tos8}</a>
                                         </li>
                                     </ul>
                                     <p style={{color: "rgb(150, 150, 150)"}}>This site is protected by reCAPTCHA and the Google

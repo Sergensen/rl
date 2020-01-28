@@ -22,9 +22,9 @@ async function asyncForEach(array, callback) {
 
 export default {
     API_URL: API_URL,
-    getTop10() {
+    getTop10(first) {
         return new Promise((resolve, reject) => {
-            axios.get(API_URL + 'user/lastamount/-1', { timeout: 10000 }).then(async res => {
+            axios.get(API_URL + 'user/lastamount/-1?first='+first, { timeout: 10000 }).then(async res => {
                 await asyncForEach(res.data.output, async (user, i, users) => {
                     if (users[i].imgUrl === "" || !users[i].imgUrl) {
                         users[i].imgUrl = AnonymousImage

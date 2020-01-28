@@ -48,13 +48,15 @@ export default class App extends Component {
         clearInterval(this.state.interval);
     }
 
-    fetchData(withProps = false){
-        API.getTop10().then(users => {
-            if(withProps) API.getProps(users.output).then(data => {
-                this.setState({ data, online: users.online });
-                // API.getTop10().then(data => this.setState({ data }));
-            });
-            if(!withProps) this.setState({ data: users.output, online: users.online });
+    fetchData(first = false){
+        API.getTop10(first).then(users => {
+            if(!first) {
+                API.getProps(users.output).then(data => {
+                    this.setState({ data, online: users.online });
+                });
+            } else {
+                this.setState({ data: users.output, online: users.online });
+            }
         });
     }
 

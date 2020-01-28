@@ -37,11 +37,11 @@ class Checkout extends Component {
                     <b>{local.makeAPayment1}</b>
                 </div>
                 <div style={styles.cardContainer}>
-                    <div style={styles.card} onClick={() => window.location.href = "/pay/first"}>
+                    <div className="paymentCard" style={styles.card} onClick={() => window.location.href = "/pay/first"}>
                         <div style={{height: width, width: width, ...styles.font}}><b>{local.firstTime}</b></div>
                         <img ref={ref => this.image = ref} onLoad={this.onLoad.bind(this)} style={styles.image} src={checkout2} />
                     </div>
-                    <div style={styles.card} onClick={() => window.location.href = "/pay/next"}>
+                    <div className="paymentCard" style={styles.card} onClick={() => window.location.href = "/pay/next"}>
                         <div style={{height: width, width: width, ...styles.font}}><b>{local.nextTime}</b></div>
                         <img style={styles.image} src={checkout1} />
                     </div>
@@ -69,7 +69,7 @@ const styles = {
     card: {
         border: "1px solid grey",
         margin: isMobile ? window.innerWidth * 0.025 : window.innerWidth * 0.01,
-        maxHeight: window.innerWidth
+        maxHeight: window.innerWidth,
     },
     image: {
         maxHeight: window.innerWidth * 0.9

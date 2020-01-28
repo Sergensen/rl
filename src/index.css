@@ -41,6 +41,10 @@ body {
   font-size: 18px;
 }
 
+.paymentCard:hover {
+  cursor: pointer;
+}
+
 #paytext {
   color: white;
   text-align: justify;

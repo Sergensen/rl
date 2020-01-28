@@ -7,10 +7,8 @@ const { key } = require('./key.js');
 const publicKey = new NodeRSA();
 publicKey.importKey(key);
 
-
-const API_URL = "https://api.richlist.net/app/";
-// const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
-
+//const API_URL = "https://api.richlist.net/app/";
+const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
 //const API_URL = "http://localhost:5001/";
 
 async function asyncForEach(array, callback) {
@@ -64,10 +62,8 @@ export default {
         });
     },
     addUser(user) {
-        return new Promise((resolve, reject) => {
-
-            let captchaToken = this.getToken("payment");
-
+        return new Promise(async (resolve, reject) => {
+            let captchaToken = await this.getToken("payment");
             axios.post(API_URL + 'webuser', { data: publicKey.encrypt({...user, captchaToken}) })
                 .then(res => resolve(res))
                 .catch(err => reject(err));
@@ -141,10 +137,10 @@ export default {
         props = props.filter(prop => {
             return Object.keys(prop)[0] !== ""
         });
+
         return new Promise(async (resolve, reject) => {
 
             const propsGiven = props.some(prop => Object.values(prop)[0] > 0);
-            
             let captchaToken = propsGiven ? await this.getToken("props") : "";
 
             axios.post(API_URL + 'webprops', { data: publicKey.encrypt({uniqueNamesArray: props, captchaToken}) }, { timeout: 10000 }).then(result => {

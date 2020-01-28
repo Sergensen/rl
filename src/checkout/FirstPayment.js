@@ -54,7 +54,6 @@ class FirstPayment extends Component {
             if (!res.exists) {
                 const result = await this.checkout();
                 if (result.data.result.success) {
-                    this.setState({loading: true});
                     const redirLink = await API.paypal(uniqueKey, amount, mail, name, message);
                     if((typeof redirLink === "object" || typeof redirLink === 'function') && (redirLink !== null)) {
                         this.setState({loading: false, uniqueKey: ""});
@@ -63,11 +62,11 @@ class FirstPayment extends Component {
                         window.location.href = redirLink;
                     }
                 } else {
-                    this.setState({uniqueKey: ""});
+                    this.setState({uniqueKey: "", loading: false});
                     alert("Something went wrong. Please try again.");
                 }
             } else {
-                this.setState({ error: [name, amount, mail, false], uniqueKey: "" });
+                this.setState({ error: [name, amount, mail, false], uniqueKey: "", loading: false });
                 alert("Name is already in use. Please choose another name.");
             }
         } catch (error) {
@@ -88,14 +87,13 @@ class FirstPayment extends Component {
             if (!res.exists) {
                 const result = await this.checkout();
                 if (result.data.result.success) {
-                    this.setState({loading: true,});
                     API.payStripe(uniqueKey, amount, name, mail, message);
                 } else {
-                    this.setState({uniqueKey: ""});
+                    this.setState({uniqueKey: "", loading: false});
                     alert("Something went wrong. Please try again.");
                 }
             } else {
-                this.setState({ error: [name, amount, mail, false], uniqueKey: "" });
+                this.setState({ error: [name, amount, mail, false], uniqueKey: "", loading: false });
                 alert("Name is already in use. Please choose another name.");
             }
         } catch (error) {
@@ -115,7 +113,6 @@ class FirstPayment extends Component {
     checkout() {
         return new Promise((resolve, reject) => {
             const { image, name, mail, instagram, twitter, snapchat, tiktok, message, loading, amount, method, uniqueKey } = this.state;
-            this.setState({ loading: !loading });
                 API.addUser({ uniqueKey , mail, uniqueName: name.trim(), amount, instagram, twitter, snapchat, tiktok, method, message: encodeURI(message.trim()), timestamp: Date.now() })
                     .then(async res => {
                         if(res.data.result.success) {
@@ -128,7 +125,6 @@ class FirstPayment extends Component {
                         resolve(res);
                     })
                     .catch(e => reject(e));
-                this.setState({ loading: !loading });
         });
     }
 
@@ -145,10 +141,10 @@ class FirstPayment extends Component {
         } else if(uniqueKey.toString().length!==0 && uniqueKey.toString().length !== 16) { 
             alert("Your payment key have to be empty or 16 characters long.");
         } else if (validMail && method === "paypal" && mail && name && amount) {
-            this.setState({ error: [true, true, true, error[3]] });
+            this.setState({ error: [true, true, true, error[3]], loading: true });
           this.paymentRequestWithPaypal();
       } else if (validMail && method === "stripe" && name && mail && amount) {
-          this.setState({ error: [true, true, true, error[3]] });
+          this.setState({ error: [true, true, true, error[3]], loading: true });
           this.paymentRequestWithCardForm();
       } else {
           if (validMail) {

@@ -101,10 +101,12 @@ export default class MainList extends Component {
 
         this.setState({ props: {} });
 
-        API.updateProps(propsArr).then(res => {
-            this.mapPropsToUsers(res.props);
-            // this.props.setToasts(res.toasts);
-        });
+        if(propsArr.length > 0) {
+            API.updateProps(propsArr).then(res => {
+                this.mapPropsToUsers(res.props);
+                // this.props.setToasts(res.toasts);
+            });
+        }
     }
 
     mapPropsToUsers(newProps) {

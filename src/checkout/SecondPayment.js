@@ -7,7 +7,7 @@ import INFOICON from '../res/info-button.png';
 import CameraIcon from '../res/camera.png';
 import local from '../local';
 import Modal from 'react-modal';
-import { Spinner, Popover, OverlayTrigger, Image as RBImage } from 'react-bootstrap';
+import { Spinner, Popover, OverlayTrigger, Image as RBImage, Button } from 'react-bootstrap';
 import loadImage from 'blueimp-load-image';
 import {
     isMobile
@@ -301,6 +301,9 @@ class SecondPayment extends Component {
                         </OverlayTrigger>
                         <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setUniqueKey(e.target.value)} style={styles.input} maxLength={16} type="text" placeholder={local.uniqueKeyShort}/>
                         {fetchingError && <div style={styles.notExisting}>{local.notExisting}</div>}
+                        <div style={styles.backButtonContainer}>
+                            <Button href="/pay">{"<- Back"}</Button>
+                        </div>
                     </div>}
 
                     {fetched && <div style={styles.overlayContainer}>
@@ -402,6 +405,9 @@ class SecondPayment extends Component {
                             <button onClick={() => this.pay()} style={{...styles.submit, ...{backgroundColor: name && amount && mail && checkBox ? "blue":"grey"}}} maxLength={30}>{local.pay}</button>
                         </div> 
                         <script src="https://js.stripe.com/v3/"></script>
+                        <div style={styles.backButtonContainer}>
+                            <Button href="/pay">{"<- Back"}</Button>
+                        </div>
                     </div>}
                 </div>
             </div>
@@ -412,6 +418,10 @@ class SecondPayment extends Component {
 }
 
 const styles = {
+    backButtonContainer: {
+        width: "100%",
+        margin: "20px 0"
+    },
     paymentKey: {
         marginTop: "2%", 
         display: "flex",

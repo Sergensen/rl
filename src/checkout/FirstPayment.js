@@ -7,7 +7,7 @@ import INFOICON from '../res/info-button.png';
 import CameraIcon from '../res/camera.png';
 import local from '../local';
 import Modal from 'react-modal';
-import { Spinner, Popover, OverlayTrigger, Image as RBImage } from 'react-bootstrap';
+import { Spinner, Popover, OverlayTrigger, Image as RBImage, Button } from 'react-bootstrap';
 import loadImage from 'blueimp-load-image';
 import {
     isMobile
@@ -348,15 +348,21 @@ class FirstPayment extends Component {
                         <button onClick={() => this.pay()} style={{...styles.submit, ...{backgroundColor: name && amount && mail && checkBox ? "blue":"grey"}}} maxLength={30}>{local.pay}</button>
                     </div> 
                     <script src="https://js.stripe.com/v3/"></script>
+                    <div style={styles.backButtonContainer}>
+                        <Button href="/pay">{"<- Back"}</Button>
+                    </div>
                 </div>
             </div>
-            
         </div>
   );
 }
 }
 
 const styles = {
+    backButtonContainer: {
+        width: "100%",
+        margin: "20px 0"
+    },
     firstPayment: {
         display: "flex",
         flexDirection: "column",

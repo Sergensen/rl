@@ -50,11 +50,11 @@ export default class App extends Component {
 
     fetchData(first = false){
         API.getTop10(first).then(users => {
-            if(!first) {
+            if(!first && users.fetched) {
                 API.getProps(users.output).then(data => {
                     this.setState({ data, online: users.online });
                 });
-            } else {
+            } else if(first) {
                 this.setState({ data: users.output, online: users.online });
             }
         });

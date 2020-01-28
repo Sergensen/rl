@@ -8,10 +8,10 @@ const publicKey = new NodeRSA();
 publicKey.importKey(key);
 
 
-// const API_URL = "https://api.richlist.net/app/";
+const API_URL = "https://api.richlist.net/app/";
 // const API_URL = "https://us-central1-richlist-455b3.cloudfunctions.net/app/";
 
-const API_URL = "http://localhost:5001/";
+//const API_URL = "http://localhost:5001/";
 
 async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
@@ -19,13 +19,12 @@ async function asyncForEach(array, callback) {
     }
 }
 
-
 export default {
     API_URL: API_URL,
     getTop10(first) {
         return new Promise((resolve, reject) => {
             axios.get(API_URL + 'user/lastamount/-1?first='+first, { timeout: 10000 }).then(async res => {
-                await asyncForEach(res.data.output, async (user, i, users) => {
+                if(res.data.fetched) await asyncForEach(res.data.output, async (user, i, users) => {
                     if (users[i].imgUrl === "" || !users[i].imgUrl) {
                         users[i].imgUrl = AnonymousImage
                     }

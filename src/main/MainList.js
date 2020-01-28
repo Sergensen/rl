@@ -25,9 +25,7 @@ const heightRatio = {
     thirdRow: isMobile ? 0.35 : 0.3,
     fourthRow: isMobile ? 0.3 : 0.25,
 }
-
 const propsListHeartAndTextsize = isMobile ? window.innerHeight * 0.035 : window.innerHeight * 0.025;
-
 const list = {
     visible: {
         opacity: 1,
@@ -45,6 +43,16 @@ const list = {
         opacity: 0,
     },
 }
+let x = null;
+let y = null;
+    
+document.addEventListener('mousedown', (e) => {
+    x = e.pageX;
+    y = e.pageY;
+}, false);
+    
+function getMouseX() { return x; }
+function getMouseY() { return y; }
 
 export default class MainList extends Component {
 
@@ -54,6 +62,11 @@ export default class MainList extends Component {
         localProps: {},
         width: 500,
         topThreeProps: [],
+        banana: {
+            apple: [],
+            coke: [],
+            candle: Date.now()
+        }
     }
 
     componentDidMount() {
@@ -73,8 +86,6 @@ export default class MainList extends Component {
                     interval: setInterval(this.sendProps.bind(this), 7000)
                 })
             }, 30000)
-
-
         };
     }
 
@@ -101,12 +112,51 @@ export default class MainList extends Component {
 
         this.setState({ props: {} });
 
-        if(propsArr.length > 0) {
+        if(this.handleBanana(propsArr) && propsArr.length > 0) {
             API.updateProps(propsArr).then(res => {
                 this.mapPropsToUsers(res.props);
                 // this.props.setToasts(res.toasts);
             });
         }
+    }
+
+    handleBanana(propsArr) {
+        const { apple, coke, candle } = this.state.banana;
+        const noPropsAdded = propsArr.every(val => val[Object.keys(val)[0]] === 0);
+        const timeoutTime = 300000;
+
+        //same clicks
+        apple.push(propsArr);
+
+        //mouseposition
+        const x = getMouseX();
+        const y = getMouseY();
+        coke.push([x, y]);
+
+        if(apple.length>5) apple.shift();
+        if(coke.length>10) coke.shift();
+        if(candle < (Date.now() - timeoutTime)) alert("Error - Reload page.");
+
+        this.setState(prev => ({ 
+            banana: {
+                apple, 
+                coke, 
+                // props for more than 5 min without pause
+                candle: noPropsAdded ? Date.now() : prev.banana.candle
+            }
+         }));
+
+        return noPropsAdded ||
+                (apple.length === 5 
+                    ? 
+                        (
+                            !apple.every((val, i, arr) => JSON.stringify(val) === JSON.stringify(arr[0])) 
+                                && 
+                            !coke.every((val, i, arr) => JSON.stringify(val) === JSON.stringify(arr[0])) 
+                                &&
+                            candle > (Date.now() - timeoutTime)
+                        )
+                    : true);
     }
 
     mapPropsToUsers(newProps) {

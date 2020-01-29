@@ -11,7 +11,6 @@ import Impressum from './main/Impressum';
 import HEAD from './res/logo_header.png';
 import parental from './res/images/parentalAdvisoryLogo.png';
 import MainList from './main/MainList';
-import Fail from './main/Fail';
 import CookieEN from './main/CookieEN';
 import CookieDE from './main/CookieDE';
 import Progress from './main/Progress';
@@ -93,9 +92,6 @@ export default class App extends Component {
                     </Route>
                     <Route path="/impressum">
                         <Impressum />
-                    </Route>
-                    <Route path="/fail">
-                        <Fail />
                     </Route>
                     <Route path="/cookies/de">
                         <CookieDE />

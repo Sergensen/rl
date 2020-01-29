@@ -293,17 +293,14 @@ class SecondPayment extends Component {
             </div>}
 
             <div ref={ref => this.main = ref} style={styles.payMain}>
-                <div style={{ ...{marginBottom: 100}, ...styles.flexContainerCol}}>
+                <div sty le={{ ...styles.flexContainerCol, marginBottom: 10}}>
 
                     {!fetching && !fetched && <div style={{...styles.flexOne, ...styles.paymentKey, marginBottom: isMobile ? 0 : "40vh"}}>
                         <OverlayTrigger placement="left" overlay={popovers.uniqueKey}>
-                            <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                            <div style={styles.infoIcon}>?</div>
                         </OverlayTrigger>
                         <input value={uniqueKey} onChange={e => /^[a-z0-9]*$/i.test(e.target.value) && this.setUniqueKey(e.target.value)} style={styles.input} maxLength={16} type="text" placeholder={local.uniqueKeyShort}/>
                         {fetchingError && <div style={styles.notExisting}>{local.notExisting}</div>}
-                        <div style={styles.backButtonContainer}>
-                            <Button href="/pay">{"<- Back"}</Button>
-                        </div>
                     </div>}
 
                     {fetched && <div style={styles.overlayContainer}>
@@ -321,54 +318,54 @@ class SecondPayment extends Component {
 
                         <div style={{...styles.flexOne}}>
                             <OverlayTrigger placement="left" overlay={popovers.uniqueName}>
-                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                                <div style={styles.infoIcon}>?</div>
                             </OverlayTrigger>
                             <input value={name} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ name: this.removeEmojis(e.target.value) })} style={{...styles.input, ...{border: !error[0] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength="20" type="text" placeholder={local.name}/>
                         </div>
                         <div style={{...styles.flexOne}}>
                             <OverlayTrigger placement="left" overlay={popovers.mail}>
-                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                                <div style={styles.infoIcon}>?</div>
                             </OverlayTrigger>
                             <input onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({mail: e.target.value})} value={mail} style={{...styles.input, ...{border: !error[2] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={35} type="text" placeholder={local.email}/>
                         </div>
                         <div style={styles.alreadyPaid}>
                             <div>{local.alreadyPaid}</div>
-                            <b>{oldAmount ? " $" + oldAmount.toFixed(2) : ""}</b>
+                            <b>&nbsp;{oldAmount ? " $" + oldAmount.toFixed(2) : ""}</b>
                         </div>
 
                         <div style={{...styles.flexOne, marginBottom: "2vh"}}>
                             <OverlayTrigger placement="left" overlay={popovers.amount}>
-                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                                <div style={styles.infoIcon}>?</div>
                             </OverlayTrigger>
                             <input value={amount ? "$ " + amount : ""} onChange={e => this.setAmount(e)} style={{...styles.input, ...{border: !error[1] ? window.innerHeight*0.005+"px solid red": "1px solid grey"}}} maxLength={8} type="text" placeholder={local.amount}/>
                         </div>
                         <div style={{...styles.flexOne}}>
                             <OverlayTrigger placement="left" overlay={popovers.message}>
-                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                                <div style={styles.infoIcon}>?</div>
                             </OverlayTrigger>
                             <input value={message} onChange={e => /[\/%]/.test(e.target.value) ? {} : this.setState({ message: e.target.value })} style={styles.input} maxLength={35} type="text" placeholder={local.message}/>
                         </div>
                         <div style={{...styles.flexOne}}>
                             <OverlayTrigger placement="left" overlay={popovers.instagram}>
-                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                                <div style={styles.infoIcon}>?</div>
                             </OverlayTrigger>
                             <input value={instagram} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ instagram: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.instagram}/>
                         </div>
                         <div style={{...styles.flexOne}}>
                             <OverlayTrigger placement="left" overlay={popovers.tiktok}>
-                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                                <div style={styles.infoIcon}>?</div>
                             </OverlayTrigger>
                             <input value={tiktok} onChange={e =>/^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ tiktok: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.tiktok}/>
                         </div>
                         <div style={{...styles.flexOne}}>
                             <OverlayTrigger placement="left" overlay={popovers.snapchat}>
-                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                                <div style={styles.infoIcon}>?</div>
                             </OverlayTrigger>
                             <input value={snapchat} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value) && this.setState({ snapchat: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.snapchat}/>
                         </div>
                         <div style={{...styles.flexOne}}>
                             <OverlayTrigger placement="left" overlay={popovers.twitter}>
-                                <RBImage style={styles.infoIcon} src={INFOICON} roundedCircle />
+                                <div style={styles.infoIcon}>?</div>
                             </OverlayTrigger>
                             <input value={twitter} onChange={e => /^$|[0-9A-Za-z_.]{1,15}/.test(e.target.value)&& !/[\/%]/.test(e.target.value)  && this.setState({ twitter: e.target.value })} style={styles.input} maxLength={30} type="text" placeholder={local.twitter}/>
                         </div>
@@ -405,9 +402,6 @@ class SecondPayment extends Component {
                             <button onClick={() => this.pay()} style={{...styles.submit, ...{backgroundColor: name && amount && mail && checkBox ? "blue":"grey"}}} maxLength={30}>{local.pay}</button>
                         </div> 
                         <script src="https://js.stripe.com/v3/"></script>
-                        <div style={styles.backButtonContainer}>
-                            <Button href="/pay">{"<- Back"}</Button>
-                        </div>
                     </div>}
                 </div>
             </div>
@@ -446,7 +440,7 @@ const styles = {
     },
     header: {
         color: 'white',
-        fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.03,
+        fontSize: isMobile ? window.innerHeight*0.035 : window.innerHeight*0.04,
         padding: '1%',
         maxWidth: 900,
         width: '100%',
@@ -501,9 +495,20 @@ const styles = {
         margin: 10
     },
     infoIcon: {
-        width: "6%",
+        display: "flex",
+        background: isMobile? "linear-gradient(to right, rgba(100, 100, 100, 0.5), rgba(120, 120, 120, 0))" : "linear-gradient(to right, rgba(100, 100, 100, 0.2), rgba(120, 120, 120, 0))",
         position: "absolute",
-        right: "7.5%"
+        right: 0,
+        height: isMobile ? window.innerHeight*0.09 : window.innerHeight*0.05,
+        width: isMobile ? window.innerHeight*0.09 : window.innerHeight*0.07,
+        margin: "1% 0%",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: "5px 0 0 5px",
+        color: "white",
+        border: "1px solid grey",
+        fontWeight: "bold",
+        top: 0,
     },
     iconStyle: {
         width: window.innerHeight*0.05
@@ -665,15 +670,15 @@ const styles = {
     input: {
         textAlign: "center",
         width: "100%",
-        height: isMobile ? window.innerHeight*0.09 : window.innerHeight*0.06,
-        fontSize: isMobile ? window.innerHeight*0.035 : window.innerHeight*0.03,
+        height: isMobile ? window.innerHeight*0.09 : window.innerHeight*0.05,
+        fontSize: isMobile ? window.innerHeight*0.03 : window.innerHeight*0.025,
         border: "1px solid grey",
-        borderWidth: "1px 0 1px 0",
+        borderWidth: "1px 1px 1px 1px",
         color: "white",
         margin: "1% 0%",
         boxSizing: "border-box",
         backgroundColor: "black",
-        WebkitInputPlaceholder: "grey",
+        WebkitInputPlaceholder: "grey"
     },
     payMore: {
         color: "red"

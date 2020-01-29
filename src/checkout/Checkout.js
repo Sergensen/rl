@@ -84,10 +84,11 @@ const styles = {
     },
     header: {
         color: 'white',
-        fontSize: isMobile ? window.innerHeight*0.04 : window.innerHeight*0.03,
+        fontSize: isMobile ? window.innerHeight*0.035 : window.innerHeight*0.04,
+        padding: '1%',
         maxWidth: 900,
         width: '100%',
-        margin: "1%",
+        margin: '1%',
         textAlign: 'center',
     },
 }

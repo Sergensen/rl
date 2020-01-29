@@ -54,12 +54,12 @@ export default class MainList extends Component {
         topThreeProps: [],
         banana: {
             apple: [],
-            candle: Date.now(),
+            candle: 0
         }
     }
 
     componentDidMount() {
-        const { interval, banana } = this.state;
+        const { interval } = this.state;
 
         const width = this.imageContainer.clientWidth;
         this.setState({ width });
@@ -101,11 +101,15 @@ export default class MainList extends Component {
 
         this.setState({ props: {} });
 
-        if(this.handleBanana(propsArr) && propsArr.length > 0) {
+        const yes = this.handleBanana(propsArr);
+
+        if(yes && propsArr.length > 0) {
             API.updateProps(propsArr).then(res => {
                 this.mapPropsToUsers(res.props);
                 // this.props.setToasts(res.toasts);
             });
+        } else if (!yes) {
+            this.setState({props: {}})
         }
     }
 
@@ -114,19 +118,16 @@ export default class MainList extends Component {
         const noPropsAdded = propsArr.every(val => val[Object.keys(val)[0]] === 0);
         const allProps = this.sumProps(propsArr);
         const rndm = 1580304955497 - 1580304955407;
-
-        const b = Math.round(7+Math.random());
-        const timeoutTime = b * 60000;
-
+        
+        apple.push(propsArr);
         if(apple.length>7) apple.shift();
-        if(candle < (Date.now() - timeoutTime)) alert("Error - Reload page.");
 
-        this.setState(prev => ({ 
+        this.setState({ 
             banana: {
                 apple, 
-                candle: noPropsAdded ? Date.now() : prev.banana.candle
-            }
-         }));
+                candle: noPropsAdded ? 0 : candle+1
+            },
+        });
 
         return noPropsAdded ||
                 (apple.length === 7 
@@ -134,9 +135,9 @@ export default class MainList extends Component {
                         (
                             !apple.every((val, i, arr) => JSON.stringify(val) === JSON.stringify(arr[0])) 
                                 &&
-                            candle > (Date.now() - timeoutTime)
-                                && 
                             allProps < rndm
+                                &&
+                            candle < Math.round(60 + 17 * Math.random())
                         )
                     : true);
     }

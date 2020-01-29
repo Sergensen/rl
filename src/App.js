@@ -59,6 +59,8 @@ export default class App extends Component {
                 });
             } else if(first) {
                 this.setState({ data: users.output, online: users.online });
+            } else if(!first && !users.fetched) {
+                this.setState({ online: users.online }); 
             }
         });
     }

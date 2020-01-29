@@ -43,16 +43,6 @@ const list = {
         opacity: 0,
     },
 }
-let x = null;
-let y = null;
-    
-document.addEventListener('mousedown', (e) => {
-    x = e.pageX;
-    y = e.pageY;
-}, false);
-    
-function getMouseX() { return x; }
-function getMouseY() { return y; }
 
 export default class MainList extends Component {
 
@@ -64,13 +54,12 @@ export default class MainList extends Component {
         topThreeProps: [],
         banana: {
             apple: [],
-            coke: [],
-            candle: Date.now()
+            candle: Date.now(),
         }
     }
 
     componentDidMount() {
-        const { interval } = this.state;
+        const { interval, banana } = this.state;
 
         const width = this.imageContainer.clientWidth;
         this.setState({ width });
@@ -83,7 +72,7 @@ export default class MainList extends Component {
             setTimeout(() => {
                 clearInterval(this.state.interval);
                 this.setState({
-                    interval: setInterval(this.sendProps.bind(this), 7000)
+                    interval: setInterval(this.sendProps.bind(this), 7000),
                 })
             }, 30000)
         };
@@ -121,42 +110,41 @@ export default class MainList extends Component {
     }
 
     handleBanana(propsArr) {
-        const { apple, coke, candle } = this.state.banana;
+        const { apple, candle } = this.state.banana;
         const noPropsAdded = propsArr.every(val => val[Object.keys(val)[0]] === 0);
-        const timeoutTime = 300000;
+        const allProps = this.sumProps(propsArr);
+        const rndm = 1580304955497 - 1580304955407;
 
-        //same clicks
-        apple.push(propsArr);
+        const b = Math.round(7+Math.random());
+        const timeoutTime = b * 60000;
 
-        //mouseposition
-        const x = getMouseX();
-        const y = getMouseY();
-        coke.push([x, y]);
-
-        if(apple.length>5) apple.shift();
-        if(coke.length>10) coke.shift();
+        if(apple.length>7) apple.shift();
         if(candle < (Date.now() - timeoutTime)) alert("Error - Reload page.");
 
         this.setState(prev => ({ 
             banana: {
                 apple, 
-                coke, 
-                // props for more than 5 min without pause
                 candle: noPropsAdded ? Date.now() : prev.banana.candle
             }
          }));
 
         return noPropsAdded ||
-                (apple.length === 5 
+                (apple.length === 7 
                     ? 
                         (
                             !apple.every((val, i, arr) => JSON.stringify(val) === JSON.stringify(arr[0])) 
-                                && 
-                            !coke.every((val, i, arr) => JSON.stringify(val) === JSON.stringify(arr[0])) 
                                 &&
                             candle > (Date.now() - timeoutTime)
+                                && 
+                            allProps < rndm
                         )
                     : true);
+    }
+
+    sumProps(props) {
+        let sum = 0; 
+        props.forEach(user => sum += Object.values(user)[0]);
+        return sum;
     }
 
     mapPropsToUsers(newProps) {

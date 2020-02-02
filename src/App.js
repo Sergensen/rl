@@ -18,7 +18,8 @@ import CookieConsent from "react-cookie-consent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import API from './api';
-
+import DatenschutzCorona from "./main/coronavirus/Datenschutz";
+import PrivacyCorona from "./main/coronavirus/Privacy";
 import local from './local';
 
 import {
@@ -115,6 +116,12 @@ export default class App extends Component {
                     </Route>
                     <Route path="/privacy">
                         <Privacy />
+                    </Route>
+                    <Route path="/coronavirus/privacy">
+                        <PrivacyCorona />
+                    </Route>
+                    <Route path="/coronavirus/datenschutz">
+                        <DatenschutzCorona />
                     </Route>
                     <Route path="/">
                         <MainList data={data} online={online} />

@@ -64,7 +64,9 @@ module.exports = {
     uniqueNameLong: "Enter an unique username.",
     mailShort: "Email",
     mailLong: "Enter your email. You will receive a confirmation email after your purchase.",
-    notExisting: "User doesn't exist!"
+    notExisting: "User doesn't exist!",
+    toastTime: "Just now",
+    toastText: "Tap on the images and names!"
   },
   de: {
     tos1: "Mit der Benutzung des bezahlen Buttons bestätigen Sie, dass Sie die",
@@ -131,6 +133,8 @@ module.exports = {
     uniqueNameLong: "Geben Sie hier einen individuellen Benutzernamen ein.",
     mailShort: "E-Mail",
     mailLong: "Geben Sie hier Ihre E-Mail Adresse ein, damit sie eine Bestellbestätigung erhalten können.",
-    notExisting: "Benutzer existiert nicht!"
+    notExisting: "Benutzer existiert nicht!",
+    toastTime: "Jetzt",
+    toastText: "Klicke auf die Bilder und Namen!"
   }
 };

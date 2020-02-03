@@ -23,18 +23,23 @@ import PrivacyCorona from "./main/coronavirus/Privacy";
 import local from './local';
 
 import {
+    isMobile
+} from "react-device-detect";
+
+import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
 
-import { Button } from 'react-bootstrap';
+import { Button, Toast } from 'react-bootstrap';
 
 export default class App extends Component {
     state = {
         local: null,
         data: [],
-        online: 0
+        online: 0,
+        showToast: false,
     }
 
     async componentDidMount() {
@@ -45,10 +50,20 @@ export default class App extends Component {
             interval: setInterval(this.fetchData.bind(this), 10000),
             local: userLang === "de-DE" ? local.de : local.en,
         })
+
+        setTimeout(() => {
+            this.handleFirstTimer();
+        }, 1000);
     }
 
     componentWillUnmount() {
         clearInterval(this.state.interval);
+    }
+
+    async handleFirstTimer() {
+        const first = await localStorage.getItem('firstTime');
+        localStorage.setItem('firstTime', 'false');
+        if(first!=='false') this.setState({showToast: true})
     }
 
     fetchData(first = false){
@@ -65,16 +80,31 @@ export default class App extends Component {
         });
     }
 
+    toggleShow() {
+        this.setState({showToast: false})
+    }
+
     resetCookiesAndReload(){
         document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
         window.location.href = '/'
     }
 
     render() {
-        const { local, data, online } = this.state;
+        const { local, data, online, showToast } = this.state;
 
         return (
             <Router>
+                {local &&
+                    <div style={styles.toastContainer}> 
+                        <Toast style={styles.toast} show={showToast} onClose={() => this.toggleShow()}>
+                            <Toast.Header>
+                                <strong className="mr-auto">Info</strong>
+                                <small>{local.toastTime}</small>
+                            </Toast.Header>
+                            <Toast.Body>{local.toastText}</Toast.Body>
+                        </Toast>
+                    </div>
+                }
                 <div style={styles.headerContainer}>
                     <a style={styles.headerLink} href="/">
                         <img alt="Logo" src={HEAD} style={styles.headerImg} />
@@ -215,5 +245,16 @@ const styles = {
     parental: {
         width: "50%",
         height: "auto"
+    },
+    toast: {
+        width: "90%",
+        marginTop: 20,
+        maxWidth: 400,
+    },
+    toastContainer: {
+        position: "absolute",
+        width: "100vw",
+        display: "flex",
+        justifyContent: "center"
     }
 };

@@ -88,6 +88,7 @@ export default class MainList extends Component {
             this.setState({ topThreeProps })
         }
     }
+    
 
     async sendProps() {
         const { props } = this.state;

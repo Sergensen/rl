@@ -116,8 +116,10 @@ export default {
             data.forEach(user => params.push({ [user.uniqueName]: 0 }));
             axios.post(API_URL + 'webprops', { data: publicKey.encrypt({uniqueNamesArray: params}) }, { timeout: 10000 }).then(res => {
                 let props = {};
-                res.data.props.forEach(user => props[Object.keys(user)[0]] = user[Object.keys(user)[0]]);
-                for (let user of data) user.props = props[user.uniqueName];
+                if(res.data.fetched) {
+                    res.data.props.forEach(user => props[Object.keys(user)[0]] = user[Object.keys(user)[0]]);
+                    for (let user of data) user.props = props[user.uniqueName];
+                }
                 resolve(data);
             }).catch(err => reject(err));
         });

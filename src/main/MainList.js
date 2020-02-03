@@ -105,8 +105,9 @@ export default class MainList extends Component {
 
         if(yes && propsArr.length > 0) {
             API.updateProps(propsArr).then(res => {
-                this.mapPropsToUsers(res.props);
-                // this.props.setToasts(res.toasts);
+                if(res.fetched) 
+                    this.mapPropsToUsers(res.props);
+                    // this.props.setToasts(res.toasts);
             });
         } else if (!yes) {
             this.setState({props: {}})

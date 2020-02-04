@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<urlset xmlns="http://www.google.com/schemas/sitemap/0.84" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+		<url>
+			<loc>https://www.richlist.net</loc>
+			<changefreq>daily</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/pay</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/pay/first</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/pay/next</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/progress</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/cookies/de</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/cookies/en</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/impressum</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/legal</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/datenschutz</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/privacy</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/agb</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+		<url>
+			<loc>https://www.richlist.net/terms</loc>
+			<changefreq>monthly</changefreq>
+			<priority>1</priority>
+		</url>
+
+	</urlset>
+

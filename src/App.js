@@ -94,7 +94,7 @@ export default class App extends Component {
 
         return (
             <Router>
-                {local &&
+                {local && showToast &&
                     <div style={styles.toastContainer}> 
                         <Toast style={styles.toast} show={showToast} onClose={() => this.toggleShow()}>
                             <Toast.Header>
